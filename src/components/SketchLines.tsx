@@ -11,13 +11,17 @@ const StyledSketchLines = styled.div<{
 }>`
   position: relative;
 
-  ::before {
+  & > *::before {
     content: '';
+
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
+
+    pointer-events: none;
+
     border-top: ${({ top }) => (top ? '1px solid' : 'none')} ${MAIN_COLOR};
     border-bottom: ${({ bottom }) => (bottom ? '1px solid' : 'none')}${MAIN_COLOR};
     border-left: ${({ left }) => (left ? '1px solid' : 'none')} ${MAIN_COLOR};

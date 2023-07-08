@@ -189,11 +189,10 @@ const Components = () => {
 
         <br />
 
-        <p>The spacers are completely customizable! </p>
         <input
           type="range"
-          min="0"
-          max="100"
+          min="16"
+          max="128"
           value={spacerSize}
           onChange={handleSliderChange}
         />

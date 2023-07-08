@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { SECONDARY_COLOR } from '../constants'
+import { MAIN_COLOR, SECONDARY_COLOR } from '../constants'
 
 const StyledSubHeader = styled.p`
   font-size: 1.25rem;
@@ -13,6 +13,7 @@ const StyledHeader = styled.h1`
   font-weight: 500;
   margin: 0;
   line-height: 4rem;
+  color: ${MAIN_COLOR};
 `
 
 const Header = () => {

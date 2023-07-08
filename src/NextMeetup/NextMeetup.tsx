@@ -1,35 +1,15 @@
 import styled from 'styled-components'
-import { MAIN_COLOR, NEXT_MEETUP, SECONDARY_COLOR } from '../constants'
+import { NEXT_MEETUP, SECONDARY_COLOR } from '../constants'
 
 const StyledWrapper = styled.div`
   position: relative;
   margin: auto;
   color: ${SECONDARY_COLOR};
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 
-  @keyframes highlightShimmer {
-    0% {
-      background-position: -100px 50;
-    }
-    100% {
-      background-position: 1000px 0;
-    }
-  }
+  padding: 1rem;
 
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: infinite;
-  animation-name: highlightShimmer;
-  animation-timing-function: linear;
-  z-index: -2;
-  background: linear-gradient(
-    120deg,
-    rgba(0, 0, 0, 0) 25%,
-    ${MAIN_COLOR}41 30%,
-    rgba(0, 0, 0, 0) 35%
-  );
-  background-size: 1000px 1000px;
   height: 100%;
 `
 
@@ -37,16 +17,24 @@ const StyledTitle = styled.h2`
   font-size: 1.5rem;
   font-weight: 500;
   margin: 0;
+  user-select: none;
 `
 
 const StyledDetail = styled.p`
   font-size: 1rem;
   font-weight: 400;
   margin: 0;
+`
 
-  color: ${SECONDARY_COLOR};
-  border: 1px solid ${SECONDARY_COLOR};
-  border-radius: 15px;
+const StyledButton = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: transparent;
+  font-size: 0.75rem;
+  color: white;
+  border: none;
+  cursor: pointer;
 `
 
 function formatDate(date: Date): string {
@@ -67,24 +55,35 @@ function formatDate(date: Date): string {
 }
 
 const NextMeeting = () => {
+  const eventEndTime = new Date(NEXT_MEETUP.date.getTime() + 60 * 60 * 1000)
+
+  const eventURL = `https://www.google.com/calendar/render?action=TEMPLATE&text=${
+    NEXT_MEETUP.title
+  }&dates=${NEXT_MEETUP.date
+    .toISOString()
+    .replace(/-|:|\.\d\d\d/g, '')}/${eventEndTime
+    .toISOString()
+    .replace(/-|:|\.\d\d\d/g, '')}&location=${NEXT_MEETUP.location}&details=${
+    NEXT_MEETUP.description
+  }`
+
   return (
     <StyledWrapper>
-      <StyledTitle>
-        Next <br />
-        meet-up
-      </StyledTitle>
-      {/* <StyledDetail>{NEXT_MEETUP.description}</StyledDetail> */}
-      <div>
-        <StyledDetail>{formatDate(NEXT_MEETUP.date)}</StyledDetail>
-        <StyledDetail>
-          {NEXT_MEETUP.date.toLocaleTimeString('en-US', {
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: false,
-          })}
-        </StyledDetail>
-        <StyledDetail>{NEXT_MEETUP.location}</StyledDetail>
-      </div>
+      <StyledTitle>Next meet-up</StyledTitle>
+      <StyledDetail>
+        {formatDate(NEXT_MEETUP.date)}
+        {' • '}
+        {NEXT_MEETUP.date.toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false,
+        })}
+        {' • '}
+        {NEXT_MEETUP.location}
+      </StyledDetail>
+      <StyledButton onClick={() => window.open(eventURL, '_blank')}>
+        🗓️
+      </StyledButton>
     </StyledWrapper>
   )
 }

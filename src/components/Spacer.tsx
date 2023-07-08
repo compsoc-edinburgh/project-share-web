@@ -5,7 +5,7 @@ import { MAIN_COLOR } from '../constants'
 const StyledSpacerSize = styled.div`
   font-size: 0.75rem;
   font-weight: 400;
-  color: #7816f4;
+  color: ${MAIN_COLOR};
   margin: 0;
 `
 

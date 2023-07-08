@@ -1,6 +1,5 @@
 import React from 'react'
 import SketchLines from '../components/SketchLines'
-import Spacer from '../components/Spacer'
 
 import styled from 'styled-components'
 import { SECONDARY_COLOR } from '../constants'
@@ -17,6 +16,10 @@ const StyledChildren = styled.p`
   font-weight: 400;
   color: ${SECONDARY_COLOR};
   margin: 0;
+
+  & > * {
+    margin: 0.5rem 0;
+  }
 `
 
 interface SectionProps {
@@ -31,7 +34,6 @@ const Paragraph: React.FC<SectionProps> = ({ title, children }) => {
         <StyledTitle>{title}</StyledTitle>
         <StyledChildren>{children}</StyledChildren>
       </SketchLines>
-      <Spacer size={64} />
     </>
   )
 }

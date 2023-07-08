@@ -1,8 +1,11 @@
-const About = () => {
+import BackLink from '../components/BackLink'
+
+function About() {
   return (
-    <div>
-      <h1>About</h1>
-    </div>
+    <>
+      <code>/about</code>
+      <BackLink />
+    </>
   )
 }
 

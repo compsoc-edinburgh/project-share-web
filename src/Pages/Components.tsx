@@ -4,6 +4,7 @@ import Spacer from '../components/Spacer'
 import styled from 'styled-components'
 import { ACCENT_COLOR } from '../constants'
 import { useState } from 'react'
+import BackLink from '../components/BackLink'
 
 const StyledComponentShowcase = styled.div`
   display: flex;
@@ -51,6 +52,8 @@ const Components = () => {
       <h2>
         <code>/components</code>
       </h2>
+
+      <BackLink />
 
       <p style={{ color: 'black' }}>
         Welcome to another authentic glimpse behind the scenes at Project Share,

@@ -1,11 +1,11 @@
 import { FC } from 'react'
 import styled from 'styled-components'
-import { MAIN_COLOR } from '../constants'
+import { SKETCH_COLOR } from '../constants'
 
 const StyledSpacerSize = styled.div`
   font-size: 0.75rem;
   font-weight: 400;
-  color: ${MAIN_COLOR};
+  color: ${SKETCH_COLOR};
   margin: 0;
 `
 
@@ -42,7 +42,7 @@ const Spacer: FC<SpacerProps> = ({ direction = 'vertical', size = 32 }) => {
             d={`M6 1L11 6M6 1L1 6M6 1V${size + 1}M6 ${size + 1}L11 ${
               size - 4
             }M6 ${size + 1}L1 ${size - 4}`}
-            stroke={MAIN_COLOR}
+            stroke={SKETCH_COLOR}
           />
         </svg>
         <StyledSpacerSize>{size}px</StyledSpacerSize>
@@ -62,7 +62,7 @@ const Spacer: FC<SpacerProps> = ({ direction = 'vertical', size = 32 }) => {
             d={`M1 6L6 1M1 6L6 11M1 6L${size + 1} 6M${size + 1} 6L${
               size - 4
             } 1M${size + 1} 6L${size - 4} 11`}
-            stroke={MAIN_COLOR}
+            stroke={SKETCH_COLOR}
           />
         </svg>
       </StyledHorizontalSpacerWrapper>

@@ -2,19 +2,19 @@ import Logo from '../components/Logo'
 import SketchLines from '../components/SketchLines'
 import Spacer from '../components/Spacer'
 import styled from 'styled-components'
-import { MAIN_COLOR } from '../constants'
+import { ACCENT_COLOR } from '../constants'
 import { useState } from 'react'
 
 const StyledComponentShowcase = styled.div`
   display: flex;
   flex-direction: column;
   margin: 1rem 0;
-  background-color: ${MAIN_COLOR}07;
+  background-color: ${ACCENT_COLOR}07;
   padding: 1.5rem 1rem;
 `
 
 const StyledComponentExplanation = styled.div`
-  background-color: ${MAIN_COLOR}11;
+  background-color: ${ACCENT_COLOR}11;
   padding: 1rem;
   margin-top: 1rem;
   color: black;

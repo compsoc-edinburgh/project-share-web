@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import SketchLines from '../components/SketchLines'
 import Logo from '../components/Logo'
-import { MAIN_COLOR } from '../constants'
+import { ACCENT_COLOR } from '../constants'
 
 const StyledFooterWrapper = styled.div`
   position: relative;
@@ -13,7 +13,7 @@ const StyledFooterWrapper = styled.div`
   justify-content: center;
   gap: 1rem;
   padding: 2rem 0;
-  background-color: ${MAIN_COLOR}09;
+  background-color: ${ACCENT_COLOR}09;
   font-size: 0.75rem;
   text-align: center;
   z-index: 1;
@@ -25,7 +25,7 @@ const Footer = () => {
         <Logo size={64} />
         {'❤️'}
         <img
-          src="/comp-soc.png"
+          src="./comp-soc.png"
           alt="CompSoc"
           width="100px"
           draggable={false}

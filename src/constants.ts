@@ -1,4 +1,6 @@
-export const MAIN_COLOR = '#7816f4'
+export const ACCENT_COLOR = '#7816f4'
+
+export const SKETCH_COLOR = ACCENT_COLOR + '33' // slightly more transparent
 
 export const SECONDARY_COLOR = '#000000'
 

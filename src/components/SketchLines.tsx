@@ -1,6 +1,6 @@
 import { FC, ReactNode, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-import { MAIN_COLOR } from '../constants'
+import { SKETCH_COLOR } from '../constants'
 
 const StyledSketchLines = styled.div<{
   top?: boolean
@@ -22,10 +22,10 @@ const StyledSketchLines = styled.div<{
 
     pointer-events: none;
 
-    border-top: ${({ top }) => (top ? '1px solid' : 'none')} ${MAIN_COLOR};
-    border-bottom: ${({ bottom }) => (bottom ? '1px solid' : 'none')}${MAIN_COLOR};
-    border-left: ${({ left }) => (left ? '1px solid' : 'none')} ${MAIN_COLOR};
-    border-right: ${({ right }) => (right ? '1px solid' : 'none')} ${MAIN_COLOR};
+    border-top: ${({ top }) => (top ? '1px solid' : 'none')} ${SKETCH_COLOR};
+    border-bottom: ${({ bottom }) => (bottom ? '1px solid' : 'none')}${SKETCH_COLOR};
+    border-left: ${({ left }) => (left ? '1px solid' : 'none')} ${SKETCH_COLOR};
+    border-right: ${({ right }) => (right ? '1px solid' : 'none')} ${SKETCH_COLOR};
 
     z-index: -1;
     transform: ${({ top, bottom, left, right, scaler }) => {

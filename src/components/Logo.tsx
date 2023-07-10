@@ -7,7 +7,7 @@ interface LogoProps {
 const Logo: FC<LogoProps> = ({ size = 126 }) => {
   return (
     <img
-      src="./project-share.svg"
+      src="./media/logos/project-share.svg"
       alt="Project Share Logo"
       width={size}
       height={size}

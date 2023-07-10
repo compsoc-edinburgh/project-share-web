@@ -16,9 +16,7 @@
 ::selection {
   color: #fff;
   background-color: #7816f4;
-  animation: selection infinite 0.5s linear;
 }
-
 
 a {
   font-weight: 500;

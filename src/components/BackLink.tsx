@@ -1,6 +1,5 @@
+import { useNavigate, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
-
-import { useNavigate } from 'react-router-dom'
 
 const StyledBackButton = styled.button`
   background-color: transparent;
@@ -11,8 +10,14 @@ const StyledBackButton = styled.button`
 
 const BackLink = () => {
   const navigate = useNavigate()
+  const location = useLocation()
+
   const goBack = () => {
-    navigate(-1)
+    if (location.state?.from) {
+      navigate(-1)
+    } else {
+      navigate('/')
+    }
   }
 
   return (

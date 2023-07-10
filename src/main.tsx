@@ -8,10 +8,12 @@ import Home from './Pages/Home'
 import About from './Pages/About'
 import Projects from './Pages/Projects'
 import Components from './Pages/Components'
+import ScrollToTop from './components/ScrollToTop'
 
 ReactDOM.render(
   <React.StrictMode>
     <Router basename={import.meta.env.BASE_URL}>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />

@@ -14,6 +14,8 @@ const StyledVerticalSpacerWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+
+  transform: translateX(10px); // visual symmetry
 `
 
 const StyledHorizontalSpacerWrapper = styled.div`
@@ -31,22 +33,24 @@ interface SpacerProps {
 const Spacer: FC<SpacerProps> = ({ direction = 'vertical', size = 32 }) => {
   if (direction === 'vertical') {
     return (
-      <StyledVerticalSpacerWrapper>
-        <svg
-          width="12"
-          height={size + 2}
-          viewBox={`0 0 12 ${size + 2}`}
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg">
-          <path
-            d={`M6 1L11 6M6 1L1 6M6 1V${size + 1}M6 ${size + 1}L11 ${
-              size - 4
-            }M6 ${size + 1}L1 ${size - 4}`}
-            stroke={SKETCH_COLOR}
-          />
-        </svg>
-        <StyledSpacerSize>{size}px</StyledSpacerSize>
-      </StyledVerticalSpacerWrapper>
+      <div style={{ position: 'relative' }}>
+        <StyledVerticalSpacerWrapper>
+          <svg
+            width="12"
+            height={size + 2}
+            viewBox={`0 0 12 ${size + 2}`}
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d={`M6 1L11 6M6 1L1 6M6 1V${size + 1}M6 ${size + 1}L11 ${
+                size - 4
+              }M6 ${size + 1}L1 ${size - 4}`}
+              stroke={SKETCH_COLOR}
+            />
+          </svg>
+          <StyledSpacerSize>{size}px</StyledSpacerSize>
+        </StyledVerticalSpacerWrapper>
+      </div>
     )
   } else {
     return (

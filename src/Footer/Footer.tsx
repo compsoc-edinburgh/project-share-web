@@ -25,7 +25,7 @@ const Footer = () => {
         <Logo size={64} />
         {'❤️'}
         <img
-          src="./comp-soc.png"
+          src="./media/logos/comp-soc.png"
           alt="CompSoc"
           width="100px"
           draggable={false}

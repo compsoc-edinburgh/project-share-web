@@ -8,6 +8,9 @@ import NextMeeting from '../NextMeetup/NextMeetup'
 import SketchLines from '../components/SketchLines'
 import { Link } from 'react-router-dom'
 import Links from '../Header/Links'
+import ProjectList from '../ProjectList/ProjectList'
+import { PROJECTS, PROJECTS_SHOWN_ON_HOMEPAGE } from '../constants'
+import { StyledLink } from '../components/StyledLink'
 
 const StyledMain = styled.div`
   position: relative;
@@ -28,7 +31,7 @@ const Home = () => {
         </MobileShow>
 
         <Links />
-        <Spacer size={48} />
+        <Spacer size={32} />
 
         <MobileShow>
           <SketchLines top bottom margin={20}>
@@ -54,16 +57,32 @@ const Home = () => {
             the challenges faced, and the triumphs enjoyed.
           </p>
         </Paragraph>
-        <Spacer size={48} />
+        <Spacer size={64} />
         <Paragraph title="Who can join?">
           <p>
-            Anyone! The only stipulation? Be prepared to share your journey.
+            Anyone! The only condition? Be prepared to share your journey.
             Embrace the opportunity to allow us all to learn and grow through
             your experiences. After all, at the heart of every project lies a
             story worth sharing. Welcome to Project Share.
           </p>
         </Paragraph>
-        <Spacer size={48} />
+        <Spacer size={64} />
+        <Paragraph title="Projects that have been shared at Project Share">
+          <p>Take a look</p>
+          <ProjectList projects={PROJECTS.slice(-PROJECTS_SHOWN_ON_HOMEPAGE)} />
+
+          {PROJECTS.length > PROJECTS_SHOWN_ON_HOMEPAGE && (
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                padding: '0.5rem 0 2rem 0',
+              }}>
+              <StyledLink to="/projects">See more</StyledLink>
+            </div>
+          )}
+        </Paragraph>
+        <Spacer size={64} />
         <Paragraph title="Want to know more about this website?">
           <p>
             Check the <Link to="/components">behind the scenes</Link> of this

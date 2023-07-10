@@ -11,7 +11,7 @@ const StyledBluredNavbar = styled.div`
   -webkit-backdrop-filter: blur(5px);
   mix-blend-mode: normal;
   max-width: 768px;
-  width: calc(100vw - 65px);
+  width: calc(100vw - 30px);
   z-index: 100;
 `
 

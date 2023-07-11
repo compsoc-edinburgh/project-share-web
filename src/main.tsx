@@ -5,7 +5,7 @@ import './App.css'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './Pages/Home'
-import About from './Pages/About'
+import Team from './Pages/Team'
 import Projects from './Pages/Projects'
 import Components from './Pages/Components'
 import ScrollToTop from './components/ScrollToTop'
@@ -16,7 +16,7 @@ ReactDOM.render(
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/team" element={<Team />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/components" element={<Components />} />
       </Routes>

@@ -1,12 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom'
-import styled from 'styled-components'
-
-const StyledBackButton = styled.button`
-  background-color: transparent;
-  border: none;
-  margin-left: 0;
-  padding: 0;
-`
+import { StyledLink } from './StyledLink'
 
 const BackLink = () => {
   const navigate = useNavigate()
@@ -21,9 +14,9 @@ const BackLink = () => {
   }
 
   return (
-    <StyledBackButton onClick={goBack}>
-      <code>{'<-'} Back</code>
-    </StyledBackButton>
+    <StyledLink as="a" onClick={goBack}>
+      Back
+    </StyledLink>
   )
 }
 

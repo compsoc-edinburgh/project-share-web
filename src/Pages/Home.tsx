@@ -69,7 +69,9 @@ const Home = () => {
         <Spacer size={64} />
         <Paragraph title="Projects that have been shared at Project Share">
           <p>Take a look</p>
-          <ProjectList projects={PROJECTS.slice(-PROJECTS_SHOWN_ON_HOMEPAGE)} />
+          <ProjectList
+            projects={PROJECTS.slice(0, PROJECTS_SHOWN_ON_HOMEPAGE)}
+          />
 
           {PROJECTS.length > PROJECTS_SHOWN_ON_HOMEPAGE && (
             <div
@@ -78,7 +80,9 @@ const Home = () => {
                 justifyContent: 'center',
                 padding: '0.5rem 0 2rem 0',
               }}>
-              <StyledLink to="/projects">See more</StyledLink>
+              <StyledLink as={Link} to="/projects">
+                See more
+              </StyledLink>
             </div>
           )}
         </Paragraph>

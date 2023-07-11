@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { Project, SECONDARY_COLOR } from '../constants'
 import Placeholder from '../components/Placeholder'
 import SketchLines from '../components/SketchLines'
+import { StyledLink } from '../components/StyledLink'
 
 const TopBar = styled.div`
   display: flex;
@@ -14,22 +15,6 @@ const ProjectId = styled.p`
   margin: 0;
   color: gray;
   user-select: none;
-`
-
-const ProjectLink = styled.a`
-  border-radius: 7px;
-  padding: 0px 5px;
-  border: 1px solid rgb(0 0 0 / 20%);
-  color: black;
-  font-weight: 400;
-  text-decoration: none;
-  transition: 0.05s ease-in-out;
-  user-select: none;
-
-  &:hover {
-    border: 1px solid gray;
-    color: black;
-  }
 `
 
 const ProjectVideo = styled.video`
@@ -86,7 +71,9 @@ const ProjectTile = ({
     <div key={id}>
       <TopBar>
         <ProjectId>#{id}</ProjectId>
-        <ProjectLink href={link}>Open</ProjectLink>
+        <StyledLink as="a" href={link}>
+          Open
+        </StyledLink>
       </TopBar>
       <ProjectVideo
         src={media}

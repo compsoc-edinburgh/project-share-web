@@ -72,4 +72,4 @@ export const PROJECTS: Project[] = [
     media: './media/projects/vibe-check.mp4',
     icon: './media/projects/vibe-check.png',
   },
-]
+].reverse()

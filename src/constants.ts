@@ -73,4 +73,14 @@ export const PROJECTS: Project[] = [
     media: './media/projects/vibe-check.mp4',
     icon: './media/projects/vibe-check.png',
   },
+  {
+    id: 5,
+    title: 'Land Ho!',
+    creator: ['Kyle Winn'],
+    description:
+      'Embark on a thrilling pirate adventure with our online pirate game. Battle other pirates, collect gold, and rule the seas.',
+    link: 'https://landho.uk',
+    media: './media/projects/landho.mp4',
+    icon: './media/projects/landho.png',
+  },
 ].reverse()

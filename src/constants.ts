@@ -21,11 +21,12 @@ export const DISCORD_INVITE_LINK = 'https://discord.gg/wNGukFdBgp'
 export interface Project {
   id: number
   title: string
-  creator: string
+  creator: string[]
   description: string
   link: string
   media: string
   icon: string | undefined
+  hideAvatar?: boolean
 }
 
 export const PROJECTS_SHOWN_ON_HOMEPAGE = 2
@@ -35,7 +36,7 @@ export const PROJECTS: Project[] = [
   {
     id: 1,
     title: 'Portfolio Website',
-    creator: 'Tomas Maillo',
+    creator: ['Tomas Maillo'],
     description:
       'My own digital canvas showing all of my creations. Each year, like a tech tree, it branches out further, showcasing new creations that echo my evolution. Curious? Step inside the annual update carousel!',
     link: 'https://tomasmaillo.com',
@@ -45,7 +46,7 @@ export const PROJECTS: Project[] = [
   {
     id: 2,
     title: 'Main Library',
-    creator: 'Tomas Maillo',
+    creator: ['Tomas Maillo'],
     description:
       "Check the busyness of UoEdinburgh's Main Library from the comfort of your screen. Brought to life with vivid colors and dynamic graphs, it's your peephole into the intellectual orchestra, of exam season",
     link: 'https://library.tomasmaillo.com',
@@ -55,7 +56,7 @@ export const PROJECTS: Project[] = [
   {
     id: 3,
     title: 'Hexbois.com',
-    creator: 'Stan Flint',
+    creator: ['Stan Flint'],
     description:
       'Welcome to Hexbois, where hexagons meet mayhem! Build your empire, destroy your enemies, and rule the hexagonal realm. Will you be the last hex standing?',
     link: 'https://hexbois.com',
@@ -65,7 +66,7 @@ export const PROJECTS: Project[] = [
   {
     id: 4,
     title: 'vibe-check',
-    creator: 'Stan Flint & Tomas Maillo',
+    creator: ['Stan Flint', 'Tomas Maillo'],
     description:
       'Transforming your audience into participants. Liven up presentations by channeling audience feedback into real-time, interactive engagement. ',
     link: 'https://vibe-check.tech',

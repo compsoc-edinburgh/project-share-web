@@ -3,6 +3,7 @@ import { Project, SECONDARY_COLOR } from '../constants'
 import Placeholder from '../components/Placeholder'
 import SketchLines from '../components/SketchLines'
 import { StyledLink } from '../components/StyledLink'
+import Avatar from '../components/Avatar'
 
 const TopBar = styled.div`
   display: flex;
@@ -35,6 +36,7 @@ const IconHolder = styled.div`
   width: 25px;
   height: 25px;
   margin: 0;
+  user-select: none;
 
   img {
     width: 100%;
@@ -46,11 +48,22 @@ const IconHolder = styled.div`
 const ProjectTitle = styled.p`
   margin: 0;
   color: ${SECONDARY_COLOR};
+  white-space: nowrap;
 `
 
 const Creator = styled.p`
   margin: 0;
   color: grey;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+`
+
+const CreatorsWrapper = styled.div`
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
 `
 
 const Description = styled.p`
@@ -66,6 +79,7 @@ const ProjectTile = ({
   link,
   media,
   icon,
+  hideAvatar = false,
 }: Project) => {
   return (
     <div key={id}>
@@ -101,7 +115,19 @@ const ProjectTile = ({
             </a>
 
             <span style={{ color: 'gray', userSelect: 'none' }}>{' • '}</span>
-            <Creator>{creator}</Creator>
+            <CreatorsWrapper>
+              {creator.map((name, index) => (
+                <div key={index}>
+                  <Creator>
+                    {hideAvatar ? null : <Avatar name={name} />}
+                    <span>
+                      {name}
+                      {index === creator.length - 1 ? null : ','}
+                    </span>
+                  </Creator>
+                </div>
+              ))}
+            </CreatorsWrapper>
           </div>
           <Description>{description}</Description>
         </div>

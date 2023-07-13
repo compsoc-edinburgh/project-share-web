@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { NEXT_MEETUP, SECONDARY_COLOR } from '../constants'
+import Dot from '../components/Dot'
 
 const StyledWrapper = styled.div`
   position: relative;
@@ -72,13 +73,17 @@ const NextMeeting = () => {
       <StyledTitle>Next meet-up</StyledTitle>
       <StyledDetail>
         {formatDate(NEXT_MEETUP.date)}
-        {' • '}
+
+        <Dot />
+
         {NEXT_MEETUP.date.toLocaleTimeString('en-US', {
           hour: '2-digit',
           minute: '2-digit',
           hour12: false,
         })}
-        {' • '}
+
+        <Dot />
+
         {NEXT_MEETUP.location}
       </StyledDetail>
       <StyledButton onClick={() => window.open(eventURL, '_blank')}>

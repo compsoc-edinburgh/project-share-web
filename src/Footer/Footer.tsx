@@ -17,6 +17,8 @@ const StyledFooterWrapper = styled.div`
   font-size: 0.75rem;
   text-align: center;
   z-index: 1;
+
+  user-select: none;
 `
 const Footer = () => {
   return (

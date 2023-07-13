@@ -11,16 +11,12 @@ const StyledAvatarImg = styled.img`
 
 export interface AvatarProps {
   name: string
+  src: string
 }
 
-const Avatar: FC<AvatarProps> = ({ name }) => {
-  const formattedName = name.replace(/\s+/g, '') // Remove spaces
+const Avatar: FC<AvatarProps> = ({ src, name }) => {
   return (
-    <StyledAvatarImg
-      src={`https://unavatar.io/github/${formattedName}`}
-      alt={`${name}'s avatar'`}
-      draggable={false}
-    />
+    <StyledAvatarImg src={src} alt={`${name}'s avatar'`} draggable={false} />
   )
 }
 

@@ -3,7 +3,8 @@ import { Project, SECONDARY_COLOR } from '../constants'
 import Placeholder from '../components/Placeholder'
 import SketchLines from '../components/SketchLines'
 import { StyledLink } from '../components/StyledLink'
-import Avatar from '../components/Avatar'
+import ProjectCreator from './ProjectCreator'
+import Dot from '../components/Dot'
 
 const TopBar = styled.div`
   display: flex;
@@ -45,24 +46,19 @@ const IconHolder = styled.div`
   }
 `
 
-const ProjectTitle = styled.p`
+const ProjectTitle = styled.p<{ hasURL?: boolean }>`
   margin: 0;
   color: ${SECONDARY_COLOR};
   white-space: nowrap;
-`
 
-const Creator = styled.p`
-  margin: 0;
-  color: grey;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  white-space: nowrap;
+  &:hover {
+    text-decoration: ${({ hasURL }) => (hasURL ? 'underline' : 'none')};
+  }
 `
 
 const CreatorsWrapper = styled.div`
   display: flex;
-  gap: 5px;
+  gap: 10px;
   flex-wrap: wrap;
 `
 
@@ -74,20 +70,21 @@ const Description = styled.p`
 const ProjectTile = ({
   id,
   title,
-  creator,
+  creators,
   description,
-  link,
+  projectURL,
   media,
   icon,
-  hideAvatar = false,
 }: Project) => {
   return (
     <div key={id}>
       <TopBar>
         <ProjectId>#{id}</ProjectId>
-        <StyledLink as="a" href={link}>
-          Open
-        </StyledLink>
+        {projectURL && (
+          <StyledLink as="a" href={projectURL}>
+            Open
+          </StyledLink>
+        )}
       </TopBar>
       <ProjectVideo
         src={media}
@@ -110,21 +107,16 @@ const ProjectTile = ({
 
         <div>
           <div style={{ display: 'flex', gap: '5px' }}>
-            <a href={link}>
-              <ProjectTitle>{title}</ProjectTitle>
+            <a href={projectURL} target="_blank" rel="noreferrer">
+              <ProjectTitle hasURL={!!projectURL}>{title}</ProjectTitle>
             </a>
 
-            <span style={{ color: 'gray', userSelect: 'none' }}>{' • '}</span>
+            <Dot />
+
             <CreatorsWrapper>
-              {creator.map((name, index) => (
-                <div key={index}>
-                  <Creator>
-                    {hideAvatar ? null : <Avatar name={name} />}
-                    <span>
-                      {name}
-                      {index === creator.length - 1 ? null : ','}
-                    </span>
-                  </Creator>
+              {creators.map((creator, i) => (
+                <div key={i}>
+                  <ProjectCreator {...creator} />
                 </div>
               ))}
             </CreatorsWrapper>

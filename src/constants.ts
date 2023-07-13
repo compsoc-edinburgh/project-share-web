@@ -18,15 +18,20 @@ export const NEXT_MEETUP: {
 
 export const DISCORD_INVITE_LINK = 'https://discord.gg/wNGukFdBgp'
 
+export interface Creator {
+  name: string
+  avatarURL?: string
+  contactURL?: string
+}
+
 export interface Project {
   id: number
   title: string
-  creator: string[]
+  creators: Creator[]
   description: string
-  link: string
+  projectURL?: string
   media: string
   icon: string | undefined
-  hideAvatar?: boolean
 }
 
 export const PROJECTS_SHOWN_ON_HOMEPAGE = 2
@@ -36,50 +41,85 @@ export const PROJECTS: Project[] = [
   {
     id: 1,
     title: 'Portfolio Website',
-    creator: ['Tomas Maillo'],
+    creators: [
+      {
+        name: 'Tomas Maillo',
+        avatarURL: 'https://unavatar.io/github/tomasmaillo',
+        contactURL: 'https://github.com/tomasmaillo',
+      },
+    ],
     description:
       'My own digital canvas showing all of my creations. Each year, like a tech tree, it branches out further, showcasing new creations that echo my evolution. Curious? Step inside the annual update carousel!',
-    link: 'https://tomasmaillo.com',
+    projectURL: 'https://tomasmaillo.com',
     media: './media/projects/tomasmaillo.mp4',
     icon: './media/projects/tomasmaillo.ico',
   },
   {
     id: 2,
     title: 'Main Library',
-    creator: ['Tomas Maillo'],
+    creators: [
+      {
+        name: 'Tomas Maillo',
+        avatarURL: 'https://unavatar.io/github/tomasmaillo',
+        contactURL: 'https://github.com/tomasmaillo',
+      },
+    ],
     description:
       "Check the busyness of UoEdinburgh's Main Library from the comfort of your screen. Brought to life with vivid colors and dynamic graphs, it's your peephole into the intellectual orchestra, of exam season",
-    link: 'https://library.tomasmaillo.com',
+    projectURL: 'https://library.tomasmaillo.com',
     media: './media/projects/library.mp4',
     icon: './media/projects/library.ico',
   },
   {
     id: 3,
     title: 'Hexbois.com',
-    creator: ['Stan Flint'],
+    creators: [
+      {
+        name: 'Stan Flint',
+        avatarURL: 'https://unavatar.io/github/StanFlint',
+        contactURL: 'https://github.com/StanFlint',
+      },
+    ],
     description:
       'Welcome to Hexbois, where hexagons meet mayhem! Build your empire, destroy your enemies, and rule the hexagonal realm. Will you be the last hex standing?',
-    link: 'https://hexbois.com',
+    projectURL: 'https://hexbois.com',
     media: './media/projects/hexbois.mp4',
     icon: './media/projects/hexbois.png',
   },
   {
     id: 4,
     title: 'vibe-check',
-    creator: ['Stan Flint', 'Tomas Maillo'],
+    creators: [
+      {
+        name: 'Stan Flint',
+        avatarURL: 'https://unavatar.io/github/StanFlint',
+        contactURL: 'https://github.com/StanFlint',
+      },
+      {
+        name: 'Tomas Maillo',
+        avatarURL: 'https://unavatar.io/github/tomasmaillo',
+        contactURL: 'https://github.com/tomasmaillo',
+      },
+    ],
     description:
       'Transforming your audience into participants. Liven up presentations by channeling audience feedback into real-time, interactive engagement. ',
-    link: 'https://vibe-check.tech',
+    projectURL: 'https://vibe-check.tech',
     media: './media/projects/vibe-check.mp4',
     icon: './media/projects/vibe-check.png',
   },
   {
     id: 5,
     title: 'Land Ho!',
-    creator: ['Kyle Winn'],
+    creators: [
+      {
+        name: 'Kyle Winn',
+        avatarURL: 'https://unavatar.io/github/fast-fingers',
+        contactURL: 'https://www.linkedin.com/in/kyle-winn-201783260/',
+      },
+    ],
     description:
       'Embark on a thrilling pirate adventure with our online pirate game. Battle other pirates, collect gold, and rule the seas.',
-    link: 'https://landho.uk',
+    projectURL: 'https://landho.uk',
     media: './media/projects/landho.mp4',
     icon: './media/projects/landho.png',
   },

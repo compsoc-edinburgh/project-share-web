@@ -1,6 +1,7 @@
 import styled from 'styled-components'
-import { NEXT_MEETUP, SECONDARY_COLOR } from '../constants'
+import { DISCORD_INVITE_LINK, NEXT_MEETUP, SECONDARY_COLOR } from '../constants'
 import Dot from '../components/Dot'
+import BouncingEllipsis from '../components/BouncingEllipsis'
 
 const StyledWrapper = styled.div`
   position: relative;
@@ -56,6 +57,21 @@ function formatDate(date: Date): string {
 }
 
 const NextMeeting = () => {
+  if (!NEXT_MEETUP)
+    return (
+      <StyledWrapper>
+        <StyledTitle>
+          Next meet-up
+          <BouncingEllipsis />
+        </StyledTitle>
+        <StyledDetail>
+          TBC
+          <Dot />
+          Check <a href={DISCORD_INVITE_LINK}>Discord</a> soon!
+        </StyledDetail>
+      </StyledWrapper>
+    )
+
   const eventEndTime = new Date(NEXT_MEETUP.date.getTime() + 60 * 60 * 1000)
 
   const eventURL = `https://www.google.com/calendar/render?action=TEMPLATE&text=${
@@ -70,7 +86,10 @@ const NextMeeting = () => {
 
   return (
     <StyledWrapper>
-      <StyledTitle>Next meet-up</StyledTitle>
+      <StyledTitle>
+        Next meet-up
+        <BouncingEllipsis />
+      </StyledTitle>
       <StyledDetail>
         {formatDate(NEXT_MEETUP.date)}
 

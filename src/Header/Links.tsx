@@ -15,12 +15,6 @@ const Links = () => {
   return (
     <SketchLines top bottom margin={20}>
       <StyledLinksWrapper>
-        <StyledLink as={Link} to="/projects">
-          /projects
-        </StyledLink>
-        <StyledLink as={Link} to="/team">
-          /team
-        </StyledLink>
         <StyledLink
           as="a"
           href={DISCORD_INVITE_LINK}
@@ -28,6 +22,12 @@ const Links = () => {
           rel="noopener noreferrer">
           Discord
         </StyledLink>
+        <StyledLink as={Link} to="/projects">
+          /projects
+        </StyledLink>
+        {/* <StyledLink as={Link} to="/team">
+          /team
+        </StyledLink> */}
       </StyledLinksWrapper>
     </SketchLines>
   )

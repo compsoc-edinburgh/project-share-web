@@ -4,17 +4,21 @@ export const SKETCH_COLOR = ACCENT_COLOR + '33' // slightly more transparent
 
 export const SECONDARY_COLOR = '#000000'
 
-export const NEXT_MEETUP: {
-  title: string
-  date: Date
-  location: string
-  description: string
-} = {
-  title: 'Project Share!',
-  date: new Date('2023-09-20T18:30:00'),
-  location: 'AT 2.04',
-  description: 'Bring your laptop!',
-}
+export const NEXT_MEETUP:
+  | {
+      title: string
+      date: Date
+      location: string
+      description: string
+    }
+  | undefined = undefined
+
+//   {
+//   title: 'Project Share!',
+//   date: new Date('2023-09-20T18:30:00'),
+//   location: 'AT 2.04',
+//   description: 'Bring your laptop!',
+// }
 
 export const DISCORD_INVITE_LINK = 'https://discord.gg/wNGukFdBgp'
 
@@ -31,7 +35,7 @@ export interface Project {
   description: string
   projectURL?: string
   media: string
-  icon: string | undefined
+  icon?: string
 }
 
 export const PROJECTS_SHOWN_ON_HOMEPAGE = 2

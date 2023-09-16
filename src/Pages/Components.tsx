@@ -67,16 +67,16 @@ const Components = () => {
         . Check it out!
       </p>
       <p style={{ color: 'black' }}>
-        Built with by React, TypeScript and Vite, with the help of
+        Built with React, TypeScript, and Vite, with the help of
         styled-components and react-router-dom libraries. Curious to learn more?{' '}
         <a href="https://github.com/compsoc-edinburgh/project-share-web">
-          GitHub repo
+          Check out our GitHub repo
         </a>
         .
       </p>
       <p style={{ color: 'black' }}>
         Lastly, here's a breakdown of each component that makes up this website.
-        This includes not just the final product, but also our challenges,
+        This includes not just the final product but also our challenges,
         solutions, and the inner workings that bring the magic to life!
       </p>
 
@@ -93,7 +93,7 @@ const Components = () => {
           right={lines.right}
           margin={marginSize}>
           <p style={{ color: 'black', margin: 0 }}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod,
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod,
             voluptatum.
           </p>
         </SketchLines>
@@ -165,13 +165,13 @@ const Components = () => {
 
         <StyledComponentExplanation>
           The Sketchlines are essential for the design of our website. They
-          convey how half built the website is and how much you are allowed to
-          see in.
+          convey the state of the partially built website and what you are
+          allowed to see.
           <br />
           It was built with two inline <code>{'<div />'}</code> wrapping the
-          main content. Each of them would have custom borders and scale in
-          either x or y axis. They cant be combined as the skewing would mess
-          with the thickness of the border
+          main content. Each of them has custom borders and can scale along
+          either the x or y axis. They can't be combined as the skewing would
+          mess with the thickness of the border.
         </StyledComponentExplanation>
       </StyledComponentShowcase>
 
@@ -201,10 +201,10 @@ const Components = () => {
         />
 
         <StyledComponentExplanation>
-          We were kinda lost when starting out this component. At the end we
-          based the main design on a <code>.svg</code> drawing on Figma. Then
-          copied the code and painstakingly found which coordinates allowed the
-          drawing to stretch without deforming.
+          We were somewhat lost when starting out with this component. In the
+          end, we based the main design on a <code>.svg</code> drawing in Figma.
+          Then we copied the code and painstakingly identified the coordinates
+          that allowed the drawing to stretch without deforming.
         </StyledComponentExplanation>
       </StyledComponentShowcase>
 
@@ -227,13 +227,14 @@ const Components = () => {
       </StyledComponentShowcase>
 
       <p style={{ color: 'black' }}>
-        Did you enjoy this behind the scenes chat of the project? Join!
+        Did you enjoy this behind-the-scenes chat about the project? Join us!
       </p>
       <p style={{ color: 'black' }}>
         And as always, the value of Project Share is to share knowledge and
-        experience. If you can think of better ways of doing things, or have any
-        suggestions, make a PR!{' '}
+        inspiration. Here's to the next project!
       </p>
+
+      <BackLink />
     </div>
   )
 }

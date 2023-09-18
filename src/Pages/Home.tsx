@@ -27,7 +27,7 @@ const Home = () => {
 
       <StyledMain>
         <MobileShow>
-          <div style={{ height: '4rem' }} />
+          <div style={{ height: '2rem' }} />
         </MobileShow>
 
         <Links />

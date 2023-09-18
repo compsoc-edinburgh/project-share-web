@@ -11,14 +11,12 @@ export const NEXT_MEETUP:
       location: string
       description: string
     }
-  | undefined = undefined
-
-//   {
-//   title: 'Project Share!',
-//   date: new Date('2023-09-20T18:30:00'),
-//   location: 'AT 2.04',
-//   description: 'Bring your laptop!',
-// }
+  | undefined = {
+  title: 'Project Share!',
+  date: new Date('2023-09-20T15:00:00'),
+  location: 'AT 2.05',
+  description: 'Bring your laptop!',
+}
 
 export const DISCORD_INVITE_LINK = 'https://discord.gg/wNGukFdBgp'
 

@@ -4,14 +4,14 @@ export const SKETCH_COLOR = ACCENT_COLOR + '33' // slightly more transparent
 
 export const SECONDARY_COLOR = '#000000'
 
-export const NEXT_MEETUP:
-  | {
-      title: string
-      date: Date
-      location: string
-      description: string
-    }
-  | undefined = {
+export interface MeetupDetails {
+  title: string
+  date: Date
+  location: string
+  description: string
+}
+
+export const NEXT_MEETUP: MeetupDetails | undefined = {
   title: 'Project Share!',
   date: new Date('2023-09-20T15:00:00'),
   location: 'AT 2.05',

@@ -1,5 +1,10 @@
 import styled from 'styled-components'
-import { DISCORD_INVITE_LINK, NEXT_MEETUP, SECONDARY_COLOR } from '../constants'
+import {
+  DISCORD_INVITE_LINK,
+  NEXT_MEETUP,
+  SECONDARY_COLOR,
+  MeetupDetails,
+} from '../constants'
 import Dot from '../components/Dot'
 import BouncingEllipsis from '../components/BouncingEllipsis'
 
@@ -56,33 +61,52 @@ function formatDate(date: Date): string {
   return `${dayName} ${dayNumber}${ordinal(dayNumber)} ${monthName}`
 }
 
-const NextMeeting = () => {
-  if (!NEXT_MEETUP)
-    return (
-      <StyledWrapper>
-        <StyledTitle>
-          Next meet-up
-          <BouncingEllipsis />
-        </StyledTitle>
-        <StyledDetail>
-          TBC
-          <Dot />
-          Check <a href={DISCORD_INVITE_LINK}>Discord</a> soon!
-        </StyledDetail>
-      </StyledWrapper>
-    )
+const NextMeetingIsTBC = () => (
+  <StyledWrapper>
+    <StyledTitle>
+      Next meet-up
+      <BouncingEllipsis />
+    </StyledTitle>
+    <StyledDetail>
+      TBC
+      <Dot />
+      Check <a href={DISCORD_INVITE_LINK}>Discord</a> soon!
+    </StyledDetail>
+  </StyledWrapper>
+)
 
-  const eventEndTime = new Date(NEXT_MEETUP.date.getTime() + 60 * 60 * 1000)
+const generateGoogleCalendarLink = (meetup: MeetupDetails) => {
+  const eventEndTime = new Date(meetup.date.getTime() + 60 * 60 * 1000)
 
-  const eventURL = `https://www.google.com/calendar/render?action=TEMPLATE&text=${
-    NEXT_MEETUP.title
-  }&dates=${NEXT_MEETUP.date
+  const googleCalendarLink = `https://www.google.com/calendar/render?action=TEMPLATE&text=${
+    meetup.title
+  }&dates=${meetup.date
     .toISOString()
     .replace(/-|:|\.\d\d\d/g, '')}/${eventEndTime
     .toISOString()
-    .replace(/-|:|\.\d\d\d/g, '')}&location=${NEXT_MEETUP.location}&details=${
-    NEXT_MEETUP.description
+    .replace(/-|:|\.\d\d\d/g, '')}&location=${meetup.location}&details=${
+    meetup.description
   }`
+
+  return googleCalendarLink
+}
+
+const NextMeeting = () => {
+  if (!NEXT_MEETUP) return <NextMeetingIsTBC />
+
+  // if next meetup is more than 3 hours in the past
+  if (NEXT_MEETUP.date < new Date(Date.now() - 3 * 60 * 60 * 1000))
+    return <NextMeetingIsTBC />
+
+  const eventGCalURL = generateGoogleCalendarLink(NEXT_MEETUP)
+
+  const eventDate = formatDate(NEXT_MEETUP.date)
+  const eventTime = NEXT_MEETUP.date.toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  })
+  const eventLocation = NEXT_MEETUP.location
 
   return (
     <StyledWrapper>
@@ -91,21 +115,13 @@ const NextMeeting = () => {
         <BouncingEllipsis />
       </StyledTitle>
       <StyledDetail>
-        {formatDate(NEXT_MEETUP.date)}
-
+        {eventDate}
         <Dot />
-
-        {NEXT_MEETUP.date.toLocaleTimeString('en-US', {
-          hour: '2-digit',
-          minute: '2-digit',
-          hour12: false,
-        })}
-
+        {eventTime}
         <Dot />
-
-        {NEXT_MEETUP.location}
+        {eventLocation}
       </StyledDetail>
-      <StyledButton onClick={() => window.open(eventURL, '_blank')}>
+      <StyledButton onClick={() => window.open(eventGCalURL, '_blank')}>
         🗓️
       </StyledButton>
     </StyledWrapper>

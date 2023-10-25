@@ -11,6 +11,7 @@ import Links from '../Header/Links'
 import ProjectList from '../ProjectList/ProjectList'
 import { PROJECTS, PROJECTS_SHOWN_ON_HOMEPAGE } from '../constants'
 import { StyledLink } from '../components/StyledLink'
+import SponsorCarousel from '../components/SponsorCarousel'
 
 const StyledMain = styled.div`
   position: relative;
@@ -58,6 +59,13 @@ const Home = () => {
           </p>
         </Paragraph>
         <Spacer size={64} />
+
+        <Paragraph title="CompSoc sponsors">
+          <SponsorCarousel />
+        </Paragraph>
+
+        <Spacer size={64} />
+
         <Paragraph title="Who can join?">
           <p>
             Anyone! The only condition? Be prepared to share your journey.

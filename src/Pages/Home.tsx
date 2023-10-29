@@ -11,6 +11,10 @@ import Links from '../Header/Links'
 import ProjectList from '../ProjectList/ProjectList'
 import { PROJECTS, PROJECTS_SHOWN_ON_HOMEPAGE } from '../constants'
 import { StyledLink } from '../components/StyledLink'
+import FlippableCard from '../components/FlippableCard'
+import Logo from '../components/Logo'
+import Header from '../Header/Header'
+import Title from '../components/Title'
 
 const StyledMain = styled.div`
   position: relative;
@@ -23,7 +27,26 @@ const StyledMain = styled.div`
 const Home = () => {
   return (
     <>
-      <Navbar />
+      <div
+        style={{
+          border: '5px solid #7816F4',
+          background:
+            'repeating-conic-gradient(rgb(252, 246, 254) 0%, rgb(252, 246, 254) 25%, rgb(242, 225, 247) 0%, rgb(242, 225, 247) 50%) 50% center / 3px 3px',
+          width: 'calc(100%-2vw)',
+          height: '90vh',
+          margin: 'auto',
+          borderRadius: '25px',
+        }}>
+        <div
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+          }}>
+          <Title />
+        </div>
+      </div>
 
       <StyledMain>
         <MobileShow>
@@ -95,7 +118,6 @@ const Home = () => {
         </Paragraph>
         <Spacer size={128} />
       </StyledMain>
-      <Footer />
     </>
   )
 }

@@ -50,7 +50,7 @@ const Header = () => {
       </LogoMobileOnly>
 
       <div>
-        <StyledSubHeader>By students for students</StyledSubHeader>
+        <StyledSubHeader>Story behind your project</StyledSubHeader>
         <StyledHeader>Project Share</StyledHeader>
       </div>
     </div>

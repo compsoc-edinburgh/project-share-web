@@ -39,7 +39,7 @@ const Logo: FC<LogoProps> = ({ size = 126, animated = false }) => {
     <svg
       width={size}
       height={size}
-      viewBox="0 0 102 102"
+      viewBox="-1 -1 105 105"
       fill="none"
       xmlns="http://www.w3.org/2000/svg">
       <g clip-path="url(#clip0_69_284)">
@@ -60,14 +60,17 @@ const Logo: FC<LogoProps> = ({ size = 126, animated = false }) => {
         <path
           d="M51 101.311C78.7859 101.311 101.311 78.7859 101.311 51C101.311 23.2141 78.7859 0.689209 51 0.689209C23.2141 0.689209 0.689209 23.2141 0.689209 51C0.689209 78.7859 23.2141 101.311 51 101.311Z"
           stroke="#7816F4"
+          strokeWidth={3}
         />
         <path
           d="M101.311 0.689209H0.689209V101.311H101.311V0.689209Z"
           stroke="#7816F4"
+          strokeWidth={3}
         />
         <path
           d="M0.459473 101.541L51 51M51 51L101.541 0.459473M51 51L0.459473 0.459473M51 51L101.541 101.541"
           stroke="#7816F4"
+          strokeWidth={3}
         />
       </g>
     </svg>

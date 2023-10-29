@@ -1,6 +1,7 @@
 import { motion, useSpring } from 'framer-motion'
 import { useState, useRef, useEffect } from 'react'
 import styled from 'styled-components'
+import AnimatedTextCharacter from './AnimatedTextCharacter'
 
 const springConfig = {
   type: 'spring',
@@ -25,11 +26,13 @@ const CardSide = styled(motion.div)<{ isHovered: boolean }>`
   transition: 0.2s box-shadow;
   border: 5px solid #7816f4;
   background: white;
+  cursor: pointer;
 `
 
-const Long = styled(motion.div)`
-  width: 100%;
-  height: 50%;
+const Long = styled(motion.div).attrs({
+  initial: { x: '-50%' },
+  animate: { x: '-50%' },
+})`
   border-radius: 50px;
   display: flex;
   justify-content: center;
@@ -37,6 +40,10 @@ const Long = styled(motion.div)`
   transition: 0.2s box-shadow;
   border: 5px solid #7816f4;
   background: white;
+  overflow: hidden;
+  padding: 1rem 2rem 1rem 2rem;
+  position: fixed;
+  top: 2dvh;
 `
 
 interface FlippableCardProps {
@@ -45,16 +52,13 @@ interface FlippableCardProps {
   key: string
 }
 
-const FlippableCard = ({
-  frontContent,
-  backContent,
-  key,
-}: FlippableCardProps) => {
+const FlippableCard = ({ frontContent, backContent }: FlippableCardProps) => {
   const [isFlipped, setIsFlipped] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
-  const [isMerged, setIsMerged] = useState(false)
+  const [isMerged, setIsMerged] = useState(true)
 
   const ref = useRef<HTMLDivElement>(null)
+  const anchorRef = useRef<HTMLDivElement>(null)
 
   const [rotateX, setRotateX] = useState(0)
   const [rotateY, setRotateY] = useState(0)
@@ -77,17 +81,15 @@ const FlippableCard = ({
 
     if (element) {
       const elementRect = element.getBoundingClientRect()
-      setIsHovered(true)
-      zoom.set(1.1)
+      if (!isHovered) {
+        setIsHovered(true)
+        zoom.set(1.1)
+      }
       const x = event.clientX - (elementRect.left + elementRect.width / 2)
       const y = event.clientY - (elementRect.top + elementRect.height / 2)
-      setRotateX((y / elementRect.height) * 20)
-      setRotateY((x / elementRect.width) * 20)
+      setRotateX((y / elementRect.height) * 50)
+      setRotateY((x / elementRect.width) * 50)
     }
-  }
-
-  const toggleMerge = () => {
-    setTimeout(() => setIsMerged(!isMerged), 100)
   }
 
   const handleMouseLeave = () => {
@@ -104,49 +106,64 @@ const FlippableCard = ({
   //   }, 3000)
   // }, [])
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          setIsMerged(false)
+        } else {
+          setIsMerged(true)
+          setRotateX(0)
+          setRotateY(0)
+          setIsHovered(false)
+          zoom.set(1)
+        }
+      },
+      {
+        root: null,
+        rootMargin: '-200px',
+        threshold: 0.1,
+      }
+    )
+
+    if (anchorRef.current) {
+      observer.observe(anchorRef.current)
+    }
+
+    // Cleanup
+    return () => {
+      if (anchorRef.current) {
+        observer.unobserve(anchorRef.current)
+      }
+    }
+  }, [])
+
   return (
     <>
-      <button onClick={toggleMerge}>Toggle Merge</button>
-
-      <br />
-      <br />
-      <br />
-      <p>Spacing</p>
-      <br />
-      <br />
-      <br />
-
       {isMerged ? (
         <motion.div
           ref={ref}
           onClick={() => {
             setIsFlipped(!isFlipped)
           }}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
           style={{
-            width: 500,
-            height: 200,
+            width: '500px',
+            height: '200px',
             perspective: 1200,
             transformStyle: 'preserve-3d',
-            scale: zoom,
-            transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
-            transition: '0.2s',
           }}>
-          <br />
-          <br />
-          <br />
-
           <motion.div
-            // key={key}
-            // layout
-            // layoutId={`${key}`}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            layoutId="uniqueid"
             style={{
               width: '100%',
               height: '100%',
-              rotateX: dx,
-              rotateY: dy,
               perspective: 1200,
+              scale: zoom,
+              rotateY: dy,
+              rotateX: dx,
+
               transformStyle: 'preserve-3d',
             }}>
             {/* Front side */}
@@ -170,10 +187,18 @@ const FlippableCard = ({
           </motion.div>
         </motion.div>
       ) : (
-        <Long key={key} layout layoutId={`${key}`} transition={springConfig}>
-          This should only be shown after clicking button
+        <Long
+          style={{ zIndex: 10 }}
+          layoutId="uniqueid"
+          layout
+          transition={{
+            type: 'spring',
+            damping: 12,
+          }}>
+          <AnimatedTextCharacter text="Next meet-up • Weds 25th Oct • AT_2.11 • 11hrs 5mins 3secs" />
         </Long>
       )}
+      <div ref={anchorRef}></div>
     </>
   )
 }

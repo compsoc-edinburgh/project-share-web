@@ -33,19 +33,40 @@ const Home = () => {
           background:
             'repeating-conic-gradient(rgb(252, 246, 254) 0%, rgb(252, 246, 254) 25%, rgb(242, 225, 247) 0%, rgb(242, 225, 247) 50%) 50% center / 3px 3px',
           width: 'calc(100%-2vw)',
-          height: '90vh',
+          height: '87dvh',
           margin: 'auto',
           borderRadius: '25px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}>
-        <div
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-          }}>
-          <Title />
-        </div>
+        <Title />
+      </div>
+
+      <div
+        style={{
+          border: '5px solid #7816F4',
+          background:
+            'repeating-conic-gradient(rgb(252, 246, 254) 0%, rgb(252, 246, 254) 25%, rgb(242, 225, 247) 0%, rgb(242, 225, 247) 50%) 50% center / 3px 3px',
+          height: '5vh',
+          width: 'min-contents',
+          margin: 'auto',
+          marginTop: '1rem',
+          borderRadius: '50px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '1rem',
+          position: 'fixed',
+          padding: '0 2rem 0 2rem',
+          bottom: '1vw',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          zIndex: '100',
+        }}>
+        <b>Home</b>
+        <b>About</b>
+        <b>Team</b>
+        <b>Discord</b>
       </div>
 
       <StyledMain>

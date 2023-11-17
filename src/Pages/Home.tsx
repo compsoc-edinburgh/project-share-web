@@ -1,25 +1,19 @@
 import styled from 'styled-components'
-import Navbar from '../Header/Navbar'
 import Spacer from '../components/Spacer'
-import Footer from '../Footer/Footer'
 import Paragraph from '../components/Paragraph'
-import MobileShow from '../components/MobileShow'
-import NextMeeting from '../NextMeetup/NextMeetup'
-import SketchLines from '../components/SketchLines'
 import { Link } from 'react-router-dom'
-import Links from '../Header/Links'
 import ProjectList from '../ProjectList/ProjectList'
 import { PROJECTS, PROJECTS_SHOWN_ON_HOMEPAGE } from '../constants'
 import { StyledLink } from '../components/StyledLink'
-import FlippableCard from '../components/FlippableCard'
-import Logo from '../components/Logo'
+import Footer from '../Footer/Footer'
+import Navbar from '../Header/Navbar'
 import Header from '../Header/Header'
-import Title from '../components/Title'
 
 const StyledMain = styled.div`
   position: relative;
   margin: auto;
   margin-top: 8rem;
+  padding: 1rem;
 
   max-width: 768px;
 `
@@ -27,63 +21,11 @@ const StyledMain = styled.div`
 const Home = () => {
   return (
     <>
-      <div
-        style={{
-          border: '5px solid #7816F4',
-          background:
-            'repeating-conic-gradient(rgb(252, 246, 254) 0%, rgb(252, 246, 254) 25%, rgb(242, 225, 247) 0%, rgb(242, 225, 247) 50%) 50% center / 3px 3px',
-          width: 'calc(100%-2vw)',
-          height: '87dvh',
-          margin: 'auto',
-          borderRadius: '25px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <Title />
-      </div>
+      <Header />
 
-      <div
-        style={{
-          border: '5px solid #7816F4',
-          background:
-            'repeating-conic-gradient(rgb(252, 246, 254) 0%, rgb(252, 246, 254) 25%, rgb(242, 225, 247) 0%, rgb(242, 225, 247) 50%) 50% center / 3px 3px',
-          height: '5vh',
-          width: 'min-contents',
-          margin: 'auto',
-          marginTop: '1rem',
-          borderRadius: '50px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '1rem',
-          position: 'fixed',
-          padding: '0 2rem 0 2rem',
-          bottom: '1vw',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: '100',
-        }}>
-        <b>Home</b>
-        <b>About</b>
-        <b>Team</b>
-        <b>Discord</b>
-      </div>
+      <Navbar />
 
       <StyledMain>
-        <MobileShow>
-          <div style={{ height: '2rem' }} />
-        </MobileShow>
-
-        <Links />
-        <Spacer size={32} />
-
-        <MobileShow>
-          <SketchLines top bottom margin={20}>
-            <NextMeeting />
-          </SketchLines>
-          <Spacer size={32} />
-        </MobileShow>
-
         <Paragraph title="So... what is this?">
           <p>
             Glad you asked! Picture this: every other week, an enthusiastic
@@ -139,6 +81,8 @@ const Home = () => {
         </Paragraph>
         <Spacer size={128} />
       </StyledMain>
+
+      <Footer />
     </>
   )
 }

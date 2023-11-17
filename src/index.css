@@ -14,8 +14,8 @@
 }
 /* text selection */
 ::selection {
-  color: #fff;
-  background-color: #7816f4;
+  color: #000;
+  background-color: #91e014;
 }
 
 a {

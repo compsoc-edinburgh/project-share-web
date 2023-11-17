@@ -1,13 +1,18 @@
 import { motion, useSpring } from 'framer-motion'
 import { useState, useRef, useEffect } from 'react'
 import styled from 'styled-components'
-import AnimatedTextCharacter from './AnimatedTextCharacter'
 
 const springConfig = {
   type: 'spring',
   stiffness: 300,
   damping: 40,
 }
+
+const Anchor = styled.div`
+  position: absolute;
+  visibility: hidden;
+  user-select: none;
+`
 
 const CardSide = styled(motion.div)<{ isHovered: boolean }>`
   width: 100%;
@@ -24,26 +29,29 @@ const CardSide = styled(motion.div)<{ isHovered: boolean }>`
       ? '0px 8px 16px 0px rgba(0,0,0,0.6)'
       : '0px 4px 8px 0px rgba(0,0,0,0.2)'};
   transition: 0.2s box-shadow;
-  border: 5px solid #7816f4;
+  outline: 5px solid #7816f4;
   background: white;
   cursor: pointer;
+
+  padding: 1rem;
+  box-sizing: border-box;
 `
 
-const Long = styled(motion.div).attrs({
-  initial: { x: '-50%' },
-  animate: { x: '-50%' },
-})`
+const Long = styled(motion.div)`
   border-radius: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: 0.2s box-shadow;
   border: 5px solid #7816f4;
+  outline: 2px solid white;
+
   background: white;
   overflow: hidden;
-  padding: 1rem 2rem 1rem 2rem;
+  padding: 0.75rem 1.5rem 0.75rem 1.5rem;
   position: fixed;
   top: 2dvh;
+  transform: translateX(-50px);
 `
 
 interface FlippableCardProps {
@@ -83,7 +91,7 @@ const FlippableCard = ({ frontContent, backContent }: FlippableCardProps) => {
       const elementRect = element.getBoundingClientRect()
       if (!isHovered) {
         setIsHovered(true)
-        zoom.set(1.1)
+        zoom.set(1.15)
       }
       const x = event.clientX - (elementRect.left + elementRect.width / 2)
       const y = event.clientY - (elementRect.top + elementRect.height / 2)
@@ -98,13 +106,6 @@ const FlippableCard = ({ frontContent, backContent }: FlippableCardProps) => {
     setIsHovered(false)
     zoom.set(1)
   }
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     if (isFlipped) return
-  //     setIsFlipped(!isFlipped)
-  //   }, 3000)
-  // }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -122,7 +123,7 @@ const FlippableCard = ({ frontContent, backContent }: FlippableCardProps) => {
       {
         root: null,
         rootMargin: '-200px',
-        threshold: 0.1,
+        threshold: 0.01,
       }
     )
 
@@ -147,8 +148,8 @@ const FlippableCard = ({ frontContent, backContent }: FlippableCardProps) => {
             setIsFlipped(!isFlipped)
           }}
           style={{
-            width: '500px',
-            height: '200px',
+            width: '400px',
+            height: '175px',
             perspective: 1200,
             transformStyle: 'preserve-3d',
           }}>
@@ -194,11 +195,13 @@ const FlippableCard = ({ frontContent, backContent }: FlippableCardProps) => {
           transition={{
             type: 'spring',
             damping: 12,
-          }}>
-          <AnimatedTextCharacter text="Next meet-up • Weds 25th Oct • AT_2.11 • 11hrs 5mins 3secs" />
+          }}
+          initial={{ x: '-50%' }}
+          animate={{ x: '0%' }}>
+          <AnimatedTextCharacter text="Weds 25th Oct • AT_2.11 • 11hrs 5mins 3secs" />
         </Long>
       )}
-      <div ref={anchorRef}></div>
+      <Anchor ref={anchorRef}></Anchor>
     </>
   )
 }

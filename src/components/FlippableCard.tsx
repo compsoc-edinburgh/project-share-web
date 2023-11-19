@@ -1,6 +1,7 @@
 import { motion, useSpring } from 'framer-motion'
 import { useState, useRef, useEffect } from 'react'
 import styled from 'styled-components'
+import AnimatedTextCharacter from './AnimatedTextCharacter'
 
 const springConfig = {
   type: 'spring',
@@ -152,6 +153,7 @@ const FlippableCard = ({ frontContent, backContent }: FlippableCardProps) => {
             height: '175px',
             perspective: 1200,
             transformStyle: 'preserve-3d',
+            zIndex: 10,
           }}>
           <motion.div
             onMouseMove={handleMouseMove}

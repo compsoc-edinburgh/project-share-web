@@ -10,8 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@pixi/react": "^7.1.1",
     "@react-hook/window-size": "^3.1.1",
     "framer-motion": "^10.16.0",
+    "pixi.js": "^7.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.1",

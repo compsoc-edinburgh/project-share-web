@@ -1,7 +1,9 @@
-import { motion, useSpring } from 'framer-motion'
+import { motion, useAnimation, useSpring } from 'framer-motion'
 import { useState, useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import AnimatedTextCharacter from './AnimatedTextCharacter'
+import { NEXT_MEETUP } from '../constants'
+import { NextMeetup } from '../NextMeetup'
 
 const springConfig = {
   type: 'spring',
@@ -39,6 +41,7 @@ const CardSide = styled(motion.div)<{ isHovered: boolean }>`
 `
 
 const Long = styled(motion.div)`
+  cursor: pointer;
   border-radius: 50px;
   display: flex;
   justify-content: center;
@@ -61,6 +64,16 @@ interface FlippableCardProps {
   key: string
 }
 
+const jiggleAnimation = {
+  scale: [1, 1.02, 1, 0.995, 1],
+  rotate: [0, 5, -2, 2, -1, 1, 0],
+  transition: {
+    duration: 0.75,
+    ease: 'easeInOut',
+    repeatType: 'loop' as const,
+  },
+}
+
 const FlippableCard = ({ frontContent, backContent }: FlippableCardProps) => {
   const [isFlipped, setIsFlipped] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
@@ -75,6 +88,8 @@ const FlippableCard = ({ frontContent, backContent }: FlippableCardProps) => {
   const dx = useSpring(0, springConfig)
   const dy = useSpring(0, springConfig)
 
+  const controls = useAnimation()
+
   const zoom = useSpring(1, {
     duration: 0.1,
     damping: 7,
@@ -84,6 +99,11 @@ const FlippableCard = ({ frontContent, backContent }: FlippableCardProps) => {
     dx.set(-rotateX)
     dy.set(rotateY)
   }, [rotateX, rotateY])
+
+  useEffect(() => {
+    // Start the jiggle animation when not hovered
+    setTimeout(() => controls.start(jiggleAnimation), 750)
+  }, [])
 
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     const element = ref.current
@@ -148,6 +168,7 @@ const FlippableCard = ({ frontContent, backContent }: FlippableCardProps) => {
           onClick={() => {
             setIsFlipped(!isFlipped)
           }}
+          animate={controls}
           style={{
             width: '400px',
             height: '175px',
@@ -199,8 +220,12 @@ const FlippableCard = ({ frontContent, backContent }: FlippableCardProps) => {
             damping: 12,
           }}
           initial={{ x: '-50%' }}
-          animate={{ x: '0%' }}>
-          <AnimatedTextCharacter text="Weds 25th Oct • AT_2.11 • 11hrs 5mins 3secs" />
+          animate={{ x: '0%' }}
+          onClick={() => {
+            setIsFlipped(true)
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+          }}>
+          <NextMeetup />
         </Long>
       )}
       <Anchor ref={anchorRef}></Anchor>

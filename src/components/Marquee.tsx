@@ -16,6 +16,8 @@ const Track = styled(motion.div)`
   transition: height 0.2s, opacity 0.2s;
   background-color: ${ACCENT_COLOR};
 
+  width: 300vw;
+
   z-index: 5;
   padding: 0.5rem 0;
   cursor: pointer;
@@ -80,12 +82,14 @@ const Marquee = () => {
   //   },
   // }
 
+  const direction = Math.random() > 0.5 ? 1 : -1
+
   const { scrollYProgress } = useViewportScroll()
   const marqueeX = useSpring(0, { stiffness: 300, damping: 200 })
 
   useEffect(() => {
     const unsubscribeY = scrollYProgress.onChange((latest: any) => {
-      marqueeX.set(latest * -1035)
+      marqueeX.set(latest * -1035 * direction)
     })
 
     return () => {

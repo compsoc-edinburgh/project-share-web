@@ -8,6 +8,8 @@ import { StyledLink } from '../components/StyledLink'
 import Footer from '../Footer/Footer'
 import Navbar from '../Header/Navbar'
 import Header from '../Header/Header'
+import Path from '../components/Path'
+import Marquee from '../components/Marquee'
 
 const StyledMain = styled.div`
   position: relative;
@@ -23,7 +25,31 @@ const Home = () => {
     <>
       <Header />
 
-      <Navbar />
+      <Path />
+
+      <div
+        style={{
+          position: 'relative',
+          height: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <h1>Ready to share?</h1>
+        <div
+          style={{
+            transform: 'rotate(-5deg)',
+          }}>
+          <Marquee />
+        </div>
+        <div
+          style={{
+            transform: 'rotate(3deg) translateY(-50px)',
+          }}>
+          <Marquee />
+        </div>
+      </div>
 
       <StyledMain>
         <Paragraph title="So... what is this?">

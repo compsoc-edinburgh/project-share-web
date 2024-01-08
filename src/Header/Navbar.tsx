@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import { styled } from 'styled-components'
+import { useNavigate } from 'react-router-dom'
 
 const StyledNavbar = styled.div`
   border: 5px solid #7816f4;
@@ -23,61 +24,87 @@ const StyledNavbar = styled.div`
 `
 const Background = styled(motion.div)`
   position: absolute;
-  background-color: #7816f4; // Or any color you prefer
+  background-color: #efe2f5; // Or any color you prefer
   border-radius: 50px;
-  mix-blend-mode: difference;
-  z-index: 101; // Higher than other elements
+  z-index: -1; // Higher than other elements
   pointer-events: none; // Allow clicks to pass through
   transition: all 0.3s ease;
 `
 
 const NavbarItem = styled.b`
   cursor: pointer;
+  color: black;
+  user-select: none;
+  text-decoration: none;
+  font-style: bold;
+  font-weight: 600;
+
+  &:hover {
+    color: black;
+  }
 `
+
+const navBarRoutes = [
+  {
+    name: 'Home',
+    path: '/',
+  },
+  { name: 'Team', path: '/team' },
+  { name: 'About', path: '/about' },
+]
+
+const HoverBackground = ({ hoveredItem }: { hoveredItem: HTMLDivElement }) => {
+  return (
+    <Background
+      initial={{
+        width: hoveredItem.offsetWidth + 20,
+        height: hoveredItem.offsetHeight + 5,
+        x: hoveredItem.offsetLeft - 30,
+        y: hoveredItem.offsetTop - 5,
+        scale: 0.6,
+        opacity: 0,
+      }}
+      animate={{
+        width: hoveredItem.offsetWidth + 20,
+        height: hoveredItem.offsetHeight + 5,
+        x: hoveredItem.offsetLeft - 30,
+        y: hoveredItem.offsetTop - 10,
+        opacity: 1,
+        scale: 1,
+        transition: { duration: 0.01 },
+      }}
+      exit={{
+        opacity: 0,
+        scale: 0.6,
+      }}
+    />
+  )
+}
 
 const Navbar = () => {
   const [hoveredItem, setHoveredItem] = useState<HTMLDivElement | null>(null)
 
+  const navigate = useNavigate()
+
   return (
     <StyledNavbar>
       <AnimatePresence>
-        {hoveredItem && (
-          <Background
-            initial={{
-              width: hoveredItem.offsetWidth + 20,
-              height: hoveredItem.offsetHeight + 5,
-              x: hoveredItem.offsetLeft - 30,
-              y: hoveredItem.offsetTop - 5,
-              scale: 0.6,
-              opacity: 0,
-            }}
-            animate={{
-              width: hoveredItem.offsetWidth + 20,
-              height: hoveredItem.offsetHeight + 5,
-              x: hoveredItem.offsetLeft - 30,
-              y: hoveredItem.offsetTop - 10,
-              opacity: 1,
-              scale: 1,
-              transition: { duration: 0.01 },
-            }}
-            exit={{
-              opacity: 0,
-              scale: 0.6,
-            }}
-          />
-        )}
+        {hoveredItem && <HoverBackground hoveredItem={hoveredItem} />}
       </AnimatePresence>
+
+      {navBarRoutes.map((route) => (
+        <NavbarItem
+          onClick={() => navigate(route.path)}
+          onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) =>
+            setHoveredItem(e.currentTarget)
+          }
+          onMouseLeave={() => setHoveredItem(null)}>
+          {route.name}
+        </NavbarItem>
+      ))}
       <NavbarItem
-        onMouseEnter={(e: any) => setHoveredItem(e.currentTarget)}
-        onMouseLeave={() => setHoveredItem(null)}>
-        Home
-      </NavbarItem>
-      <NavbarItem
-        onMouseEnter={(e: any) => setHoveredItem(e.currentTarget)}
-        onMouseLeave={() => setHoveredItem(null)}>
-        Team
-      </NavbarItem>
-      <NavbarItem
+        as="a"
+        href="https://discord.gg/wNGukFdBgp"
         onMouseEnter={(e: any) => setHoveredItem(e.currentTarget)}
         onMouseLeave={() => setHoveredItem(null)}>
         Discord

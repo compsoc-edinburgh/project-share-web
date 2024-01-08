@@ -1,21 +1,14 @@
 import styled from 'styled-components'
-import {
-  DISCORD_INVITE_LINK,
-  NEXT_MEETUP,
-  SECONDARY_COLOR,
-  MeetupDetails,
-} from '../constants'
+import { DISCORD_INVITE_LINK, NEXT_MEETUP, SECONDARY_COLOR } from '../constants'
 import Dot from '../components/Dot'
 import BouncingEllipsis from '../components/BouncingEllipsis'
+import { useEffect, useState } from 'react'
+import NumberFlipper from './NumberFlipper'
 
 const StyledWrapper = styled.div`
   position: relative;
   margin: auto;
   color: ${SECONDARY_COLOR};
-  display: flex;
-  flex-direction: column;
-
-  padding: 1rem;
 
   height: 100%;
 `
@@ -29,37 +22,12 @@ const StyledTitle = styled.h2`
 
 const StyledDetail = styled.p`
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 500;
   margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5ch;
 `
-
-const StyledButton = styled.button`
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color: transparent;
-  font-size: 0.75rem;
-  color: white;
-  border: none;
-  cursor: pointer;
-`
-
-function formatDate(date: Date): string {
-  const parsedDate = new Date(date)
-
-  const dayNames = ['Sun', 'Mon', 'Tues', 'Weds', 'Thurs', 'Fri', 'Sat']
-  const dayNumber = parsedDate.getDate()
-  const dayName = dayNames[parsedDate.getDay()]
-  const monthName = parsedDate.toLocaleString('default', { month: 'short' })
-
-  const ordinal = (n: number): string => {
-    const s = ['th', 'st', 'nd', 'rd'],
-      v = n % 100
-    return s[(v - 20) % 10] || s[v] || s[0]
-  }
-
-  return `${dayName} ${dayNumber}${ordinal(dayNumber)} ${monthName}`
-}
 
 const NextMeetingIsTBC = () => (
   <StyledWrapper>
@@ -75,55 +43,39 @@ const NextMeetingIsTBC = () => (
   </StyledWrapper>
 )
 
-const generateGoogleCalendarLink = (meetup: MeetupDetails) => {
-  const eventEndTime = new Date(meetup.date.getTime() + 60 * 60 * 1000)
-
-  const googleCalendarLink = `https://www.google.com/calendar/render?action=TEMPLATE&text=${
-    meetup.title
-  }&dates=${meetup.date
-    .toISOString()
-    .replace(/-|:|\.\d\d\d/g, '')}/${eventEndTime
-    .toISOString()
-    .replace(/-|:|\.\d\d\d/g, '')}&location=${meetup.location}&details=${
-    meetup.description
-  }`
-
-  return googleCalendarLink
-}
-
 const NextMeeting = () => {
-  if (!NEXT_MEETUP) return <NextMeetingIsTBC />
+  const [timeLeft, setTimeLeft] = useState<number | null>(null)
 
-  // if next meetup is more than 3 hours in the past
-  if (NEXT_MEETUP.date < new Date(Date.now() - 3 * 60 * 60 * 1000))
-    return <NextMeetingIsTBC />
+  useEffect(() => {
+    if (!NEXT_MEETUP) return
 
-  const eventGCalURL = generateGoogleCalendarLink(NEXT_MEETUP)
+    const updateTimeLeft = () => {
+      if (!NEXT_MEETUP) return
+      const timeDiff = NEXT_MEETUP.date.getTime() - new Date().getTime()
+      setTimeLeft(timeDiff > 0 ? timeDiff : null)
+    }
 
-  const eventDate = formatDate(NEXT_MEETUP.date)
-  const eventTime = NEXT_MEETUP.date.toLocaleTimeString('en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  })
-  const eventLocation = NEXT_MEETUP.location
+    const interval = setInterval(updateTimeLeft, 100)
+    updateTimeLeft()
+
+    return () => clearInterval(interval)
+  }, [NEXT_MEETUP])
+
+  if (!NEXT_MEETUP || timeLeft === null) return <NextMeetingIsTBC />
+
+  const hours = Math.floor(timeLeft / (1000 * 60 * 60))
+  const minutes = Math.floor((timeLeft / (1000 * 60)) % 60)
+  const seconds = Math.floor((timeLeft / 1000) % 60)
 
   return (
     <StyledWrapper>
-      <StyledTitle>
-        Next meet-up
-        <BouncingEllipsis />
-      </StyledTitle>
       <StyledDetail>
-        {eventDate}
+        Next meetup
         <Dot />
-        {eventTime}
-        <Dot />
-        {eventLocation}
+        <NumberFlipper value={hours} precision={hours.toString().length} /> hrs
+        <NumberFlipper value={minutes} precision={2} /> min
+        <NumberFlipper value={seconds} precision={2} /> sec
       </StyledDetail>
-      <StyledButton onClick={() => window.open(eventGCalURL, '_blank')}>
-        🗓️
-      </StyledButton>
     </StyledWrapper>
   )
 }

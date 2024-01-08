@@ -143,7 +143,7 @@ const FlippableCard = ({ frontContent, backContent }: FlippableCardProps) => {
       },
       {
         root: null,
-        rootMargin: '-200px',
+        rootMargin: '-100px',
         threshold: 0.01,
       }
     )

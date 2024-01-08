@@ -7,7 +7,7 @@ const StyledNavbar = styled.div`
   border: 5px solid #7816f4;
   outline: 2px solid white;
   background: white;
-  height: 5vh;
+  height: 50px;
   width: min-contents;
   margin: auto;
   margin-top: 1rem;
@@ -60,7 +60,7 @@ const HoverBackground = ({ hoveredItem }: { hoveredItem: HTMLDivElement }) => {
         width: hoveredItem.offsetWidth + 20,
         height: hoveredItem.offsetHeight + 5,
         x: hoveredItem.offsetLeft - 30,
-        y: hoveredItem.offsetTop - 5,
+        y: hoveredItem.offsetTop - 10,
         scale: 0.6,
         opacity: 0,
       }}
@@ -68,7 +68,7 @@ const HoverBackground = ({ hoveredItem }: { hoveredItem: HTMLDivElement }) => {
         width: hoveredItem.offsetWidth + 20,
         height: hoveredItem.offsetHeight + 5,
         x: hoveredItem.offsetLeft - 30,
-        y: hoveredItem.offsetTop - 10,
+        y: hoveredItem.offsetTop - 12,
         opacity: 1,
         scale: 1,
         transition: { duration: 0.01 },

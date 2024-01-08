@@ -16,7 +16,7 @@ const Track = styled(motion.div)`
   transition: height 0.2s, opacity 0.2s;
   background-color: ${ACCENT_COLOR};
 
-  width: 300vw;
+  width: 500vw;
 
   z-index: 5;
   padding: 0.5rem 0;
@@ -102,7 +102,7 @@ const Marquee = () => {
       <Track
         // ref={trackRef}
         style={{ x: marqueeX }}>
-        {Array.from({ length: 10 }).map(() => (
+        {Array.from({ length: 50 }).map(() => (
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <Title>Join Discord</Title>
             <svg

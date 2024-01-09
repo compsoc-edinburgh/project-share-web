@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { motion, useSpring, useViewportScroll } from 'framer-motion'
-import { ACCENT_COLOR } from '../constants'
+import { ACCENT_COLOR, DISCORD_INVITE_LINK } from '../constants'
 import { useEffect } from 'react'
 
 const MarqueeContainer = styled.div`
@@ -9,7 +9,7 @@ const MarqueeContainer = styled.div`
   overflow: hidden;
 `
 
-const Track = styled(motion.div)`
+const Track = styled(motion.a)`
   white-space: nowrap;
   height: 50px;
   position: relative;
@@ -57,31 +57,6 @@ const Title = styled.h1`
 `
 
 const Marquee = () => {
-  // const trackRef = useRef<HTMLDivElement>(null)
-  // const [contentWidth, setContentWidth] = useState(0)
-  // const direction = 0
-
-  // useEffect(() => {
-  //   if (trackRef.current) {
-  //     const width = trackRef.current.offsetWidth
-  //     setContentWidth(width)
-  //   }
-  // }, [])
-
-  // const marqueeVariants = {
-  //   animate: {
-  //     x: [0, -1035],
-  //     transition: {
-  //       x: {
-  //         repeat: Infinity,
-  //         repeatType: 'loop',
-  //         duration: 5,
-  //         ease: 'linear',
-  //       },
-  //     },
-  //   },
-  // }
-
   const direction = Math.random() > 0.5 ? 1 : -1
 
   const { scrollYProgress } = useViewportScroll()
@@ -100,6 +75,8 @@ const Marquee = () => {
   return (
     <MarqueeContainer>
       <Track
+        href={DISCORD_INVITE_LINK}
+        target="_blank"
         // ref={trackRef}
         style={{ x: marqueeX }}>
         {Array.from({ length: 50 }).map(() => (

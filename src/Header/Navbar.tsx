@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import { styled } from 'styled-components'
 import { useNavigate } from 'react-router-dom'
+import { DISCORD_INVITE_LINK } from '../constants'
 
 const StyledNavbar = styled.div`
   border: 5px solid #7816f4;
@@ -104,7 +105,7 @@ const Navbar = () => {
       ))}
       <NavbarItem
         as="a"
-        href="https://discord.gg/wNGukFdBgp"
+        href={DISCORD_INVITE_LINK}
         onMouseEnter={(e: any) => setHoveredItem(e.currentTarget)}
         onMouseLeave={() => setHoveredItem(null)}>
         Discord

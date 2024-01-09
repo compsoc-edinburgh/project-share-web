@@ -8,6 +8,17 @@ import Dot from '../components/Dot'
 import { useState } from 'react'
 import Logo from '../components/Logo'
 
+const StyledProjectWrapper = styled.div`
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-sizing: border-box;
+  background-color: #f7f6f38c;
+  border: 2px solid #6E1FEB;
+  margin-bottom: 20px;
+  padding: 10px;
+`
+
 const TopBar = styled.div`
   display: flex;
   justify-content: space-between;
@@ -94,7 +105,7 @@ const ProjectTile = ({
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
 
   return (
-    <div key={id}>
+    <StyledProjectWrapper key={id}>
       <TopBar>
         <ProjectId>#{id}</ProjectId>
         {projectURL && (
@@ -155,7 +166,7 @@ const ProjectTile = ({
           <Description>{description}</Description>
         </div>
       </BottomBar>
-    </div>
+    </StyledProjectWrapper>
   )
 }
 

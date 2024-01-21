@@ -4,6 +4,7 @@ import Dot from '../components/Dot'
 import BouncingEllipsis from '../components/BouncingEllipsis'
 import { useEffect, useState } from 'react'
 import NumberFlipper from './NumberFlipper'
+import WavyText from '../components/WavyText'
 
 const StyledWrapper = styled.div`
   position: relative;
@@ -26,7 +27,7 @@ const StyledDetail = styled.p`
   margin: 0;
   display: flex;
   align-items: center;
-  gap: 0.5ch;
+  gap: 1rem;
 `
 
 const NextMeetingIsTBC = () => (
@@ -70,11 +71,46 @@ const NextMeeting = () => {
   return (
     <StyledWrapper>
       <StyledDetail>
-        Next meetup
-        <Dot />
-        <NumberFlipper value={hours} precision={hours.toString().length} /> hrs
-        <NumberFlipper value={minutes} precision={2} /> min
-        <NumberFlipper value={seconds} precision={2} /> sec
+        <div
+          style={{
+            fontSize: '1.5rem',
+            margin: 0,
+            lineHeight: 1.4,
+            userSelect: 'none',
+            textAlign: 'right',
+            display: 'flex',
+            flexDirection: 'column',
+          }}>
+          <WavyText text="Next" />
+          <WavyText text="meet-up" />
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'left',
+            flexDirection: 'column',
+          }}>
+          <span>{NEXT_MEETUP.location}</span>
+          <span>
+            {NEXT_MEETUP.date.toLocaleDateString('en-GB', {
+              weekday: 'short',
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric',
+            })}
+          </span>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5ch',
+            }}>
+            <NumberFlipper value={hours} precision={hours.toString().length} />{' '}
+            hrs
+            <NumberFlipper value={minutes} precision={2} /> min
+            <NumberFlipper value={seconds} precision={2} /> sec
+          </div>
+        </div>
       </StyledDetail>
     </StyledWrapper>
   )

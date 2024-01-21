@@ -17,7 +17,10 @@ const TextContainer = styled.span`
   overflow: hidden;
 `
 
-const StaticText = styled(motion.span)``
+const StaticText = styled(motion.span)`
+  transition: 0.2s;
+  color: #7816f4;
+`
 
 interface ContentLineProps {
   content: string

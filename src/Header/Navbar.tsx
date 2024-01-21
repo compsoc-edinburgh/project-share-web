@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { styled } from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import { DISCORD_INVITE_LINK } from '../constants'
+import WavyText from '../components/WavyText'
 
 const StyledNavbar = styled.div`
   border: 5px solid #7816f4;
@@ -108,7 +109,7 @@ const Navbar = () => {
         href={DISCORD_INVITE_LINK}
         onMouseEnter={(e: any) => setHoveredItem(e.currentTarget)}
         onMouseLeave={() => setHoveredItem(null)}>
-        Discord
+        <WavyText text="Discord" />
       </NavbarItem>
     </StyledNavbar>
   )

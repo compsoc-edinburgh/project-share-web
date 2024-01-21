@@ -127,7 +127,23 @@ const Gravity: React.FC = () => {
   const color = new PIXI.Color(ACCENT_COLOR)
 
   return (
-    <Container>
+    <Container
+      interactive
+      hitArea={new PIXI.Rectangle(0, 0, app.screen.width, app.screen.height)}
+      onmousedown={(e) => {
+        console.log(e.data.global.x, e.data.global.y)
+        setPlanets([
+          ...planets,
+          {
+            position: { x: e.data.global.x, y: e.data.global.y },
+            velocity: {
+              x: Math.random() * 1 - 0.5,
+              y: Math.random() * 1 - 0.5,
+            },
+            mass: Math.random() * 10000000,
+          },
+        ])
+      }}>
       {planets.map((planet, index) => (
         <Graphics
           key={index}

@@ -42,13 +42,13 @@ const Home = () => {
         }}>
         <div
           style={{
-            transform: 'rotate(-5deg)',
+            transform: 'rotate(-7deg)',
           }}>
           <Marquee />
         </div>
         <div
           style={{
-            transform: 'rotate(3deg) translateY(-50px)',
+            transform: 'rotate(5deg) translateY(-50px)',
           }}>
           <Marquee />
         </div>

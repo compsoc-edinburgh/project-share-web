@@ -13,17 +13,20 @@ interface Boid {
   velocity: Vector
 }
 
-const BOID_COUNT = 50
 const MAX_SPEED = 5
 const SEPARATION_DISTANCE = 50
-const ALIGNMENT_RADIUS = 50
+const ALIGNMENT_RADIUS = 60
 const COHESION_RADIUS = 50
 const BOID_SIZE = 10
+const CURSOR_INFLUENCE_RADIUS = 250
+const CURSOR_INFLUENCE_STRENGTH = 0.5
 
 const Boids: React.FC = () => {
   const [boids, setBoids] = useState<Boid[]>([])
-
+  const [cursorPosition, setCursorPosition] = useState<Vector>({ x: 0, y: 0 })
   const app = useApp()
+
+  const BOID_COUNT = Math.floor(window.innerWidth / 10) // Im not sure if this is a good idea for SUPER high res screens
 
   const stageMargin = 50
 
@@ -80,7 +83,7 @@ const Boids: React.FC = () => {
     if (total > 0) {
       steer = multiplyVector(steer, 1 / total)
     }
-    return steer
+    return multiplyVector(steer, 1.02)
   }
 
   const alignment = (boid: Boid, neighbors: Boid[]): Vector => {
@@ -90,7 +93,11 @@ const Boids: React.FC = () => {
     })
     if (neighbors.length > 0) {
       averageVel = multiplyVector(averageVel, 1 / neighbors.length)
-      return limitVector(averageVel, MAX_SPEED)
+      const targetVel = addVectors(
+        multiplyVector(averageVel, 0.1),
+        multiplyVector(boid.velocity, 0.9)
+      )
+      return limitVector(targetVel, MAX_SPEED)
     }
     return boid.velocity
   }
@@ -127,11 +134,34 @@ const Boids: React.FC = () => {
       const ali = alignment(boid, getNeighbors(boid, ALIGNMENT_RADIUS))
       const coh = cohesion(boid, getNeighbors(boid, COHESION_RADIUS))
 
-      // Adjust velocity
+      // Adjust velocity based on behaviors
       boid.velocity = addVectors(boid.velocity, sep)
       boid.velocity = addVectors(boid.velocity, ali)
       boid.velocity = addVectors(boid.velocity, coh)
       boid.velocity = limitVector(boid.velocity, MAX_SPEED)
+
+      // Calculate distance to cursor
+      const distanceToCursor = Math.sqrt(
+        Math.pow(boid.position.x - cursorPosition.x, 2) +
+          Math.pow(boid.position.y - cursorPosition.y, 2)
+      )
+
+      // Adjust velocity based on cursor influence
+      if (distanceToCursor < CURSOR_INFLUENCE_RADIUS) {
+        const cursorInfluence = {
+          x: cursorPosition.x - boid.position.x,
+          y: cursorPosition.y - boid.position.y,
+        }
+
+        boid.velocity = addVectors(
+          boid.velocity,
+          multiplyVector(
+            cursorInfluence,
+            CURSOR_INFLUENCE_STRENGTH / distanceToCursor
+          )
+        )
+        boid.velocity = limitVector(boid.velocity, MAX_SPEED)
+      }
 
       // Update position and apply wrap-around
       const newPosition = {
@@ -183,7 +213,12 @@ const Boids: React.FC = () => {
   const color = new PIXI.Color(ACCENT_COLOR)
 
   return (
-    <Container>
+    <Container
+      interactive
+      onglobalpointermove={(e) => {
+        setCursorPosition({ x: e.data.global.x, y: e.data.global.y })
+      }}
+      pointerout={() => setCursorPosition({ x: 0, y: 0 })}>
       {boids.map((boid, index) => (
         <Graphics
           key={index}

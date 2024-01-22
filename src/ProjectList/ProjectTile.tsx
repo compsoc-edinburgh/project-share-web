@@ -14,7 +14,7 @@ const StyledProjectWrapper = styled.div`
   overflow: hidden;
   box-sizing: border-box;
   background-color: #f7f6f38c;
-  border: 2px solid #6E1FEB;
+  border: 2px solid #6e1feb;
   margin-bottom: 20px;
   padding: 10px;
 `
@@ -65,6 +65,10 @@ const IconHolder = styled.div`
   margin: 0;
   user-select: none;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   img {
     width: 100%;
     height: 100%;
@@ -75,6 +79,11 @@ const IconHolder = styled.div`
 const ProjectTitle = styled.p<{ hasURL?: boolean }>`
   margin: 0;
   color: ${SECONDARY_COLOR};
+  white-space: nowrap;
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 150px;
   white-space: nowrap;
 
   &:hover {
@@ -142,7 +151,7 @@ const ProjectTile = ({
             {icon ? (
               <img src={icon} alt={title} draggable={false} />
             ) : (
-              <Placeholder size={'25px'} />
+              <Placeholder size={'25px'} hideBorder />
             )}
           </IconHolder>
         </SketchLines>

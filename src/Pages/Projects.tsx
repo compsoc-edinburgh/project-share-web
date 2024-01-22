@@ -1,6 +1,5 @@
 import { styled } from 'styled-components'
 import ProjectList from '../ProjectList/ProjectList'
-import BackLink from '../components/BackLink'
 import { PROJECTS } from '../constants'
 
 const StyledMain = styled.div`
@@ -8,7 +7,7 @@ const StyledMain = styled.div`
   margin: auto;
   margin-top: 8rem;
 
-  max-width: 768px;
+  max-width: 858px;
 `
 
 const Projects = () => {
@@ -17,7 +16,6 @@ const Projects = () => {
       <h2>
         <code>/projects</code>
       </h2>
-      <BackLink />
 
       <ProjectList projects={PROJECTS} />
     </StyledMain>

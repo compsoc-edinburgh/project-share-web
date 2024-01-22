@@ -115,7 +115,7 @@ export const PROJECTS: Project[] = [
     creators: [
       {
         name: 'Kyle Winn',
-        avatarURL: 'https://unavatar.io/github/fast-fingers',
+        avatarURL: 'https://unavatar.io/github/Kyle-Winn',
         contactURL: 'https://www.linkedin.com/in/kyle-winn-201783260/',
       },
     ],
@@ -124,5 +124,75 @@ export const PROJECTS: Project[] = [
     projectURL: 'https://landho.uk',
     media: './media/projects/landho.mp4',
     icon: './media/projects/landho.png',
+  },
+  {
+    id: 6,
+    title: 'AI Gomoku',
+    creators: [
+      {
+        name: 'Cosmo',
+        avatarURL: 'https://unavatar.io/github/cosmobobak',
+        contactURL: 'https://cosmo.tardis.ac/',
+      },
+    ],
+    description:
+      "Gomoku is a strategy board game that's easy to learn but hard to master. Watch an AI agent self play hundreds of games!",
+    media: './media/projects/ai-gomoku.mp4',
+  },
+  {
+    id: 7,
+    title: 'Portfolio Website',
+    creators: [
+      {
+        name: 'Roberta Pošiūnaitė',
+        avatarURL: 'https://unavatar.io/github/dprRoberta',
+        contactURL: 'https://robertaposiunaite.com/',
+      },
+    ],
+    description:
+      "Hey there! Welcome to my little corner of the digital world. I'm a Lithuanian currently pursuing a Computer Science degree at the University of Edinburgh. I'm dedicated to honing my skills, solving challenges, and crafting digital solutions that make a difference. Join me in this coding adventure and have a look around!",
+    projectURL: 'https://robertaposiunaite.com/',
+    media: './media/projects/roberta-posiunaite.mp4',
+    icon: './media/projects/roberta-posiunaite.png',
+  },
+  {
+    id: 8,
+    title: 'Wee Wonders',
+    creators: [
+      {
+        name: 'nkdem',
+        avatarURL: 'https://unavatar.io/github/nkdem',
+        contactURL: 'https://github.com/nkdem',
+      },
+      {
+        name: 'Danny Pinkney',
+        avatarURL: 'https://unavatar.io/github/danny88o',
+        contactURL: 'https://github.com/danny88o',
+      },
+      {
+        name: 'Khalid',
+        avatarURL: 'https://unavatar.io/github/khalidbelhadj',
+        contactURL: 'https://github.com/khalidbelhadj',
+      },
+    ],
+    description:
+      "Wee Wonders is an interactive children's story book application which uses eye tracking for controls. Look to the left and right to flip the pages of the book and read a story.",
+    media: './media/projects/eye-tracking-page-flip.mp4',
+  },
+  {
+    id: 9,
+    title: 'Flatmouse',
+    creators: [
+      {
+        name: 'Caterina Mammola',
+        avatarURL: 'https://unavatar.io/github/Cat2005',
+        contactURL: 'https://www.linkedin.com/in/caterina-m/',
+      },
+    ],
+    description:
+      'FlatMouse was created to empower students to share their flat experiences so that future tenants may be alerted to potential issues.',
+    projectURL: 'https://www.flatmouse.co.uk/',
+    media: './media/projects/flatmouse.mp4',
+    icon: './media/projects/flatmouse.png',
   },
 ].reverse()

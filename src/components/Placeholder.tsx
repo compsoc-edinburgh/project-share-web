@@ -1,11 +1,20 @@
 import { SKETCH_COLOR } from '../constants'
 
-const Placeholder = ({ size }: { size: string }) => {
+const Placeholder = ({
+  size,
+  hideBorder,
+}: {
+  size: string
+  hideBorder?: boolean
+}) => {
   return (
     <svg
       width={size}
       height={size}
-      style={{ display: 'block', border: `1px solid ${SKETCH_COLOR}` }}
+      style={{
+        display: 'block',
+        border: hideBorder ? 'none' : `1px solid ${SKETCH_COLOR}`,
+      }}
       viewBox="0 0 64 64"
       fill="none"
       xmlns="http://www.w3.org/2000/svg">

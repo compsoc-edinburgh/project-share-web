@@ -207,7 +207,7 @@ export const PROJECTS: Project[] = [
     ],
     description: "As a die hard Linux fan, I'm no mere website designer - I'm a developer to my terminal-tweaking core. So I took the logical path - I built a terminal site <3",
     projectURL: 'https://aliabdelaal.com/',
-    media: '/media/projects/3lisPortfolio.mp4',
-    icon: '/media/projects/3lisPortfolio.png',
+    media: './media/projects/3lisPortfolio.mp4',
+    icon: './media/projects/3lisPortfolio.png',
   }
 ].reverse()

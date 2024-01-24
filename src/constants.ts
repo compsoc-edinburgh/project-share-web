@@ -195,4 +195,19 @@ export const PROJECTS: Project[] = [
     media: './media/projects/flatmouse.mp4',
     icon: './media/projects/flatmouse.png',
   },
+  {
+    id: 10,
+    title: "3li's Portfolio",
+    creators: [
+      {
+        name: 'Ali Abdelaal',
+        avatarURL: 'https://unavatar.io/github/ali205412',
+        contactURL: 'https://github.com/ali205412/'
+      },
+    ],
+    description: "As a die hard Linux fan, I'm no mere website designer - I'm a developer to my terminal-tweaking core. So I took the logical path - I built a terminal site <3",
+    projectURL: 'https://aliabdelaal.com/',
+    media: './media/projects/3lisPortfolio.mp4',
+    icon: './media/projects/3lisPortfolio.png',
+  }
 ].reverse()

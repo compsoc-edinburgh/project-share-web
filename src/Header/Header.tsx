@@ -67,11 +67,21 @@ const Header = () => {
     },
   ]
 
-  const randomStage = useState(
-    possibleStageBackgrounds[
+  const [currentStageIndex, setCurrentStageIndex] = useState(
+    Math.floor(Math.random() * possibleStageBackgrounds.length)
+  )
+
+  const nextStage = () => {
+    setCurrentStageIndex(
+      (prevIndex) => (prevIndex + 1) % possibleStageBackgrounds.length
+    )
+  }
+
+  useEffect(() => {
+    setCurrentStageIndex(
       Math.floor(Math.random() * possibleStageBackgrounds.length)
-    ]
-  )[0]
+    )
+  }, [])
 
   return (
     <StyledHeaderWrapper ref={ref}>
@@ -114,26 +124,48 @@ const Header = () => {
         width={stageWidth}
         height={stageHeight}
         options={{ backgroundAlpha: 0 }}>
-        {randomStage.stage}
+        {possibleStageBackgrounds[currentStageIndex].stage}
       </StyledStage>
       <div>
-        <a
-          href={randomStage.url}
+        <div
           style={{
             position: 'absolute',
             bottom: '1rem',
             right: '1rem',
-            color: ACCENT_COLOR,
-            textDecoration: 'none',
-            userSelect: 'none',
-            background: 'rgba(255, 255, 255, 0.7)',
-            padding: '0rem 0.5rem',
-            fontSize: '0.75rem',
-            borderRadius: '5rem',
-            backdropFilter: 'blur(5px)',
+            display: 'flex',
+            flexDirection: 'row',
+            gap: '0.5rem',
+            alignContent: 'center',
           }}>
-          interaction by {randomStage.creator}
-        </a>
+          <a
+            href={possibleStageBackgrounds[currentStageIndex].url}
+            style={{
+              color: ACCENT_COLOR,
+              textDecoration: 'none',
+              userSelect: 'none',
+              background: 'rgba(255, 255, 255, 0.7)',
+              padding: '0rem 0.5rem',
+              fontSize: '0.75rem',
+              borderRadius: '5rem',
+              backdropFilter: 'blur(5px)',
+            }}>
+            interaction by {possibleStageBackgrounds[currentStageIndex].creator}
+          </a>
+          <button
+            style={{
+              color: ACCENT_COLOR,
+              textDecoration: 'none',
+              userSelect: 'none',
+              background: 'rgba(255, 255, 255, 0.7)',
+              padding: '0rem 0.5rem',
+              fontSize: '0.75rem',
+              borderRadius: '5rem',
+              backdropFilter: 'blur(5px)',
+            }}
+            onClick={() => nextStage()}>
+            ↻
+          </button>
+        </div>
       </div>
     </StyledHeaderWrapper>
   )

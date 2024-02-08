@@ -7,6 +7,7 @@ import Gravity from './Gravity'
 import { ACCENT_COLOR } from '../constants'
 import { useEffect, useRef, useState } from 'react'
 import Boids from './Boids'
+import BrickBreaker from  './Breaker'
 
 const StyledStage = styled(Stage)`
   position: absolute;
@@ -65,6 +66,11 @@ const Header = () => {
       creator: 'Tomas Maillo',
       url: 'https://tomasmaillo.com',
     },
+    {
+      stage: <BrickBreaker />,
+      creator: 'Ali Abdelaal',
+      url: 'https://3li.ae',
+    }
   ]
 
   const [currentStageIndex, setCurrentStageIndex] = useState(

@@ -8,6 +8,7 @@ import { ACCENT_COLOR } from '../constants'
 import { useEffect, useRef, useState } from 'react'
 import Boids from './Boids'
 import BrickBreaker from './Breaker'
+import DVDBounce from './DVDBounce'
 
 const StyledStage = styled(Stage)`
   position: absolute;
@@ -70,6 +71,11 @@ const Header = () => {
       stage: <BrickBreaker />,
       creator: 'Ali Abdelaal',
       url: 'https://3li.ae',
+    },
+    {
+      stage: <DVDBounce />,
+      creator: 'Tomas Maillo',
+      url: 'https://tomasmaillo.com',
     },
   ]
 

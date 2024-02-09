@@ -4,143 +4,80 @@ import * as PIXI from 'pixi.js';
 
 const PADDLE_WIDTH = 80;
 const PADDLE_HEIGHT = 10;
+
+
 const BALL_RADIUS = 10;
-const STARTING_BALL_SPEED = 7;
 let BALL_SPEED = 7;
+const STARTING_BALL_SPEED = 7;
+
+
 const BRICK_ROWS = 5;
-let BRICK_COLUMNS = Math.floor(window.innerWidth / 65);
-let BRICK_WIDTH = 50;
-let BRICK_HEIGHT = 20;
+const BRICK_WIDTH = 50;
 const BRICK_PADDING = 10;
+const TOTAL_BRICK_WIDTH = BRICK_WIDTH + BRICK_PADDING;
+const BRICK_COLUMNS = Math.floor((window.innerWidth * 0.95) / TOTAL_BRICK_WIDTH);
+let BRICK_HEIGHT = 20;
 let BRICK_OFFSET_TOP = 40;
-let BRICK_OFFSET_LEFT = 30;
-const PURPLE_COLOR = 0x6a0dad; 
+const BRICK_OFFSET_LEFT = ((window.innerWidth * 0.95) - (BRICK_COLUMNS * (BRICK_WIDTH + BRICK_PADDING))) / 2;
+
+
+const PURPLE_COLOR = 0x6a0dad;
 const FONT_FAMILY = ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'];
 
 interface Brick {
-    x: number;
-    y: number;
-    status: number;
+  x: number;
+  y: number;
+  status: number;
+}
+
+interface GameOverProps {
+  message: string;
+  app: any;
+}
+
+const createBricks = () => {
+  let bricks: Brick[][] = [];
+  for (let c = 0; c < BRICK_COLUMNS; c++) {
+    bricks[c] = [];
+    for (let r = 0; r < BRICK_ROWS; r++) {
+      bricks[c][r] = { x: 0, y: 0, status: 1 };
+    }
   }
-  
-  interface GameOverProps {
-    message: string;
-    // onRestart: () => void; 
-    app: any;
-    // buttonText: string;
-  }
+  return bricks;
+};
 
 
 
-const GameOver: React.FC<GameOverProps> = ({ message, 
-	// onRestart, 
-	app
-	// , buttonText 
+const GameOver: React.FC<GameOverProps> = ({ message,
+  app
 }) => (
   <Container>
-    <Text 
-      text={message} 
-      style={new PIXI.TextStyle({ 
-        fill: PURPLE_COLOR, 
-        fontSize: 24, 
+    <Text
+      text={message}
+      style={new PIXI.TextStyle({
+        fill: PURPLE_COLOR,
+        fontSize: 24,
         align: 'center',
-        fontFamily: FONT_FAMILY, 
+        fontFamily: FONT_FAMILY,
         fontWeight: '500'
-      })} 
-      anchor={0.5} 
-      x={app.screen.width / 2} 
-      y={window.innerHeight / 1.5 } 
+      })}
+      anchor={0.5}
+      x={app.screen.width / 2}
+      y={window.innerHeight / 1.5}
     />
-    {/* <Graphics
-  interactive
-  draw={(g) => {
-    g.beginFill(PURPLE_COLOR);
-    g.drawRoundedRect(-50, 25, 100, 40, 10); 
-    g.endFill();
-  }}
-  x={app.screen.width / 2}
-  y={window.innerHeight / 1.5}
-  pointertap={onRestart}
-	
-  pointerover={(e) => e.currentTarget.cursor = 'pointer'} 
-  pointerout={(e) => e.currentTarget.cursor = 'auto'} 
-/> */}
-
-
-    {/* Button Text
-    <Text 
-      text={buttonText} 
-      style={new PIXI.TextStyle({ 
-        fill: 'white', 
-        fontSize: 16, 
-        fontFamily: FONT_FAMILY, 
-        fontWeight: '500'
-      })} 
-      anchor={0.5} 
-      x={app.screen.width / 2} 
-      y={window.innerHeight / 1.5 + 45} 
-    /> */}
   </Container>
 );
 
 const BrickBreaker: React.FC = () => {
   const app = useApp();
-
-  useEffect(() => {
-    const updateLayout = () => {
-      const screenWidth = app.screen.width;
-      const brickWidth = 50; 
-      const brickPadding = 10;
-      const totalBrickWidth = brickWidth + brickPadding;
-      const columns = Math.floor(screenWidth / totalBrickWidth);
-      const offsetLeft = (screenWidth - (columns * totalBrickWidth - brickPadding)) / 2;
-
-      BRICK_WIDTH = brickWidth; // Adjust as needed
-      BRICK_HEIGHT = 20; // Adjust as needed
-      BRICK_COLUMNS = columns;
-      BRICK_OFFSET_LEFT = offsetLeft;
-    };
-  
-
-    updateLayout();
-    window.addEventListener('resize', updateLayout);
-
-    return () => {
-      window.removeEventListener('resize', updateLayout);
-    };
-  }, [app]);
-
-  const createBricks = useCallback(() => {
-    let bricks: Brick[][] = [];
-    for (let c = 0; c < BRICK_COLUMNS; c++) {
-        bricks[c] = [];
-        for (let r = 0; r < BRICK_ROWS; r++) {
-            bricks[c][r] = { x: 0, y: 0, status: 1 };
-        }
-    }
-    return bricks;
-  }, [BRICK_COLUMNS]);
-
-
   const [paddlePosition, setPaddlePosition] = useState(app.screen.width / 2);
   const [ballPosition, setBallPosition] = useState({ x: app.screen.width / 2, y: app.screen.height - 100 });
   const [ballVelocity, setBallVelocity] = useState({ x: BALL_SPEED, y: -BALL_SPEED });
   const [bricks, setBricks] = useState<Brick[][]>(createBricks());
   const [score, setScore] = useState(0);
   const [lives, setLives] = useState(3);
-  const [gameState, setGameState] = useState('playing');; 
+  const [gameState, setGameState] = useState('playing');;
   const [playerPlaying, setPlayerPlaying] = useState(false);
-
-  // Reset game to its initial state
-  // const startGame = useCallback(() => {
-  //   setBallPosition({ x: app.screen.width / 2, y: app.screen.height - 100 });
-  //   setBallVelocity({ x: BALL_SPEED, y: -BALL_SPEED });
-  //   setPaddlePosition(app.screen.width / 2);
-  //   setBricks(createBricks());
-  //   setScore(0);
-  //   setLives(3);
-  //   setGameState('playing');
-  // }, [app.screen.width, app.screen.height]);
 
 
   const resetGame = useCallback(() => {
@@ -153,7 +90,7 @@ const BrickBreaker: React.FC = () => {
     setGameState('playing');
   }, [app.screen.width, app.screen.height]);
 
-	useEffect(() => {
+  useEffect(() => {
     let timeoutId: string | number | NodeJS.Timeout | undefined;
     if (gameState === 'gameOver' || gameState === 'victory') {
       timeoutId = setTimeout(() => {
@@ -176,22 +113,21 @@ const BrickBreaker: React.FC = () => {
       }
     };
 
-		const movePaddleWithTouch = (e: TouchEvent) => {
-			// e.preventDefault(); // Prevents the page from scrolling when you touch-drag on the game
-			if (e.touches.length > 0) {
-				let relativeX = e.touches[0].clientX - (app.view as HTMLCanvasElement).offsetLeft;
-				if (relativeX > 0 && relativeX < app.screen.width) {
-					setPaddlePosition(relativeX);
-				}
-			}
-		};
+    const movePaddleWithTouch = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        let relativeX = e.touches[0].clientX - (app.view as HTMLCanvasElement).offsetLeft;
+        if (relativeX > 0 && relativeX < app.screen.width) {
+          setPaddlePosition(relativeX);
+        }
+      }
+    };
 
     window.addEventListener('mousemove', movePaddle);
-		window.addEventListener('touchmove', movePaddleWithTouch, { passive: false });
+    window.addEventListener('touchmove', movePaddleWithTouch, { passive: false });
 
     return () => {
       window.removeEventListener('mousemove', movePaddle);
-			window.removeEventListener('touchmove', movePaddleWithTouch);
+      window.removeEventListener('touchmove', movePaddleWithTouch);
     };
   }, [app.screen.width, app.view]);
 
@@ -254,7 +190,7 @@ const BrickBreaker: React.FC = () => {
             setBallVelocity((v) => ({ x: v.x, y: -v.y }));
             BALL_SPEED += 0.1;
             BRICK_OFFSET_TOP += 1;
-        
+
             bricks[c][r].status = 0;
             setScore(score + 1);
             hitBrick = true;
@@ -320,18 +256,16 @@ const BrickBreaker: React.FC = () => {
               return null;
             })
           )}
-          <Text text={`Score: ${score}`} style={new PIXI.TextStyle({ fill: PURPLE_COLOR, fontSize: 18, fontFamily: FONT_FAMILY,fontWeight: '500'})} x={10} y={10} />
-          <Text text={`Lives: ${lives}`} style={new PIXI.TextStyle({ fill: PURPLE_COLOR, fontSize: 18, fontFamily: FONT_FAMILY,fontWeight: '500' })} x={app.screen.width - 80} y={10} />
+          <Text text={`Score: ${score}`} style={new PIXI.TextStyle({ fill: PURPLE_COLOR, fontSize: 18, fontFamily: FONT_FAMILY, fontWeight: '500' })} x={10} y={10} />
+          <Text text={`Lives: ${lives}`} style={new PIXI.TextStyle({ fill: PURPLE_COLOR, fontSize: 18, fontFamily: FONT_FAMILY, fontWeight: '500' })} x={app.screen.width - 80} y={10} />
         </>
       )}
       {(gameState === 'gameOver' || gameState === 'victory' || gameState === 'start') && (
-  <GameOver
-    message={gameState === 'start' ? "" : (gameState === 'gameOver' ? "Game Over" : "Victory!")}
-    // onRestart={gameState === 'start' ? startGame : resetGame}
-    app={app}
-    // buttonText={gameState === 'start' ? "Start" : "Restart"}
-  />
-)}
+        <GameOver
+          message={gameState === 'start' ? "" : (gameState === 'gameOver' ? "Game Over" : "Victory!")}
+          app={app}
+        />
+      )}
     </Container>
   );
 };

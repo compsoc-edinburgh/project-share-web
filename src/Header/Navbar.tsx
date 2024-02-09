@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { styled } from 'styled-components'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { DISCORD_INVITE_LINK } from '../constants'
 import WavyText from '../components/WavyText'
 
@@ -19,7 +19,7 @@ const StyledNavbar = styled.div`
   gap: 1.5rem;
   position: fixed;
   padding: 0 1.25rem 0 1.25rem;
-  bottom: 1vw;
+  bottom: 1.5svh;
   left: 50%;
   transform: translateX(-50%);
   z-index: 100;
@@ -84,23 +84,45 @@ const HoverBackground = ({ hoveredItem }: { hoveredItem: HTMLDivElement }) => {
 }
 
 const Navbar = () => {
-  const [hoveredItem, setHoveredItem] = useState<HTMLDivElement | null>(null)
-
   const navigate = useNavigate()
+  const location = useLocation()
+  const [hoveredItem, setHoveredItem] = useState<HTMLDivElement | null>(null)
+  const navbarRef = useRef<HTMLDivElement>(null)
+
+  const setHoveredItemToDefault = () => {
+    if (navbarRef.current) {
+      const defaultItem = Array.from(navbarRef.current.children).find(
+        (child) =>
+          (child as HTMLDivElement).getAttribute('href') ===
+            location.pathname ||
+          child.textContent ===
+            navBarRoutes.find((route) => route.path === location.pathname)?.name
+      ) as HTMLDivElement | undefined
+
+      if (defaultItem) {
+        setHoveredItem(defaultItem)
+      }
+    }
+  }
+
+  useEffect(() => {
+    setHoveredItemToDefault()
+  }, [location.pathname])
 
   return (
-    <StyledNavbar>
+    <StyledNavbar ref={navbarRef}>
       <AnimatePresence>
         {hoveredItem && <HoverBackground hoveredItem={hoveredItem} />}
       </AnimatePresence>
 
       {navBarRoutes.map((route) => (
         <NavbarItem
+          key={route.path}
           onClick={() => navigate(route.path)}
           onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) =>
             setHoveredItem(e.currentTarget)
           }
-          onMouseLeave={() => setHoveredItem(null)}>
+          onMouseLeave={() => setHoveredItemToDefault()}>
           {route.name}
         </NavbarItem>
       ))}
@@ -108,7 +130,7 @@ const Navbar = () => {
         as="a"
         href={DISCORD_INVITE_LINK}
         onMouseEnter={(e: any) => setHoveredItem(e.currentTarget)}
-        onMouseLeave={() => setHoveredItem(null)}>
+        onMouseLeave={() => setHoveredItemToDefault()}>
         <WavyText text="Discord" />
       </NavbarItem>
     </StyledNavbar>

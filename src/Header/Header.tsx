@@ -7,7 +7,7 @@ import Gravity from './Gravity'
 import { ACCENT_COLOR } from '../constants'
 import { useEffect, useRef, useState } from 'react'
 import Boids from './Boids'
-import BrickBreaker from  './Breaker'
+import BrickBreaker from './Breaker'
 
 const StyledStage = styled(Stage)`
   position: absolute;
@@ -33,7 +33,7 @@ const StyledHeaderWrapper = styled.div`
     50% center / 3px 3px;
   width: inherit;
   margin: 3vw;
-  height: 85vh;
+  height: 86svh;
   border-radius: 25px;
   display: flex;
   align-items: center;
@@ -70,7 +70,7 @@ const Header = () => {
       stage: <BrickBreaker />,
       creator: 'Ali Abdelaal',
       url: 'https://3li.ae',
-    }
+    },
   ]
 
   const [currentStageIndex, setCurrentStageIndex] = useState(

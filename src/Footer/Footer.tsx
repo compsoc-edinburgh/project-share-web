@@ -2,11 +2,11 @@ import styled from 'styled-components'
 import Logo from '../components/Logo'
 
 const StyledFooterWrapper = styled.div`
-  border: 5px solid #fcf6fe;
+  border: 5px solid #7816f4;
   background: #7816f4;
   width: inherit;
-  margin: 3vw;
-  margin-bottom: 4rem;
+  margin: 3svw;
+  margin-bottom: 11svh;
   padding: 32px;
   height: 50vh;
   border-radius: 25px;
@@ -24,10 +24,7 @@ const Footer = () => {
   return (
     <StyledFooterWrapper>
       <Logo animated color="#FBF6FD" size={126} /> ❤️
-      <a
-        href="https://comp-soc.com"
-        target="_blank"
-        rel="noreferrer">
+      <a href="https://comp-soc.com" target="_blank" rel="noreferrer">
         <img
           src="media/logos/comp-soc.png"
           alt="CompSoc Logo"

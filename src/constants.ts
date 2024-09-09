@@ -12,9 +12,9 @@ export interface MeetupDetails {
 }
 
 export const NEXT_MEETUP: MeetupDetails | undefined = {
-  title: 'Project Share!',
-  date: new Date('2024-02-07T15:00:00'),
-  location: 'AT 2.11',
+  title: 'Meadows Quiz!',
+  date: new Date('2024-09-11T14:00:00'),
+  location: 'Meadows Quiz',
   description: 'Bring your laptop!',
 }
 

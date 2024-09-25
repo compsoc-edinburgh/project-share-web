@@ -93,8 +93,9 @@ const NextMeeting = () => {
           <span>{NEXT_MEETUP.location}</span>
           <span>
             {NEXT_MEETUP.date.toLocaleDateString('en-GB', {
+              hour: '2-digit',
+              minute: '2-digit',
               weekday: 'short',
-              year: 'numeric',
               month: 'short',
               day: 'numeric',
             })}

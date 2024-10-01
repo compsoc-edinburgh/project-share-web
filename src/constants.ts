@@ -13,8 +13,8 @@ export interface MeetupDetails {
 
 export const NEXT_MEETUP: MeetupDetails | undefined = {
   title: 'Project Share!',
-  date: new Date('2024-09-26T15:00:00'),
-  location: 'AT7.14',
+  date: new Date('2024-10-10T16:00:00'),
+  location: 'AT_5.01',
   description: 'Bring your laptop!',
 }
 

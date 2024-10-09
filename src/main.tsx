@@ -11,6 +11,7 @@ import Components from './Pages/Components'
 import ScrollToTop from './components/ScrollToTop'
 import Navbar from './Header/Navbar'
 import About from './Pages/About'
+import Present from './Pages/Present'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -23,6 +24,7 @@ ReactDOM.render(
         <Route path="/about" element={<About />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/components" element={<Components />} />
+        <Route path="/present" element={<Present />} />  // Add this line
       </Routes>
     </Router>
   </React.StrictMode>,

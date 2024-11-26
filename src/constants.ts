@@ -12,10 +12,10 @@ export interface MeetupDetails {
 }
 
 export const NEXT_MEETUP: MeetupDetails | undefined = {
-  title: 'Project Share!',
-  date: new Date('2024-11-21T17:00:00'),
-  location: 'AT_2.07',
-  description: 'Bring your laptop!',
+  title: 'Awards Night 🍾',
+  date: new Date('2024-12-05T16:00:00'),
+  location: '7GS, F.21',
+  description: 'Join the audience or nominate your project!',
 }
 
 export const DISCORD_INVITE_LINK = 'https://discord.gg/wNGukFdBgp'

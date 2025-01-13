@@ -11,12 +11,39 @@ export interface MeetupDetails {
   description: string
 }
 
-export const NEXT_MEETUP: MeetupDetails | undefined = {
-  title: 'Awards Night 🍾',
-  date: new Date('2024-12-05T16:00:00'),
-  location: '7GS, F.21',
-  description: 'Join the audience or nominate your project!',
-}
+const NEXT_MEETUPS_SERIES: MeetupDetails[] = [{
+  title: 'Project Share',
+  date: new Date('2025-01-16T17:00:00'),
+  location: 'AT_2.07',
+  description: 'Share your projects and get feedback from the community!',
+}, {
+  title: 'Project Share',
+  date: new Date('2025-01-30T17:00:00'),
+  location: 'AT_2.07',
+  description: 'Share your projects and get feedback from the community!',
+}, {
+  title: 'Project Share',
+  date: new Date('2025-02-13T17:00:00'),
+  location: 'AT_2.07',
+  description: 'Share your projects and get feedback from the community!',
+}, {
+  title: 'Project Share',
+  date: new Date('2025-02-27T17:00:00'),
+  location: 'AT_2.07',
+  description: 'Share your projects and get feedback from the community!',
+}, {
+  title: 'Project Share',
+  date: new Date('2025-03-13T17:00:00'),
+  location: 'AT_2.07',
+  description: 'Share your projects and get feedback from the community!',
+}, {
+  title: 'Project Share',
+  date: new Date('2025-03-27T17:00:00'),
+  location: 'AT_2.07',
+  description: 'Share your projects and get feedback from the community!',
+}]
+
+export const NEXT_MEETUP: MeetupDetails | undefined = NEXT_MEETUPS_SERIES.find((meetup) => meetup.date >= new Date())
 
 export const DISCORD_INVITE_LINK = 'https://discord.gg/wNGukFdBgp'
 

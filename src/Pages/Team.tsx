@@ -12,7 +12,9 @@ import { COMMITTEE_DATA } from '../components/Team/constants'
 import { CommitteeYear } from '../components/Team/types'
 
 function Team() {
-  const years = Object.keys(COMMITTEE_DATA) as CommitteeYear[]
+  const years = Object.keys(COMMITTEE_DATA).sort(
+    (a, b) => Number(b) - Number(a)
+  ) as CommitteeYear[]
   const [selectedYear, setSelectedYear] = useState<CommitteeYear>(years[0])
 
   const scrollToYear = (year: CommitteeYear) => {

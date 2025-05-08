@@ -17,6 +17,11 @@ export const Page = styled.div`
   width: 600px;
   margin: 0rem auto;
   color: black;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 100%;
+  }
 `
 
 export const TimelineContainer = styled.div`
@@ -53,17 +58,22 @@ export const TimelinePath = styled.path`
   fill: none;
 `
 
+export const TimelineGroup = styled.g`
+  cursor: pointer;
+
+  &:hover {
+    circle {
+      stroke-width: 4;
+    }
+  }
+`
+
 export const TimelineDot = styled.circle<{ isSelected: boolean }>`
   fill: ${(props) => (props.isSelected ? '#7815f4' : 'white')};
   stroke: #7815f4;
   stroke-width: ${(props) => (props.isSelected ? '2' : '2')};
   transition: all 0.3s ease;
-  cursor: pointer;
   r: ${(props) => (props.isSelected ? '4' : '8')};
-
-  &:hover {
-    stroke-width: 4;
-  }
 `
 
 export const TimelineText = styled.text`
@@ -71,7 +81,6 @@ export const TimelineText = styled.text`
   font-size: 14px;
   text-anchor: middle;
   user-select: none;
-  cursor: pointer;
 `
 
 export const ContentWrapper = styled.div`
@@ -79,18 +88,28 @@ export const ContentWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  padding: 2rem 0px;
+  gap: 5rem;
+
+  @media (max-width: 768px) {
+    gap: 2rem;
+  }
 `
 
 export const CommitteeSection = styled.div`
-  margin-bottom: 2rem;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
   padding: 2rem;
   background-color: white;
 
-  @media (max-width: 600px) {
-    padding: 1.5rem;
+  h2 {
+    text-align: center;
+    color: #7815f4;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
+    position: relative;
+    padding: 0 1rem;
   }
 `
 

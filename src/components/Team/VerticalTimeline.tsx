@@ -6,6 +6,7 @@ import {
   TimelinePath,
   TimelineDot,
   TimelineText,
+  TimelineGroup,
 } from './styles'
 
 interface VerticalTimelineProps {
@@ -42,10 +43,7 @@ export const VerticalTimeline = ({
 
         {/* Year dots and labels */}
         {years.map((year) => (
-          <g
-            key={year}
-            onClick={() => onYearChange(year)}
-            style={{ cursor: 'pointer' }}>
+          <TimelineGroup key={year} onClick={() => onYearChange(year)}>
             <TimelineDot
               cx="50"
               cy={50 + getYearPosition(year)}
@@ -54,7 +52,7 @@ export const VerticalTimeline = ({
             <TimelineText x="84" y={50 + getYearPosition(year) + 5}>
               {year}
             </TimelineText>
-          </g>
+          </TimelineGroup>
         ))}
 
         {/* Selected dot that moves - placed last to appear on top */}

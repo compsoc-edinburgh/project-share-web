@@ -56,13 +56,13 @@ export const TimelinePath = styled.path`
 export const TimelineDot = styled.circle<{ isSelected: boolean }>`
   fill: ${(props) => (props.isSelected ? '#7815f4' : 'white')};
   stroke: #7815f4;
-  stroke-width: 2;
+  stroke-width: ${(props) => (props.isSelected ? '2' : '2')};
   transition: all 0.3s ease;
   cursor: pointer;
-  r: 8;
+  r: ${(props) => (props.isSelected ? '4' : '8')};
 
   &:hover {
-    fill: #7815f4;
+    stroke-width: 4;
   }
 `
 
@@ -70,8 +70,8 @@ export const TimelineText = styled.text`
   fill: #666;
   font-size: 14px;
   text-anchor: middle;
-  pointer-events: none;
   user-select: none;
+  cursor: pointer;
 `
 
 export const ContentWrapper = styled.div`

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   Background,
   Page,
@@ -18,7 +18,14 @@ function Team() {
   const scrollToYear = (year: CommitteeYear) => {
     const element = document.getElementById(`year-${year}`)
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+      const elementRect = element.getBoundingClientRect()
+      const absoluteElementTop = elementRect.top + window.pageYOffset
+      const middle =
+        absoluteElementTop - window.innerHeight / 2 + elementRect.height / 2
+      window.scrollTo({
+        top: middle,
+        behavior: 'smooth',
+      })
     }
   }
 
@@ -26,6 +33,26 @@ function Team() {
     setSelectedYear(year)
     scrollToYear(year)
   }
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = years.map((year) =>
+        document.getElementById(`year-${year}`)
+      )
+      const scrollPosition = window.scrollY + window.innerHeight / 2
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i]
+        if (section && section.offsetTop <= scrollPosition) {
+          setSelectedYear(years[i])
+          break
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [years])
 
   return (
     <Background>

@@ -111,12 +111,30 @@ export const CommitteeSection = styled.div`
     position: relative;
     padding: 0 1rem;
   }
+
+  @media (max-width: 768px) {
+    padding: 1rem 0.5rem;
+    h2 {
+      font-size: 1.3rem;
+      margin-bottom: 0.2rem;
+      padding: 0;
+    }
+    p {
+      margin-top: 0.2rem !important;
+      margin-bottom: 0.5rem !important;
+      font-size: 0.98rem;
+    }
+  }
 `
 
 export const TeamGrid = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    gap: 0.7rem;
+  }
 `
 
 export const ProfileWrapper = styled.div`
@@ -129,6 +147,12 @@ export const ProfileWrapper = styled.div`
   border-radius: 8px;
   position: relative;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    gap: 0.7rem;
+    padding: 0.5rem 0.5rem;
+    min-height: 70px;
+  }
 `
 
 export const ImageWrapper = styled.div`
@@ -136,6 +160,11 @@ export const ImageWrapper = styled.div`
   width: 80px;
   height: 80px;
   flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    width: 64px;
+    height: 64px;
+  }
 `
 
 export const ProfileImage = styled.img`
@@ -150,9 +179,17 @@ export const SignatureWrapper = styled.div`
   right: 1rem;
   top: 50%;
   transform: translateY(-50%);
-  width: 120px;
-  height: 40px;
+  width: 140px;
+  height: 48px;
   opacity: 0.75;
+
+  @media (max-width: 768px) {
+    width: 90px;
+    height: 32px;
+    right: 0.3rem;
+    top: 70%;
+    transform: translateY(-40%);
+  }
 `
 
 export const ProfileInfo = styled.div`
@@ -161,14 +198,14 @@ export const ProfileInfo = styled.div`
 
   h3 {
     font-size: 1.1rem;
-    margin: 0.25rem 0 0 0;
+    margin: 0;
     color: #333;
   }
 
   .position {
     font-size: 0.9rem;
     color: #646464;
-    margin-bottom: 0.35rem;
+    margin: 0;
   }
 
   .links {

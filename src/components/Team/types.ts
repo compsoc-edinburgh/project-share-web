@@ -1,10 +1,16 @@
+export type SignatureStroke = {
+  path: string
+  duration?: number // defaults to 3
+  reverse?: boolean
+}
+
 export type TeamMember = {
   name: string
   surname: string
   position: string
   imageUrl: string
   links?: { label: string; url: string }[]
-  signature: string
+  signature: SignatureStroke[] | string 
 }
 
 export type CommitteeData = {

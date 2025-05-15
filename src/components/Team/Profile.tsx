@@ -1,4 +1,4 @@
-import { TeamMember } from './types'
+import { TeamMember, SignatureStroke } from './types'
 import {
   ProfileWrapper,
   ImageWrapper,
@@ -15,6 +15,10 @@ export const Profile = ({
   links,
   signature,
 }: TeamMember) => {
+  // Convert legacy string signature to new format
+  const signatureStrokes: SignatureStroke[] =
+    typeof signature === 'string' ? [{ path: signature }] : signature
+
   return (
     <ProfileWrapper>
       <ImageWrapper>
@@ -41,19 +45,25 @@ export const Profile = ({
       </ProfileInfo>
       <SignatureWrapper>
         <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d={signature}
-            fill="none"
-            stroke="#7815f4"
-            strokeWidth="4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeDasharray="2000"
-            strokeDashoffset="-2000"
-            style={{
-              animation: 'draw 3s ease forwards',
-            }}
-          />
+          {signatureStrokes.map((stroke, index) => (
+            <path
+              key={index}
+              d={stroke.path}
+              fill="none"
+              stroke="#7815f4"
+              strokeWidth="4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeDasharray="2000"
+              strokeDashoffset={stroke.reverse ? '2000' : '-2000'}
+              style={{
+                animation: `draw ${stroke.duration || 3}s ease forwards`,
+                animationDelay: `${signatureStrokes
+                  .slice(0, index)
+                  .reduce((sum, s) => sum + (s.duration || 3), 0)}s`,
+              }}
+            />
+          ))}
         </svg>
       </SignatureWrapper>
     </ProfileWrapper>

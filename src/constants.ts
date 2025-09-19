@@ -41,6 +41,11 @@ const NEXT_MEETUPS_SERIES: MeetupDetails[] = [{
   date: new Date('2025-03-27T17:00:00'),
   location: 'AT_2.07',
   description: 'Share your projects and get feedback from the community!',
+}, {
+  title: 'Project Share',
+  date: new Date('2025-09-19T16:00:00'),
+  location: 'AT_2.07',
+  description: 'Share your projects and get feedback from the community!',
 }]
 
 export const NEXT_MEETUP: MeetupDetails | undefined = NEXT_MEETUPS_SERIES.find((meetup) => meetup.date >= new Date())

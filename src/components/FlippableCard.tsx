@@ -76,6 +76,7 @@ const FlippableCard = ({ frontContent, backContent }: FlippableCardProps) => {
   const [isFlipped, setIsFlipped] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const [isMerged, setIsMerged] = useState(true)
+  const [initialFlipComplete, setInitialFlipComplete] = useState(false)
 
   const ref = useRef<HTMLDivElement>(null)
   const anchorRef = useRef<HTMLDivElement>(null)
@@ -88,6 +89,9 @@ const FlippableCard = ({ frontContent, backContent }: FlippableCardProps) => {
 
   const controls = useAnimation()
 
+  const INITIAL_FLIP_DELAY_MS = 3000
+  const JIGGLE_ANIMATION_DELAY_MS = 750
+
   const zoom = useSpring(1, {
     duration: 0.1,
     damping: 7,
@@ -99,9 +103,25 @@ const FlippableCard = ({ frontContent, backContent }: FlippableCardProps) => {
   }, [rotateX, rotateY])
 
   useEffect(() => {
-    // Start the jiggle animation when not hovered
-    setTimeout(() => controls.start(jiggleAnimation), 750)
+    // Flip the card on initial load
+    setIsFlipped(true)
+
+    const timer = setTimeout(() => {
+      setIsFlipped(false)
+      setInitialFlipComplete(true)
+    }, INITIAL_FLIP_DELAY_MS)
+
+    return () => clearTimeout(timer)
   }, [])
+
+  useEffect(() => {
+    if (!initialFlipComplete) return
+
+    // Start the jiggle animation when not hovered
+    const timer = setTimeout(() => controls.start(jiggleAnimation), JIGGLE_ANIMATION_DELAY_MS)
+
+    return () => clearTimeout(timer)
+  }, [initialFlipComplete, controls])
 
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     const element = ref.current

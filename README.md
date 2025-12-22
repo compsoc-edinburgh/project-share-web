@@ -1,60 +1,36 @@
-# [![logo](https://github.com/compsoc-edinburgh/project-share-web/assets/38633386/f33978b6-c0fe-4a13-9bdf-e91e9752b46b)](https://projectshare.comp-soc.com/)
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Hello world! Welcome to Project Share's GitHub repository.
+## Getting Started
 
-## What is Project Share?
+First, run the development server:
 
-Project Share is a vibrant society at the University of Edinburgh where students meet to share their ongoing tech projects. The website serves as the society's digital heart, showcasing our projects, mission, and team members.
-
-## How to add your project
-
-Awesome! Here's how you can do it:
-
-0. If you're unfamiliar with creating Pull Requests (PRs), we recommend you watch or read some of these [guides](https://opensource.com/article/19/7/create-pull-request-github) to do so. There are many!
-
-1. Add any images and video files you would want to display inside the `public/media/projects` folder. Make sure to have descriptive names and not upload files larger than 1mb or 2mb (please!).
-
-2. Open up `constants.ts`. Here is where all of the data to display the projects is stored.
-
-3. In this file, you want to add your own details about your project. Fields that contain a `?` can be skipped. Look at other fields and copy the layout!
-
-```
-export interface Project {
-  id: number
-  title: string
-  creators: [{
-    name: string
-    avatarURL?: string
-    contactURL?: string
-  }...]
-  description: string
-  projectURL?: string
-  media: string
-  icon?: string
-}
-```
-4. To preview your changes, run these commands on your terminal. Make sure that the terminal is in the project's root directory. A link will show up which you can use to preview the website!
-```
-$ npm install
-```
-```
-$ npm run dev
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-5. Once you've made your tweaks, commit your changes, submit your PR and we'll review it as soon as we can!
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-If you need more help, don't hesitate to ask on our [Discord Server](https://discord.gg/wNGukFdBgp).
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## Technology Stack
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-Our website is built with the power of React, styled-components, and react-router. Additionally, we auto-deploy with GitHub Pages! To read about the actual front-end engineering, check the [BTS](https://projectshare.comp-soc.com/components)!
+## Learn More
 
-## Contact Us
+To learn more about Next.js, take a look at the following resources:
 
-Got questions? Join the conversation on our [Discord Server](https://discord.gg/wNGukFdBgp). We are always happy to help!
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-## License
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Deploy on Vercel
 
-Remember, coding is a journey, not a destination. Let's continue to grow and learn together. Welcome to the Project Share community!
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

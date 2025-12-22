@@ -14,6 +14,9 @@ importers:
       next:
         specifier: 16.1.1
         version: 16.1.1(@babel/core@7.28.5)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      raster-react:
+        specifier: ^0.2.0
+        version: 0.2.0(react@19.2.3)
       react:
         specifier: 19.2.3
         version: 19.2.3
@@ -1621,6 +1624,11 @@ packages:
 
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
+
+  raster-react@0.2.0:
+    resolution: {integrity: sha512-Lp0qDHfKIfXXYiNSOIZilh6pLV3TwJWNWNuRFpYM4/acIJfKJhoE+lRsvCSefLaQ56EQ6JJFLRVV/n1jbQJSEw==}
+    peerDependencies:
+      react: '>=16.8.0'
 
   react-dom@19.2.3:
     resolution: {integrity: sha512-yELu4WmLPw5Mr/lmeEpox5rw3RETacE++JgHqQzd2dg+YbJuat3jH4ingc+WPZhxaoFzdv9y33G+F7Nl5O0GBg==}
@@ -3599,6 +3607,10 @@ snapshots:
   punycode@2.3.1: {}
 
   queue-microtask@1.2.3: {}
+
+  raster-react@0.2.0(react@19.2.3):
+    dependencies:
+      react: 19.2.3
 
   react-dom@19.2.3(react@19.2.3):
     dependencies:

@@ -1,5 +1,6 @@
 "use client";
 
+import { InstagramIcon, GamepadIcon } from "raster-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import Image from "next/image";
@@ -61,7 +62,7 @@ export default function Home() {
     <main className="flex flex-col px-10 py-5 space-y-20 relative min-h-screen">
       <div className="flex flex-col space-y-10">
         <Navbar />
-        <div className="flex flex-col mt-32">
+        <div className="flex flex-col mt-28">
           <div className="text-8xl font-departure flex items-center gap-2 text-main uppercase">
             <Image
               src="/logo.svg"
@@ -81,6 +82,13 @@ export default function Home() {
             At Project Share we meet every other week and share updates on our
             own tech projects. Show and tell! Hear the development of other
             builders and learn from them.
+          </div>
+          <div className="flex items-center gap-2 font-departure w-fit uppercase mt-10 hover:bg-main/10 hover:cursor-pointer px-1">
+            <GamepadIcon /> Discord
+          </div>
+          <div className="flex items-center gap-2 font-departure w-fit uppercase mt-2 hover:bg-main/10 hover:cursor-pointer px-1">
+            <InstagramIcon />
+            Instagram
           </div>
         </div>
       </div>

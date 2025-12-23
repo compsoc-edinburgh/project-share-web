@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import Image from "next/image";
 import { ShortcutsFooter } from "@/components/shortcuts-footer";
+import { Ticket } from "@/components/ticket";
 
 const sections = [
   {
@@ -63,30 +64,35 @@ export default function Home() {
       <div className="flex flex-col space-y-10">
         <Navbar />
         <div className="flex flex-col mt-28">
-          <div className="text-8xl font-departure flex items-center gap-2 text-main uppercase">
-            <Image
-              src="/logo.svg"
-              alt="Project Share Logo"
-              width={120}
-              height={120}
-            />
-            Project
+          <div className="flex justify-between items-center">
+            <div>
+              <div className="text-8xl font-departure flex items-center gap-2 text-main uppercase">
+                <Image
+                  src="/logo.svg"
+                  alt="Project Share Logo"
+                  width={120}
+                  height={120}
+                />
+                Project
+              </div>
+              <div className="text-8xl font-departure text-main uppercase">
+                Share
+              </div>
+              <div className="uppercase font-departure">
+                Making software together
+              </div>
+              <div className="max-w-140 mt-5">
+                At Project Share we meet every other week and share updates on
+                our own tech projects. Show and tell! Hear the development of
+                other builders and learn from them.
+              </div>
+            </div>
+            <Ticket />
           </div>
-          <div className="text-8xl font-departure text-main uppercase">
-            Share
-          </div>
-          <div className="uppercase font-departure">
-            Making software together
-          </div>
-          <div className="max-w-140 mt-5">
-            At Project Share we meet every other week and share updates on our
-            own tech projects. Show and tell! Hear the development of other
-            builders and learn from them.
-          </div>
-          <div className="flex items-center gap-2 font-departure w-fit uppercase mt-10 hover:bg-main/10 hover:cursor-pointer px-1">
+          <div className="flex items-center gap-2 font-departure w-fit uppercase mt-10 hover:bg-main/20 hover:cursor-pointer px-1">
             <GamepadIcon /> Discord
           </div>
-          <div className="flex items-center gap-2 font-departure w-fit uppercase mt-2 hover:bg-main/10 hover:cursor-pointer px-1">
+          <div className="flex items-center gap-2 font-departure w-fit uppercase mt-2 hover:bg-main/20 hover:cursor-pointer px-1">
             <InstagramIcon />
             Instagram
           </div>

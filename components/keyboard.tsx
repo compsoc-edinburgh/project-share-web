@@ -41,10 +41,10 @@ export const KeyboardKey = ({
   return (
     <div
       className={cn(
-        "border-black uppercase border border-b-[3px] flex items-center justify-center px-1 font-sans text-sm min-w-[20px] transition-all duration-100 select-none",
+        "border-foreground uppercase border border-b-[3px] flex items-center justify-center px-1 font-sans text-sm min-w-[20px] transition-all duration-100 select-none",
         isPressed
-          ? "bg-black text-white shadow-none translate-x-[1.5px] -translate-y-[1.5px]"
-          : "bg-white shadow-[1.5px_-1.5px_0px_#acacb4]",
+          ? "bg-foreground text-background shadow-none translate-x-[1.5px] -translate-y-[1.5px]"
+          : "text-secondary-foreground shadow-[1.5px_-1.5px_0px_var(--color-border)]",
         className
       )}
     >

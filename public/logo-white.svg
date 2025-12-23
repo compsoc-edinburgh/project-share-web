@@ -1,0 +1,22 @@
+<svg width="44" height="30" viewBox="0 0 44 30" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <mask id="cutout-mask">
+      <rect width="44" height="30" fill="white"></rect>
+
+      <path d="M43.9999 5.86668H41.0666V23.4667H38.1333V26.4H8.79993V29.3333H43.9999V5.86668Z" fill="black"></path>
+
+      <rect width="2.93333" height="5.86667" transform="matrix(-1 0 0 1 38.1334 17.6001)" fill="black"></rect>
+      <rect width="2.93333" height="5.86667" transform="matrix(-1 0 0 1 35.2002 11.7334)" fill="black"></rect>
+      <rect width="2.93333" height="5.86667" transform="matrix(-1 0 0 1 8.79993 20.5333)" fill="black"></rect>
+      <rect width="2.93333" height="5.86667" transform="matrix(-1 0 0 1 5.86673 14.6667)" fill="black"></rect>
+
+      <path d="M8.8 2.93334H5.86667V8.8H0V14.6667H2.93333V11.7333H32.2667V8.8H8.8V2.93334Z" fill="black"></path>
+
+      <rect width="20.5333" height="3.43333" transform="matrix(-1 0 0 1 41.0668 2.43334)" fill="black"></rect>
+      <rect width="11.7333" height="2.93333" transform="matrix(-1 0 0 1 20.5334 0)" fill="black"></rect>
+    </mask>
+  </defs>
+
+  <!-- CHANGED HERE -->
+  <path d="M8.80005 2.93335H41.0667V23.4667H38.1334V26.4H8.80005V20.5333H5.86672V14.6667H2.93338V11.7333H8.80005V2.93335Z" fill="#FFFFFF" mask="url(#cutout-mask)"></path>
+</svg>

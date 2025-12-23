@@ -87,7 +87,7 @@ export default function Home() {
                 other builders and learn from them.
               </div>
             </div>
-            <Ticket />
+            <Ticket className="scale-125 -rotate-12 mr-20 mt-20" />
           </div>
           <div className="flex items-center gap-2 font-departure w-fit uppercase mt-10 hover:bg-main/20 hover:cursor-pointer px-1">
             <GamepadIcon /> Discord

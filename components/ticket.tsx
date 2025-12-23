@@ -1,9 +1,10 @@
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-export function Ticket() {
+export function Ticket({ className }: { className?: string }) {
   return (
     <div
-      className="bg-main h-70 w-152 px-10 py-5 flex flex-col"
+      className={cn("bg-main h-70 w-152 px-10 py-5 flex flex-col", className)}
       id="project_card"
       style={{
         clipPath:

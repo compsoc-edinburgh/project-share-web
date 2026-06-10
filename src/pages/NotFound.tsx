@@ -1,16 +1,18 @@
 import { Link } from 'react-router-dom'
 import PageShell from '../components/PageShell'
+import PixelFolder from '../components/PixelFolder'
 
 const NotFound = () => (
   <PageShell>
-    <section className="page-section">
-      <h1 className="page-title">404</h1>
+    <section className="notfound" data-keynav-section>
+      <PixelFolder width={96} />
+      <h1 className="pixel">404</h1>
       <p>
-        Nothing here. Maybe it was a project that never shipped — happens to
-        the best of us.
+        Nothing in this folder. Maybe it was a project that never shipped —
+        happens to the best of us.
       </p>
       <p>
-        <Link to="/">Back to the index</Link>
+        <Link to="/">← 01 Project Share</Link>
       </p>
     </section>
   </PageShell>

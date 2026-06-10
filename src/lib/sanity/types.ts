@@ -38,6 +38,7 @@ export interface TeamMember {
   name: string
   surname?: string
   avatarUrl?: string
+  bio?: string
   links?: MemberLink[]
 }
 

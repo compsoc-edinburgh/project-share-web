@@ -1,26 +1,42 @@
-/* Design tokens — placeholder values, to be replaced 1:1 from the Figma file. */
+/* Design tokens — extracted from the ProjectShare Figma file (IbJEP5ImTGVk0p0qIOgQMI). */
 :root {
-  /* Color */
-  --color-bg: #fffefa;
-  --color-fg: #111111;
+  /* Palette (light) */
+  --color-bg: #f6f7fb;
+  --color-ink: #1e1e1e;
   --color-accent: #7816f4;
-  --color-muted: #6b6b6b;
-  --color-line: rgba(17, 17, 17, 0.14);
-  --color-selection-bg: #91e014;
-  --color-selection-fg: #000000;
+  --color-accent-soft: #933eff;
+  --color-pill: #d9defe;
+  --color-tile: #d9d9d9;
+  --color-muted: #6f6f7a;
+  --color-line: color-mix(in srgb, var(--color-ink) 22%, transparent);
+  --color-key-cap: #1e1e1e;
+  --color-key-glyph: #f6f7fb;
+  --color-ticket-front: #7816f4;
+  --color-ticket-back: #933eff;
+  --color-ticket-ink: #f6f7fb;
 
   /* Type */
-  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, monospace;
-  --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-lg: 1.25rem;
-  --text-xl: 1.75rem;
-  --text-2xl: 2.5rem;
-  --text-hero: clamp(2.5rem, 8vw, 6rem);
+  --font-pixel: 'Departure Mono', 'Commit Mono', monospace;
+  --font-mono: 'Commit Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --font-mono-accent: 'Syne Mono', 'Commit Mono', monospace;
+  --font-serif: ui-serif, 'New York', 'Iowan Old Style', Georgia, serif;
+
+  /* Sizes (design @1512) */
+  --text-hero: clamp(3.4rem, 8.8vw, 6.5rem); /* 104px */
+  --text-h2: clamp(1.6rem, 2.8vw, 2rem); /* 32px */
+  --text-serif-lead: clamp(1.05rem, 1.5vw, 1.1875rem); /* 19px */
+  --text-name: 1.5rem; /* 24px */
+  --text-ui: 0.9375rem; /* 15px */
+  --text-link: 1.0625rem; /* 17px */
+  --text-label: 0.875rem; /* 14px */
+  --text-key: 0.8125rem; /* 13px */
+  --text-tiny: 0.6875rem; /* 11px */
+
+  /* Tracking: the whole design runs tight (-5%) */
+  --track: -0.05em;
 
   /* Space */
+  --page-pad: clamp(1rem, 3.1vw, 2.9375rem); /* 47px at 1512 */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 1rem;
@@ -29,14 +45,50 @@
   --space-6: 4rem;
   --space-7: 6rem;
 
-  /* Motion (strong curves — built-ins are too weak) */
+  /* Motion — strong curves; built-ins are too weak */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --dur-fast: 140ms;
   --dur-base: 200ms;
   --dur-slow: 300ms;
 
-  /* Layout */
-  --page-max: 1200px;
-  --page-pad: clamp(1rem, 4vw, 2.5rem);
+  /* Selection */
+  --color-selection-bg: var(--color-pill);
+  --color-selection-fg: var(--color-accent);
+
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --color-bg: #131318;
+  --color-ink: #ececf1;
+  --color-accent: #9a5bff;
+  --color-accent-soft: #7816f4;
+  --color-pill: #322353;
+  --color-tile: #232329;
+  --color-muted: #9b9ba6;
+  --color-key-cap: #ececf1;
+  --color-key-glyph: #131318;
+  --color-ticket-front: #7816f4;
+  --color-ticket-back: #933eff;
+  --color-ticket-ink: #f6f7fb;
+  color-scheme: dark;
+}
+
+:root[data-contrast='high'] {
+  --color-bg: #ffffff;
+  --color-ink: #000000;
+  --color-accent: #5e00d8;
+  --color-pill: #c4cdfd;
+  --color-muted: #3d3d44;
+  --color-line: rgba(0, 0, 0, 0.55);
+}
+
+:root[data-theme='dark'][data-contrast='high'] {
+  --color-bg: #000000;
+  --color-ink: #ffffff;
+  --color-accent: #bb91ff;
+  --color-pill: #3c2a68;
+  --color-muted: #c9c9d2;
+  --color-line: rgba(255, 255, 255, 0.6);
 }

@@ -1,4 +1,4 @@
-/* Shell chrome — neutral token-driven styling, restyled by the Figma pass. */
+/* ===== Shell chrome ===== */
 
 .skip-link {
   position: absolute;
@@ -6,7 +6,7 @@
   top: calc(-1 * var(--space-6));
   z-index: 100;
   padding: var(--space-2) var(--space-3);
-  background: var(--color-fg);
+  background: var(--color-ink);
   color: var(--color-bg);
 }
 
@@ -15,107 +15,209 @@
 }
 
 .nav {
+  position: relative;
+  z-index: 20;
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
+  align-items: center;
   gap: var(--space-4);
-  padding: var(--space-3) var(--page-pad);
-  border-bottom: 1px solid var(--color-line);
+  padding: 2.375rem var(--page-pad) 0;
+  color: var(--color-accent);
 }
 
 .nav-logo {
-  font-weight: 700;
-  text-decoration: none;
-  letter-spacing: 0.04em;
+  display: block;
+  flex-shrink: 0;
+}
+
+.nav nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
 }
 
 .nav-list {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
+  gap: 2.5rem;
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0.25rem 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav-list::-webkit-scrollbar {
+  display: none;
 }
 
 .nav-link {
+  display: inline-block;
+  padding: 0.125rem 0.375rem;
+  font-size: var(--text-ui);
+  color: var(--color-accent);
   text-decoration: none;
-  color: var(--color-muted);
-  transition: color var(--dur-fast) var(--ease-out);
+  white-space: nowrap;
+  transition: background-color var(--dur-fast) var(--ease-out);
 }
 
 .nav-link[aria-current='page'] {
-  color: var(--color-fg);
+  background: var(--color-pill);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .nav-link:hover {
-    color: var(--color-fg);
+    background: color-mix(in srgb, var(--color-pill) 55%, transparent);
   }
-}
-
-.nav-index {
-  opacity: 0.55;
-  margin-right: 0.4ch;
-  font-size: var(--text-xs);
 }
 
 .page-main {
-  min-height: calc(100vh - 120px);
+  min-height: calc(100vh - 110px);
+  padding-bottom: 8rem; /* room for the fixed key bar */
 }
 
-.keyhints {
+/* ===== Key bar (commitmono-style controls) ===== */
+
+.keybar {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  left: var(--page-pad);
+  bottom: 1.625rem;
   z-index: 50;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2) var(--space-4);
-  padding: var(--space-2) var(--page-pad);
-  font-size: var(--text-xs);
-  color: var(--color-muted);
-  background: var(--color-bg);
-  border-top: 1px solid var(--color-line);
+  align-items: flex-start;
+  gap: 0.5rem 1.7rem;
+  padding: 0.875rem 0.75rem;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--color-bg) 82%, transparent);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-ink) 8%, transparent);
 }
 
-.keyhint kbd {
-  font-family: inherit;
-  border: 1px solid var(--color-line);
-  border-radius: 3px;
-  padding: 0 0.45ch;
-  margin-right: 0.5ch;
-  background: transparent;
+.keybar-group {
+  display: grid;
+  gap: 0.25rem;
+  justify-items: start;
 }
 
-/* Touch devices have no keyboard — the hint bar is noise there. */
+.keybar-keys {
+  display: flex;
+  gap: 0.3125rem;
+}
+
+.keybar kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0.9375rem;
+  height: 1.1875rem;
+  padding: 0 0.1875rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-key);
+  background: var(--color-key-cap);
+  color: var(--color-key-glyph);
+  box-shadow: inset 0 0 0 1px var(--color-key-cap),
+    inset 0 0 0 2px var(--color-key-glyph);
+}
+
+.keybar-label {
+  font-size: var(--text-label);
+  color: var(--color-ink);
+}
+
+.keybar-restore {
+  position: fixed;
+  left: var(--page-pad);
+  bottom: 1.625rem;
+  z-index: 50;
+  width: 1.75rem;
+  height: 1.75rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-key);
+  background: var(--color-key-cap);
+  color: var(--color-key-glyph);
+}
+
+/* Touch devices have no keyboard — the bar is noise there. */
 @media (hover: none) and (pointer: coarse) {
-  .keyhints {
+  .keybar,
+  .keybar-restore {
     display: none;
+  }
+
+  .page-main {
+    padding-bottom: var(--space-6);
   }
 }
 
-/* Forms (submit page) */
+@media (max-width: 720px) {
+  .nav {
+    padding-top: 1.25rem;
+  }
+
+  .nav-list {
+    gap: 1.1rem;
+  }
+}
+
+/* ===== Shared page furniture ===== */
+
+.page-section {
+  padding: var(--space-6) var(--page-pad) 0;
+}
+
+.page-title {
+  font-size: var(--text-h2);
+  letter-spacing: var(--track);
+  color: var(--color-accent);
+  margin-bottom: var(--space-5);
+}
+
+.hairline {
+  border: none;
+  border-top: 1px solid var(--color-line);
+  margin: 0.75rem 0 0;
+}
+
+.panel {
+  max-width: 60ch;
+  padding: var(--space-4);
+  border: 1px solid var(--color-line);
+  font-family: var(--font-serif);
+  font-size: var(--text-serif-lead);
+  line-height: 1.45;
+}
+
+.panel a,
+.prose a {
+  color: var(--color-accent);
+  text-underline-offset: 0.15em;
+}
+
+/* ===== Forms (submit page) ===== */
+
 .field {
   display: grid;
-  gap: var(--space-1);
+  gap: 0.4rem;
   margin-bottom: var(--space-4);
+  max-width: 560px;
 }
 
 .field label {
-  font-size: var(--text-sm);
-  color: var(--color-muted);
+  font-size: var(--text-label);
+  color: var(--color-accent);
+  text-transform: uppercase;
 }
 
 .field input,
 .field textarea {
   font: inherit;
-  color: var(--color-fg);
+  letter-spacing: inherit;
+  color: var(--color-ink);
   background: transparent;
   border: 1px solid var(--color-line);
-  border-radius: 4px;
-  padding: var(--space-2) var(--space-3);
+  border-radius: 0;
+  padding: 0.625rem 0.75rem;
   transition: border-color var(--dur-fast) var(--ease-out);
 }
 
@@ -126,8 +228,38 @@
 }
 
 .field-error {
-  font-size: var(--text-xs);
-  color: #c0392b;
+  font-size: var(--text-label);
+  color: #d23b2e;
+}
+
+.creators-fieldset {
+  border: 1px solid var(--color-line);
+  padding: var(--space-3) var(--space-3) var(--space-2);
+  margin: 0 0 var(--space-4);
+  max-width: 560px;
+}
+
+.creators-fieldset legend {
+  padding: 0 0.5ch;
+  font-size: var(--text-label);
+  color: var(--color-accent);
+  text-transform: uppercase;
+}
+
+.creator-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.creator-row .field {
+  margin-bottom: var(--space-3);
+}
+
+@media (max-width: 560px) {
+  .creator-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 .honeypot {
@@ -140,13 +272,11 @@
 
 .button {
   display: inline-block;
-  font: inherit;
-  padding: var(--space-2) var(--space-4);
-  background: var(--color-fg);
+  padding: 0.625rem 1.25rem;
+  background: var(--color-accent);
   color: var(--color-bg);
-  border: 1px solid var(--color-fg);
-  border-radius: 4px;
-  cursor: pointer;
+  text-transform: uppercase;
+  font-size: var(--text-ui);
   transition: transform var(--dur-fast) var(--ease-out);
 }
 
@@ -161,5 +291,6 @@
 
 .button--ghost {
   background: transparent;
-  color: var(--color-fg);
+  color: var(--color-accent);
+  box-shadow: inset 0 0 0 1px var(--color-accent);
 }

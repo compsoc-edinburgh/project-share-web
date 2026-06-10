@@ -1,5 +1,5 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { useShortcut } from '../lib/keyboard/KeyboardContext'
+import { Link, useLocation } from 'react-router-dom'
+import PixelFolder from './PixelFolder'
 
 export interface NavEntry {
   index: number
@@ -8,48 +8,20 @@ export interface NavEntry {
 }
 
 export const NAV_ENTRIES: NavEntry[] = [
-  { index: 1, label: 'Index', path: '/' },
-  { index: 2, label: 'Projects', path: '/projects' },
+  { index: 1, label: 'Project Share', path: '/' },
+  { index: 2, label: 'About', path: '/about' },
   { index: 3, label: 'Team', path: '/team' },
-  { index: 4, label: 'About', path: '/about' },
+  { index: 4, label: 'Showcase', path: '/projects' },
   { index: 5, label: 'Submit', path: '/submit' },
 ]
 
 const NavBar = () => {
-  const navigate = useNavigate()
   const { pathname } = useLocation()
-
-  // Number keys jump straight to pages — keyboard actions are never animated.
-  useShortcut('1', () => navigate('/'), {
-    label: '1–5',
-    description: 'go to page',
-    group: 1,
-  })
-  useShortcut('2', () => navigate('/projects'), {
-    description: 'projects',
-    group: 1,
-    hidden: true,
-  })
-  useShortcut('3', () => navigate('/team'), {
-    description: 'team',
-    group: 1,
-    hidden: true,
-  })
-  useShortcut('4', () => navigate('/about'), {
-    description: 'about',
-    group: 1,
-    hidden: true,
-  })
-  useShortcut('5', () => navigate('/submit'), {
-    description: 'submit',
-    group: 1,
-    hidden: true,
-  })
 
   return (
     <header className="nav">
       <Link to="/" className="nav-logo" aria-label="Project Share home">
-        PROJECT&nbsp;SHARE
+        <PixelFolder width={44} />
       </Link>
       <nav aria-label="Primary">
         <ol className="nav-list">
@@ -60,8 +32,7 @@ const NavBar = () => {
                 className="nav-link"
                 aria-current={pathname === path ? 'page' : undefined}
               >
-                <span className="nav-index">{index}</span>
-                {label}
+                {String(index).padStart(2, '0')} {label}
               </Link>
             </li>
           ))}

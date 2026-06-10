@@ -13,15 +13,18 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background: var(--color-bg);
-  color: var(--color-fg);
+  color: var(--color-ink);
   font-family: var(--font-mono);
-  font-size: var(--text-base);
-  line-height: 1.5;
+  font-size: var(--text-ui);
+  letter-spacing: var(--track);
+  line-height: 1.45;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overscroll-behavior: none;
+  transition: background-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out);
 }
 
 ::selection {
@@ -30,7 +33,8 @@ body {
 }
 
 img,
-video {
+video,
+svg {
   max-width: 100%;
   display: block;
 }
@@ -41,7 +45,32 @@ a {
 
 button {
   font: inherit;
+  letter-spacing: inherit;
   color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+/* Pixel display face for headings/wordmarks */
+.pixel {
+  font-family: var(--font-pixel);
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+/* Serif voice for editorial body text */
+.serif {
+  font-family: var(--font-serif);
+  letter-spacing: -0.05em;
 }
 
 /* Keyboard-first site: focus must always be visible and consistent. */
@@ -54,7 +83,7 @@ button {
   outline-offset: 2px;
 }
 
-/* Press feedback on anything pressable (mouse/touch, not keyboard). */
+/* Press feedback on pressable elements (pointer only, not keyboard). */
 @media (hover: hover) and (pointer: fine) {
   button:active,
   a:active {

@@ -40,6 +40,6 @@ export const COMMITTEE_QUERY = /* groq */ `
   "members": members[]{
     _key,
     position,
-    ...(member->{ name, surname, avatarUrl, links[]{ _key, label, url } })
+    ...(member->{ name, surname, avatarUrl, bio, links[]{ _key, label, url } })
   }
 }`

@@ -16,6 +16,13 @@ export const teamMember = defineType({
     defineField({ name: 'surname', title: 'Surname', type: 'string' }),
     defineField({ name: 'avatarUrl', title: 'Avatar URL', type: 'url' }),
     defineField({
+      name: 'bio',
+      title: 'Bio',
+      type: 'text',
+      description: 'Short blurb shown on the team page',
+      validation: (rule) => rule.max(300),
+    }),
+    defineField({
       name: 'links',
       title: 'Links',
       type: 'array',

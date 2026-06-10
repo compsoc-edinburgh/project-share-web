@@ -54,8 +54,12 @@ const Submit = () => {
 
   return (
     <PageShell>
-      <section className="page-section">
-        <h1 className="page-title">Submit your project</h1>
+      <section className="page-section" data-keynav-section>
+        <h1 className="pixel page-title">05 SUBMIT</h1>
+        <p className="serif" style={{ maxWidth: '56ch', marginBottom: 'var(--space-5)' }}>
+          Built something? Share it with the community — a committee member
+          reviews every submission before it lands on the showcase.
+        </p>
 
         {!SUBMIT_ENDPOINT ? (
           <div className="panel">

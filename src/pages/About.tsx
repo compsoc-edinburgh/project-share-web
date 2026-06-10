@@ -16,21 +16,23 @@ const About = () => {
     () => {
       if (prefersReducedMotion()) return
       if (!wasKeyboardNav()) {
-        gsap.from('.about-col', {
-          autoAlpha: 0,
-          y: 16,
-          duration: 0.55,
-          ease: 'ps-out',
-          stagger: 0.08,
-        })
+        gsap.fromTo(
+          '.about-col',
+          { autoAlpha: 0, y: 16 },
+          { autoAlpha: 1, y: 0, duration: 0.55, ease: 'ps-out', stagger: 0.08 }
+        )
       }
       // Folders twinkle in regardless of nav method — it's ambient decoration.
-      gsap.from('.scatter-folder', {
-        autoAlpha: 0,
-        duration: 0.35,
-        ease: 'ps-out',
-        stagger: { each: 0.012, from: 'random' },
-      })
+      gsap.fromTo(
+        '.scatter-folder',
+        { autoAlpha: 0 },
+        {
+          autoAlpha: 1,
+          duration: 0.35,
+          ease: 'ps-out',
+          stagger: { each: 0.012, from: 'random' },
+        }
+      )
     },
     { scope: rootRef }
   )

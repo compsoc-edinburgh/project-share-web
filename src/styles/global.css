@@ -23,6 +23,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overscroll-behavior: none;
+  /* The rotated hero ticket extends past the right edge by design. */
+  overflow-x: clip;
   transition: background-color var(--dur-base) var(--ease-out),
     color var(--dur-base) var(--ease-out);
 }

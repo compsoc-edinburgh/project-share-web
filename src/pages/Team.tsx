@@ -57,13 +57,11 @@ const Team = () => {
   useGSAP(
     () => {
       if (prefersReducedMotion() || wasKeyboardNav()) return
-      gsap.from('.member', {
-        autoAlpha: 0,
-        y: 18,
-        duration: 0.55,
-        ease: 'ps-out',
-        stagger: 0.07,
-      })
+      gsap.fromTo(
+        '.member',
+        { autoAlpha: 0, y: 18 },
+        { autoAlpha: 1, y: 0, duration: 0.55, ease: 'ps-out', stagger: 0.07 }
+      )
     },
     { scope: rootRef, dependencies: [Boolean(current)] }
   )

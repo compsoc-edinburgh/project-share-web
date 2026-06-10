@@ -1,60 +1,63 @@
-# [![logo](https://github.com/compsoc-edinburgh/project-share-web/assets/38633386/f33978b6-c0fe-4a13-9bdf-e91e9752b46b)](https://projectshare.comp-soc.com/)
+# Project Share
 
-Hello world! Welcome to Project Share's GitHub repository.
+The website of [Project Share](https://projectshare.comp-soc.com/) — a CompSoc
+(University of Edinburgh) Special Interest Group where students share the
+journey of building tech projects.
 
-## What is Project Share?
+Keyboard-first, pixel-flavoured redesign: navigate with `1–5`, arrows to move
+between pages/sections, `WASD` to scroll, `M` for dark mode, `C` for high
+contrast, `+`/`-` to zoom, `H` to hide the key bar.
 
-Project Share is a vibrant society at the University of Edinburgh where students meet to share their ongoing tech projects. The website serves as the society's digital heart, showcasing our projects, mission, and team members.
+## Stack
 
-## How to add your project
+- **React 19 + Vite + TypeScript**, GSAP for motion (custom eases, scroll
+  reveals), deployed to GitHub Pages via Actions.
+- **Sanity CMS** (project `bh3s0juq`, dataset `production`) holds projects,
+  meetups, team members, committee years and site settings. The public site
+  reads it anonymously via CDN — published documents only.
+- **Admin portal** at `/admin`: an embedded Sanity Studio (lazy-loaded).
+  Committee members = members of the Sanity project
+  ([invite them here](https://www.sanity.io/manage/project/bh3s0juq)).
+- Fonts: [Departure Mono](https://departuremono.com) (pixel display),
+  [Commit Mono](https://commitmono.com) (UI), Syne Mono (accents) — all OFL.
 
-Awesome! Here's how you can do it:
+## Development
 
-0. If you're unfamiliar with creating Pull Requests (PRs), we recommend you watch or read some of these [guides](https://opensource.com/article/19/7/create-pull-request-github) to do so. There are many!
-
-1. Add any images and video files you would want to display inside the `public/media/projects` folder. Make sure to have descriptive names and not upload files larger than 1mb or 2mb (please!).
-
-2. Open up `constants.ts`. Here is where all of the data to display the projects is stored.
-
-3. In this file, you want to add your own details about your project. Fields that contain a `?` can be skipped. Look at other fields and copy the layout!
-
-```
-export interface Project {
-  id: number
-  title: string
-  creators: [{
-    name: string
-    avatarURL?: string
-    contactURL?: string
-  }...]
-  description: string
-  projectURL?: string
-  media: string
-  icon?: string
-}
-```
-4. To preview your changes, run these commands on your terminal. Make sure that the terminal is in the project's root directory. A link will show up which you can use to preview the website!
-```
-$ npm install
-```
-```
-$ npm run dev
+```sh
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # type-check + production build
 ```
 
-5. Once you've made your tweaks, commit your changes, submit your PR and we'll review it as soon as we can!
+## How content works
 
-If you need more help, don't hesitate to ask on our [Discord Server](https://discord.gg/wNGukFdBgp).
+| Want to…                       | Do this                                                        |
+| ------------------------------ | -------------------------------------------------------------- |
+| Set the next meetup date       | `/admin` → **Meetups** → create/edit a meetup (future date)    |
+| Approve a public submission    | `/admin` → **Pending submissions** → review → **Publish**      |
+| Reject a submission            | `/admin` → open it → **Discard draft**                         |
+| Edit team / committee years    | `/admin` → **Team members** / **Committee years**              |
+| Change Discord link / tagline  | `/admin` → **Site settings**                                   |
 
-## Technology Stack
+The home-page ticket, showcase, and team pages all render live from the CMS.
 
-Our website is built with the power of React, styled-components, and react-router. Additionally, we auto-deploy with GitHub Pages! To read about the actual front-end engineering, check the [BTS](https://projectshare.comp-soc.com/components)!
+## Public submissions ("add your project")
 
-## Contact Us
+The `/submit` form posts to a tiny proxy that creates a **draft** project in
+Sanity — drafts are invisible to the public API until a committee member
+publishes them. Deploy the proxy once (free Cloudflare Worker) and set
+`VITE_SUBMIT_ENDPOINT`; until then the form gracefully points people to
+Discord/GitHub. Full instructions: [infra/submission-proxy](infra/submission-proxy/README.md).
 
-Got questions? Join the conversation on our [Discord Server](https://discord.gg/wNGukFdBgp). We are always happy to help!
+Old-school pull requests still work for media files: drop assets in
+`public/media/projects/` and reference them as `/media/projects/<file>` in the
+project's **Media URL** field.
+
+## Contact
+
+Questions? Join the [Discord](https://discord.gg/wNGukFdBgp).
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-Remember, coding is a journey, not a destination. Let's continue to grow and learn together. Welcome to the Project Share community!
+MIT — see [LICENSE](LICENSE). Departure Mono ships under the SIL OFL
+(`public/fonts/DepartureMono-LICENSE.txt`).

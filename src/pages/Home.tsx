@@ -18,13 +18,11 @@ const Home = () => {
     () => {
       // Keyboard navigation renders instantly; pointer navigation may animate.
       if (prefersReducedMotion() || wasKeyboardNav()) return
-      gsap.from('.hero-copy > *', {
-        autoAlpha: 0,
-        y: 16,
-        duration: 0.55,
-        ease: 'ps-out',
-        stagger: 0.06,
-      })
+      gsap.fromTo(
+        '.hero-copy > *',
+        { autoAlpha: 0, y: 16 },
+        { autoAlpha: 1, y: 0, duration: 0.55, ease: 'ps-out', stagger: 0.06 }
+      )
     },
     { scope: heroRef }
   )
@@ -33,11 +31,11 @@ const Home = () => {
     <PageShell>
       <section className="hero" ref={heroRef} data-keynav-section>
         <div className="hero-copy">
-          <div className="hero-mark">
-            <PixelFolder width={96} className="hero-folder" />
-          </div>
           <h1 className="pixel hero-word">
-            <span className="line">Project</span>
+            <span className="line">
+              <PixelFolder width={128} className="hero-folder" />
+              Project
+            </span>
             <span className="line">Share</span>
           </h1>
           <p className="pixel hero-tag">

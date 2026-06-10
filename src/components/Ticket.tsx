@@ -39,21 +39,16 @@ const Ticket = ({ meetup, discordUrl }: TicketProps) => {
     () => {
       if (prefersReducedMotion()) return
       // Entrance: slide in with the print-out feel, then a slow idle float.
-      gsap.from('.ticket--front', {
-        y: 60,
-        rotation: -4,
-        autoAlpha: 0,
-        duration: 0.7,
-        ease: 'ps-out',
-      })
-      gsap.from('.ticket--back', {
-        y: 80,
-        rotation: -8,
-        autoAlpha: 0,
-        duration: 0.7,
-        delay: 0.06,
-        ease: 'ps-out',
-      })
+      gsap.fromTo(
+        '.ticket--front',
+        { y: 60, rotation: -4, autoAlpha: 0 },
+        { y: 0, rotation: -11.5, autoAlpha: 1, duration: 0.7, ease: 'ps-out' }
+      )
+      gsap.fromTo(
+        '.ticket--back',
+        { y: 80, rotation: -8, autoAlpha: 0 },
+        { y: 0, rotation: -15.08, autoAlpha: 1, duration: 0.7, delay: 0.06, ease: 'ps-out' }
+      )
       gsap.to('.ticket--front', {
         y: -7,
         rotation: -10.4,

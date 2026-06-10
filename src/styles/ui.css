@@ -138,8 +138,8 @@
   color: var(--color-key-glyph);
 }
 
-/* Touch devices have no keyboard — the bar is noise there. */
-@media (hover: none) and (pointer: coarse) {
+/* Touch devices / small screens have no keyboard — the bar is noise there. */
+@media (hover: none) and (pointer: coarse), (max-width: 700px) {
   .keybar,
   .keybar-restore {
     display: none;

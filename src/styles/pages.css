@@ -14,13 +14,11 @@
   max-width: 600px;
 }
 
-.hero-mark {
-  color: var(--color-accent);
-  margin-bottom: var(--space-4);
-}
-
-.hero-mark .hero-folder {
-  margin-bottom: -1.2rem;
+.hero-folder {
+  width: clamp(4rem, 8.5vw, 8rem);
+  height: auto;
+  flex-shrink: 0;
+  margin-bottom: 0.06em;
 }
 
 .hero-word {
@@ -365,6 +363,31 @@
   padding: 0 var(--page-pad);
   font-family: var(--font-serif);
   font-size: var(--text-serif-lead);
+}
+
+@media (max-width: 700px) {
+  .tile {
+    width: 150px;
+    height: 96px;
+  }
+
+  .tile-thumb {
+    width: 150px;
+  }
+
+  .tile.is-open {
+    width: min(340px, calc(100vw - 2.5rem));
+  }
+
+  .tile.is-open .tile-thumb {
+    width: 42%;
+    height: 84px;
+    margin: 6px 0 0 6px;
+  }
+
+  .tile-title {
+    font-size: 1.25rem;
+  }
 }
 
 /* ===== About ===== */

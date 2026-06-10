@@ -11,7 +11,7 @@ import { PROJECTS_QUERY } from '../lib/sanity/queries'
 import type { Project } from '../lib/sanity/types'
 import { groupBySemester } from '../lib/semesters'
 import { useShortcut } from '../lib/keyboard/KeyboardContext'
-import { gsap, useGSAP, ScrollTrigger, prefersReducedMotion } from '../lib/motion/gsap'
+import { gsap, useGSAP, prefersReducedMotion } from '../lib/motion/gsap'
 
 const isVideo = (src?: string) => Boolean(src && /\.(mp4|webm)(\?|$)/i.test(src))
 
@@ -98,16 +98,19 @@ const Showcase = () => {
       rootRef.current
         ?.querySelectorAll<HTMLElement>('.tile-track')
         .forEach((track) => {
-          gsap.from(track.children, {
-            autoAlpha: 0,
-            y: 14,
-            duration: 0.5,
-            ease: 'ps-out',
-            stagger: 0.04,
-            scrollTrigger: { trigger: track, start: 'top 88%', once: true },
-          })
+          gsap.fromTo(
+            track.children,
+            { autoAlpha: 0, y: 14 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.5,
+              ease: 'ps-out',
+              stagger: 0.04,
+              scrollTrigger: { trigger: track, start: 'top 88%', once: true },
+            }
+          )
         })
-      return () => ScrollTrigger.getAll().forEach((st) => st.kill())
     },
     { scope: rootRef, dependencies: [groups.length] }
   )

@@ -1,32 +1,37 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-import './App.css'
+import { StrictMode, Suspense, lazy } from 'react'
+import { createRoot } from 'react-dom/client'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import './styles/tokens.css'
+import './styles/global.css'
+import { KeyboardProvider } from './lib/keyboard/KeyboardContext'
+import Home from './pages/Home'
+import Projects from './pages/Projects'
+import Team from './pages/Team'
+import About from './pages/About'
+import Submit from './pages/Submit'
+import Present from './pages/Present'
+import NotFound from './pages/NotFound'
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Home from './Pages/Home'
-import Team from './Pages/Team'
-import Projects from './Pages/Projects'
-import Components from './Pages/Components'
-import ScrollToTop from './components/ScrollToTop'
-import Navbar from './Header/Navbar'
-import About from './Pages/About'
-import Present from './Pages/Present'
+// Studio is heavy — only people who visit /admin download it.
+const Admin = lazy(() => import('./pages/Admin'))
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Router basename={import.meta.env.BASE_URL}>
-      <Navbar />
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/team" element={<Team />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/components" element={<Components />} />
-        <Route path="/present" element={<Present />} />  // Add this line
-      </Routes>
-    </Router>
-  </React.StrictMode>,
-  document.getElementById('root')
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <KeyboardProvider>
+        <Suspense fallback={null}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/team" element={<Team />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/submit" element={<Submit />} />
+            <Route path="/present" element={<Present />} />
+            <Route path="/admin/*" element={<Admin />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </KeyboardProvider>
+    </BrowserRouter>
+  </StrictMode>
 )

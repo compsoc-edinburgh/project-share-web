@@ -1,0 +1,42 @@
+/* Design tokens — placeholder values, to be replaced 1:1 from the Figma file. */
+:root {
+  /* Color */
+  --color-bg: #fffefa;
+  --color-fg: #111111;
+  --color-accent: #7816f4;
+  --color-muted: #6b6b6b;
+  --color-line: rgba(17, 17, 17, 0.14);
+  --color-selection-bg: #91e014;
+  --color-selection-fg: #000000;
+
+  /* Type */
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.75rem;
+  --text-2xl: 2.5rem;
+  --text-hero: clamp(2.5rem, 8vw, 6rem);
+
+  /* Space */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2.5rem;
+  --space-6: 4rem;
+  --space-7: 6rem;
+
+  /* Motion (strong curves — built-ins are too weak) */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --dur-fast: 140ms;
+  --dur-base: 200ms;
+  --dur-slow: 300ms;
+
+  /* Layout */
+  --page-max: 1200px;
+  --page-pad: clamp(1rem, 4vw, 2.5rem);
+}

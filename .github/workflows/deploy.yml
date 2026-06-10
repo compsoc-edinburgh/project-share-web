@@ -33,12 +33,15 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22
           cache: 'npm'
       - name: Install dependencies
         run: npm install
       - name: Build
         run: npm run build
+        env:
+          # Optional: URL of the deployed submission proxy (see infra/submission-proxy).
+          VITE_SUBMIT_ENDPOINT: ${{ vars.VITE_SUBMIT_ENDPOINT }}
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact

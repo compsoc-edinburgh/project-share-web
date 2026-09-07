@@ -75,67 +75,93 @@
   padding-bottom: 8rem; /* room for the fixed key bar */
 }
 
-/* ===== Key bar (commitmono-style controls) ===== */
+/* ===== Key bar (commitmono-style controls) =====
+   A strip of real keycaps sitting on the page background — no panel, no
+   rounding, no blur. Caps invert while their key is held. */
 
 .keybar {
   position: fixed;
-  left: var(--page-pad);
-  bottom: 1.625rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 50;
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 0.5rem 1.7rem;
-  padding: 0.875rem 0.75rem;
-  border-radius: 4px;
-  background: color-mix(in srgb, var(--color-bg) 82%, transparent);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-ink) 8%, transparent);
+  align-items: flex-end;
+  gap: 0.75rem 4ch;
+  padding: 0.25rem calc(var(--page-pad) + var(--rail-w)) 1rem var(--page-pad);
+  font-size: var(--text-key);
+  background: var(--color-bg);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.keybar::-webkit-scrollbar {
+  display: none;
+}
+
+/* One CRT blink the first time a key is pressed: "yes, that did something". */
+.keybar--flicker {
+  animation: ps-flicker 140ms steps(1, jump-start) 6;
+}
+
+@keyframes ps-flicker {
+  0%,
+  49% {
+    opacity: 0;
+  }
+  50%,
+  100% {
+    opacity: 1;
+  }
 }
 
 .keybar-group {
-  display: grid;
-  gap: 0.25rem;
-  justify-items: start;
+  display: flex;
+  flex-direction: column;
 }
 
 .keybar-keys {
   display: flex;
-  gap: 0.3125rem;
+  gap: 0.5ch;
+  margin-bottom: 0.1875rem;
 }
 
-.keybar kbd {
+.keybar kbd,
+.keybar-restore {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 0.9375rem;
-  height: 1.1875rem;
-  padding: 0 0.1875rem;
+  min-width: 1.4em;
+  padding: 0.0625rem 0.4ch;
   font-family: var(--font-mono);
   font-size: var(--text-key);
-  background: var(--color-key-cap);
-  color: var(--color-key-glyph);
-  box-shadow: inset 0 0 0 1px var(--color-key-cap),
-    inset 0 0 0 2px var(--color-key-glyph);
+  line-height: 1;
+  color: var(--color-ink);
+  background: transparent;
+  border: 1px solid var(--color-ink);
+  border-bottom-width: 2px;
+  border-radius: 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Held down: inverted and pressed into the board. Instant — keyboard-initiated
+   state changes are never animated. */
+.keybar kbd[data-active] {
+  background: var(--color-ink);
+  color: var(--color-bg);
+  transform: translateY(1px);
 }
 
 .keybar-label {
-  font-size: var(--text-label);
   color: var(--color-ink);
 }
 
 .keybar-restore {
   position: fixed;
   left: var(--page-pad);
-  bottom: 1.625rem;
+  bottom: 1rem;
   z-index: 50;
-  width: 1.75rem;
-  height: 1.75rem;
-  font-family: var(--font-mono);
-  font-size: var(--text-key);
-  background: var(--color-key-cap);
-  color: var(--color-key-glyph);
 }
 
 /* Touch devices / small screens have no keyboard — the bar is noise there. */
@@ -293,4 +319,105 @@
   background: transparent;
   color: var(--color-accent);
   box-shadow: inset 0 0 0 1px var(--color-accent);
+}
+
+/* ===== Scroll rail =====
+   The page scrollbar, in the corner, painted from the palette. */
+
+.scrollrail {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  width: var(--rail-w);
+  touch-action: none;
+}
+
+.scrollrail-thumb {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 4px;
+  width: 100%;
+  cursor: grab;
+}
+
+.scrollrail-thumb:active {
+  cursor: grabbing;
+}
+
+.scrollrail-block {
+  position: relative;
+  overflow: hidden;
+}
+
+.scrollrail-block:nth-child(1) {
+  background: var(--rail-1);
+  color: var(--rail-1-ink);
+}
+
+.scrollrail-block:nth-child(2) {
+  background: var(--rail-2);
+  color: var(--rail-2-ink);
+}
+
+.scrollrail-block:nth-child(3) {
+  background: var(--rail-3);
+  color: var(--rail-3-ink);
+}
+
+.scrollrail-hex {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  font-size: var(--text-tiny);
+  letter-spacing: 0;
+}
+
+/* Touch platforms have their own overlay scrollbar — leave it to them. */
+@media (hover: none) and (pointer: coarse), (max-width: 700px) {
+  :root {
+    --rail-w: 0px;
+  }
+
+  .scrollrail {
+    display: none;
+  }
+}
+
+/* ===== Loading ===== */
+
+.loading {
+  position: relative;
+  padding: 0 var(--page-pad);
+  font-size: var(--text-ui);
+  color: var(--color-muted);
+  text-transform: lowercase;
+}
+
+.loading span {
+  position: absolute;
+  width: 0;
+  overflow: hidden;
+  white-space: pre;
+  animation: ps-dots 1s steps(4, jump-none) infinite;
+}
+
+@keyframes ps-dots {
+  from {
+    width: 0ch;
+  }
+  to {
+    width: 3ch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading span {
+    width: 3ch;
+    animation: none;
+  }
 }

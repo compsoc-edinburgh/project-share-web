@@ -1,21 +1,16 @@
-import {
-  useMemo,
-  useRef,
-  useState,
-  useEffect,
-  type KeyboardEvent as ReactKeyboardEvent,
-} from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import PageShell from '../components/PageShell'
+import Loading from '../components/Loading'
 import { useSanityQuery } from '../lib/sanity/useSanityQuery'
 import { PROJECTS_QUERY } from '../lib/sanity/queries'
 import type { Project } from '../lib/sanity/types'
 import { groupBySemester } from '../lib/semesters'
-import { useShortcut } from '../lib/keyboard/KeyboardContext'
 import { gsap, useGSAP, prefersReducedMotion } from '../lib/motion/gsap'
 
 const isVideo = (src?: string) => Boolean(src && /\.(mp4|webm)(\?|$)/i.test(src))
 
-const TileMedia = ({ project, active }: { project: Project; active: boolean }) => {
+/** Video only rolls for the card you are actually looking at. */
+const CardMedia = ({ project, active }: { project: Project; active: boolean }) => {
   const src = project.mediaUrl ?? project.imageUrl
   const videoRef = useRef<HTMLVideoElement>(null)
 
@@ -30,7 +25,7 @@ const TileMedia = ({ project, active }: { project: Project; active: boolean }) =
     return (
       <video
         ref={videoRef}
-        className="tile-thumb"
+        className="film-media"
         src={src}
         muted
         loop
@@ -40,66 +35,25 @@ const TileMedia = ({ project, active }: { project: Project; active: boolean }) =
     )
   }
   if (src) {
-    return <img className="tile-thumb" src={src} alt="" loading="lazy" />
+    return <img className="film-media" src={src} alt="" loading="lazy" />
   }
-  return <div className="tile-thumb" aria-hidden="true" />
+  return <div className="film-media" aria-hidden="true" />
 }
 
 const Showcase = () => {
   const { data: projects, loading } = useSanityQuery<Project[]>(PROJECTS_QUERY)
   const groups = useMemo(() => groupBySemester(projects ?? []), [projects])
-  const [openId, setOpenId] = useState<string | null>(null)
+  const [activeId, setActiveId] = useState<string | null>(null)
   const rootRef = useRef<HTMLDivElement>(null)
-
-  // The design shows the first tile expanded — keep that as the resting state.
-  const defaultOpen = groups[0]?.projects[0]?._id ?? null
-  const open = openId ?? defaultOpen
-
-  // ← → move focus between tiles when focus is already inside a row.
-  const moveTileFocus = (dir: 1 | -1) => {
-    const activeEl = document.activeElement
-    if (!(activeEl instanceof HTMLElement) || !activeEl.classList.contains('tile'))
-      return false
-    const track = activeEl.closest('.tile-track')
-    if (!track) return false
-    const tiles = [...track.querySelectorAll<HTMLElement>('.tile')]
-    const next = tiles[tiles.indexOf(activeEl) + dir]
-    if (!next) return false
-    next.focus()
-    return true
-  }
-  useShortcut('ArrowRight', () => moveTileFocus(1), {
-    description: 'next project',
-    group: 1,
-    hidden: true,
-  })
-  useShortcut('ArrowLeft', () => moveTileFocus(-1), {
-    description: 'previous project',
-    group: 1,
-    hidden: true,
-  })
-
-  // A / D scroll the row that currently contains focus (or the first row).
-  const scrollTrack = (dx: number) => {
-    const activeEl = document.activeElement
-    const track =
-      (activeEl instanceof HTMLElement && activeEl.closest<HTMLElement>('.tile-track')) ||
-      rootRef.current?.querySelector<HTMLElement>('.tile-track')
-    if (!track) return false
-    track.scrollBy({ left: dx, behavior: 'auto' })
-    return true
-  }
-  useShortcut('a', () => scrollTrack(-220), { description: 'row left', group: 3, hidden: true })
-  useShortcut('d', () => scrollTrack(220), { description: 'row right', group: 3, hidden: true })
 
   useGSAP(
     () => {
       if (prefersReducedMotion()) return
       rootRef.current
-        ?.querySelectorAll<HTMLElement>('.tile-track')
-        .forEach((track) => {
+        ?.querySelectorAll<HTMLElement>('.film-grid')
+        .forEach((grid) => {
           gsap.fromTo(
-            track.children,
+            grid.children,
             { autoAlpha: 0, y: 14 },
             {
               autoAlpha: 1,
@@ -107,7 +61,7 @@ const Showcase = () => {
               duration: 0.5,
               ease: 'ps-out',
               stagger: 0.04,
-              scrollTrigger: { trigger: track, start: 'top 88%', once: true },
+              scrollTrigger: { trigger: grid, start: 'top 88%', once: true },
             }
           )
         })
@@ -115,62 +69,70 @@ const Showcase = () => {
     { scope: rootRef, dependencies: [groups.length] }
   )
 
-  const onTileKeyDown = (e: ReactKeyboardEvent<HTMLDivElement>, project: Project) => {
-    if ((e.key === 'Enter' || e.key === ' ') && project.projectUrl) {
-      e.preventDefault()
-      window.open(project.projectUrl, '_blank', 'noopener')
-    }
-  }
+  // Numbering runs across the whole page, not per semester.
+  let index = 0
 
   return (
     <PageShell>
       <div ref={rootRef}>
-        <section className="page-section" data-keynav-section>
+        <section className="page-section">
           <h1 className="pixel page-title">04 SHOWCASE</h1>
         </section>
 
-        {loading && (
-          <p className="showcase-empty" aria-busy="true">
-            Loading projects…
-          </p>
-        )}
+        {loading && <Loading />}
 
         {groups.map((group) => (
-          <section className="semester" key={group.label} data-keynav-section>
+          <section className="semester" key={group.label}>
             <h2 className="semester-label">{group.label}</h2>
             <hr className="hairline" />
-            <div className="tile-track" role="list">
+            <div className="film-grid">
               {group.projects.map((project) => {
-                const isOpen = open === project._id
+                index += 1
+                const active = activeId === project._id
                 const creators = project.creators?.map((c) => c.name).join(', ')
-                return (
-                  <div
+                const label = String(index).padStart(2, '0')
+                const shared = {
+                  className: 'film-card',
+                  onMouseEnter: () => setActiveId(project._id),
+                  onMouseLeave: () =>
+                    setActiveId((id) => (id === project._id ? null : id)),
+                  onFocus: () => setActiveId(project._id),
+                  onBlur: () =>
+                    setActiveId((id) => (id === project._id ? null : id)),
+                }
+                const body = (
+                  <>
+                    <span className="film-visuals">
+                      <CardMedia project={project} active={active} />
+                    </span>
+                    <span className="film-info">
+                      <span className="film-index">[ {label} ]</span>
+                      <span className="film-meta">
+                        <span className="film-title">{project.title}</span>
+                        <span className="film-sub">
+                          {creators || '—'}
+                          {project.projectUrl && (
+                            <span className="film-go"> ↗</span>
+                          )}
+                        </span>
+                      </span>
+                    </span>
+                  </>
+                )
+
+                return project.projectUrl ? (
+                  <a
                     key={project._id}
-                    role="listitem"
-                    tabIndex={0}
-                    className={`tile${isOpen ? ' is-open' : ''}`}
-                    aria-label={`${project.title} by ${creators}`}
-                    onMouseEnter={() => setOpenId(project._id)}
-                    onFocus={() => setOpenId(project._id)}
-                    onKeyDown={(e) => onTileKeyDown(e, project)}
+                    {...shared}
+                    href={project.projectUrl}
+                    target="_blank"
+                    rel="noreferrer"
                   >
-                    <TileMedia project={project} active={isOpen} />
-                    <div className="tile-info" aria-hidden={!isOpen}>
-                      <p className="tile-title">{project.title}</p>
-                      <p className="tile-creator">{creators}</p>
-                      {project.projectUrl && (
-                        <a
-                          className="tile-view"
-                          href={project.projectUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          tabIndex={isOpen ? 0 : -1}
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          VIEW ↗
-                        </a>
-                      )}
-                    </div>
+                    {body}
+                  </a>
+                ) : (
+                  <div key={project._id} {...shared} tabIndex={0}>
+                    {body}
                   </div>
                 )
               })}

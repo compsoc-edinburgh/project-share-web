@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import NavBar from './NavBar'
 import KeyBar from './KeyBar'
 import GlobalKeys from './GlobalKeys'
+import ScrollRail from './ScrollRail'
 
 interface PageShellProps {
   children: ReactNode
@@ -19,6 +20,7 @@ const PageShell = ({ children }: PageShellProps) => (
       {children}
     </main>
     <KeyBar />
+    <ScrollRail />
   </>
 )
 

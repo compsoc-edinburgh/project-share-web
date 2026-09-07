@@ -79,8 +79,9 @@ export function KeyboardProvider({ children }: { children: ReactNode }) {
     const onKeyDown = (e: KeyboardEvent) => {
       // The admin studio owns its keyboard entirely.
       if (pathRef.current.startsWith('/admin')) return
-      // Never hijack typing or browser-level chords.
-      if (isTypingTarget(e.target)) return
+      // Never hijack typing or browser-level chords — except Escape, which is
+      // how you get back out of an editable block.
+      if (isTypingTarget(e.target) && e.key !== 'Escape') return
       if (e.metaKey || e.ctrlKey || e.altKey) return
 
       // Most recently registered first → page-level handlers win,

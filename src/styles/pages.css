@@ -58,7 +58,9 @@
   text-underline-offset: 0.2em;
 }
 
-/* ===== Ticket ===== */
+/* ===== Ticket =====
+   The artwork is the design export (src/assets/ticket.svg). The page only
+   tilts it and lets it run past the right edge, as in the comp. */
 
 .ticket-zone {
   position: relative;
@@ -73,165 +75,21 @@
   outline-offset: 8px;
 }
 
-.ticket {
+.ticket-art {
   position: absolute;
-  top: 8%;
-  right: 0;
-  width: min(620px, 100%);
-  aspect-ratio: 578.5 / 277.5;
-  transform: rotate(-11.5deg);
+  top: 6%;
+  right: -2%;
+  display: block;
+  width: min(640px, 106%);
+  transform: rotate(-10deg);
+  transform-origin: 55% 55%;
   will-change: transform;
-}
-
-.ticket--back {
-  transform: rotate(-15.08deg) translate(-12px, 2px);
-}
-
-.ticket-bg,
-.ticket--back svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
   filter: drop-shadow(0 18px 28px rgba(30, 10, 80, 0.25));
 }
 
-.ticket-content {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  grid-template-columns: 1fr 24.5%;
-  color: var(--color-ticket-ink);
-  font-size: clamp(0.5rem, 1vw, 0.75rem);
-}
-
-.ticket-main {
-  padding: 5.5% 3% 4.5% 4%;
-  display: flex;
-  flex-direction: column;
-  border-right: 2px dashed color-mix(in srgb, var(--color-ticket-ink) 75%, transparent);
-}
-
-.ticket-stub {
-  padding: 5.5% 3.5% 4.5%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6%;
-}
-
-.ticket-row-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 4%;
-}
-
-.ticket-title {
-  font-size: clamp(1.1rem, 2.4vw, 2.25rem);
-  line-height: 1;
-  letter-spacing: var(--track);
-  white-space: nowrap;
-}
-
-.ticket-sub {
-  margin-top: 0.5em;
-  font-family: var(--font-pixel);
-  text-transform: uppercase;
-  font-size: clamp(0.5rem, 0.8vw, 0.75rem);
-  display: grid;
-  gap: 0.35em;
-}
-
-.ticket-hr {
-  border: none;
-  border-top: 2px dashed color-mix(in srgb, var(--color-ticket-ink) 75%, transparent);
-  margin: 4.5% 0 3.5%;
+.ticket-art svg {
   width: 100%;
-}
-
-.ticket-meta {
-  display: flex;
-  gap: 5%;
-  white-space: nowrap;
-}
-
-.ticket-meta .label {
-  font-weight: 700;
-  font-size: 0.6em;
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-  display: block;
-}
-
-.ticket-meta .value {
-  font-family: var(--font-mono-accent);
-  font-size: clamp(0.65rem, 1.2vw, 1.125rem);
-  text-transform: uppercase;
-}
-
-.ticket-snacks {
-  font-family: var(--font-mono-accent);
-  text-transform: uppercase;
-  font-size: clamp(0.95rem, 2vw, 1.9375rem);
-  letter-spacing: var(--track);
-  white-space: nowrap;
-}
-
-.ticket-snacks .dashes {
-  font-family: var(--font-pixel);
-}
-
-.ticket-learn {
-  font-family: var(--font-pixel);
-  text-transform: uppercase;
-  font-size: clamp(0.5rem, 0.8vw, 0.75rem);
-  margin-top: 0.6em;
-}
-
-.ticket-session {
-  margin-top: auto;
-  font-weight: 700;
-  font-size: clamp(0.65rem, 1.05vw, 0.9375rem);
-  white-space: nowrap;
-}
-
-.ticket-session .value {
-  font-family: var(--font-mono-accent);
-  font-weight: 400;
-}
-
-.ticket-no {
-  align-self: flex-end;
-  border: 1.5px solid var(--color-ticket-ink);
-  padding: 0.35em 0.7em;
-  font-weight: 700;
-  font-size: clamp(0.65rem, 1.05vw, 0.9375rem);
-  white-space: nowrap;
-}
-
-.ticket-no .num {
-  font-family: var(--font-pixel);
-  font-weight: 400;
-}
-
-.ticket-rank {
-  margin-top: 18%;
-}
-
-.ticket-claim {
-  margin-top: auto;
-  font-family: var(--font-mono-accent);
-  text-transform: uppercase;
-  font-size: clamp(0.55rem, 0.85vw, 0.6875rem);
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-}
-
-.ticket-folder {
-  color: #f6f7fb;
-  --ps-paper: var(--color-ticket-front);
-  flex-shrink: 0;
+  height: auto;
 }
 
 @media (max-width: 980px) {
@@ -246,9 +104,9 @@
     margin-top: var(--space-4);
   }
 
-  .ticket {
-    right: 4%;
-    width: min(520px, 92%);
+  .ticket-art {
+    right: -2%;
+    width: min(560px, 100%);
   }
 
   .next-section {
@@ -258,11 +116,13 @@
   }
 }
 
-/* ===== Showcase ===== */
+/* ===== Showcase =====
+   A contact sheet: everything sits back at half strength until you land on one,
+   which comes up to full, starts playing, and gets crop marks. */
 
 .semester {
   padding: 0 var(--page-pad);
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-6);
 }
 
 .semester-label {
@@ -271,92 +131,116 @@
   text-transform: uppercase;
 }
 
-.tile-track {
-  display: flex;
-  gap: 9px;
-  margin-top: 10px;
-  overflow-x: auto;
-  padding-bottom: 6px;
-  scroll-snap-type: x proximity;
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-pill) transparent;
+.film-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5) var(--space-4);
+  margin-top: var(--space-4);
 }
 
-.tile {
-  position: relative;
-  display: flex;
-  flex-shrink: 0;
-  width: 185px;
-  height: 109px;
-  text-align: left;
-  background: var(--color-tile);
-  scroll-snap-align: start;
-  overflow: hidden;
-  transition: width 240ms var(--ease-out);
-}
-
-.tile-thumb {
-  width: 185px;
-  height: 100%;
-  flex-shrink: 0;
-  object-fit: cover;
-  background: var(--color-tile);
-  transition: width 240ms var(--ease-out);
-}
-
-.tile-info {
-  position: relative;
-  flex: 1;
-  min-width: 0;
-  background: var(--color-accent);
-  color: #f6f7fb;
-  padding: 8px 12px 9px;
+.film-card {
   display: flex;
   flex-direction: column;
-  opacity: 0;
-  transition: opacity 180ms var(--ease-out) 40ms;
-}
-
-.tile.is-open {
-  width: 384px;
-}
-
-.tile.is-open .tile-thumb {
-  width: 173px;
-  height: 96px;
-  margin: 6.5px 0 0 5px;
-}
-
-.tile.is-open .tile-info {
-  opacity: 1;
-}
-
-.tile-title {
-  font-family: var(--font-mono-accent);
-  font-size: clamp(1.25rem, 1.6vw, 2rem);
-  letter-spacing: var(--track);
-  line-height: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.tile-creator {
-  margin-top: 2px;
-  font-size: 0.8125rem;
-  text-transform: uppercase;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.tile-view {
-  margin-top: auto;
-  align-self: flex-end;
-  font-size: 0.9375rem;
   color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
+  text-decoration: none;
+  transition: opacity var(--dur-slow) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .film-grid:hover .film-card:not(:hover) {
+    opacity: 0.45;
+  }
+}
+
+.film-grid:focus-within .film-card:not(:focus-within) {
+  opacity: 0.45;
+}
+
+/* Crop marks: eight one-pixel gradient arms parked at 1px until the card wakes
+   up, then grown out to 12px. Cheapest way to draw brackets that animate. */
+.film-visuals {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9;
+  overflow: clip;
+  background-color: var(--color-tile);
+  background-image: linear-gradient(90deg, var(--color-accent) 1px, transparent 0),
+    linear-gradient(90deg, var(--color-accent) 1px, transparent 0),
+    linear-gradient(270deg, var(--color-accent) 1px, transparent 0),
+    linear-gradient(270deg, var(--color-accent) 1px, transparent 0),
+    linear-gradient(180deg, var(--color-accent) 1px, transparent 0),
+    linear-gradient(180deg, var(--color-accent) 1px, transparent 0),
+    linear-gradient(0deg, var(--color-accent) 1px, transparent 0),
+    linear-gradient(0deg, var(--color-accent) 1px, transparent 0);
+  background-position: 0 0, 0 100%, 100% 0, 100% 100%, 0 0, 100% 0, 0 100%,
+    100% 100%;
+  background-repeat: no-repeat;
+  background-size: 1px 1px;
+  transition: background-size var(--dur-slow) var(--ease-out);
+}
+
+.film-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--color-tile);
+  transform-origin: center;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.film-card:hover .film-visuals,
+.film-card:focus-visible .film-visuals,
+.film-card:focus-within .film-visuals {
+  background-size: 12px 12px;
+}
+
+.film-card:hover .film-media,
+.film-card:focus-visible .film-media,
+.film-card:focus-within .film-media {
+  transform: scale(0.9);
+}
+
+.film-card:focus-visible {
+  outline: none;
+}
+
+.film-info {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: 0.75rem;
+  font-size: var(--text-label);
+  text-transform: uppercase;
+}
+
+.film-index {
+  flex-shrink: 0;
+  width: 6ch;
+  color: var(--color-muted);
+  transition: color var(--dur-base) var(--ease-out);
+}
+
+.film-card:hover .film-index,
+.film-card:focus-within .film-index {
+  color: var(--color-accent);
+}
+
+.film-meta {
+  display: grid;
+  min-width: 0;
+  gap: 0.125rem;
+}
+
+.film-title,
+.film-sub {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.film-sub {
+  color: var(--color-muted);
 }
 
 .showcase-empty {
@@ -365,28 +249,21 @@
   font-size: var(--text-serif-lead);
 }
 
-@media (max-width: 700px) {
-  .tile {
-    width: 150px;
-    height: 96px;
+@media (max-width: 980px) {
+  .film-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .film-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
   }
 
-  .tile-thumb {
-    width: 150px;
-  }
-
-  .tile.is-open {
-    width: min(340px, calc(100vw - 2.5rem));
-  }
-
-  .tile.is-open .tile-thumb {
-    width: 42%;
-    height: 84px;
-    margin: 6px 0 0 6px;
-  }
-
-  .tile-title {
-    font-size: 1.25rem;
+  /* No hover on touch — nothing should sit at half strength. */
+  .film-grid:focus-within .film-card:not(:focus-within) {
+    opacity: 1;
   }
 }
 
@@ -446,9 +323,6 @@
 /* ===== Team ===== */
 
 .team-layout {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: var(--space-4);
   padding: 0 var(--page-pad);
 }
 
@@ -569,36 +443,9 @@
   color: var(--color-muted);
 }
 
-.swatch-strip {
-  display: grid;
-  gap: 4px;
-  align-content: start;
-}
-
-.swatch {
-  width: 21px;
-  height: 200px;
-  background: var(--color-accent);
-  position: relative;
-}
-
-.swatch span {
-  position: absolute;
-  top: 28%;
-  left: 50%;
-  transform: translateX(-50%);
-  writing-mode: vertical-rl;
-  font-size: 0.6875rem;
-  color: var(--color-bg);
-}
-
 @media (max-width: 980px) {
   .team-grid {
     grid-template-columns: 1fr;
-  }
-
-  .swatch-strip {
-    display: none;
   }
 
   .history-year {

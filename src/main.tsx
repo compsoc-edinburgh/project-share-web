@@ -9,6 +9,7 @@ import './styles/tokens.css'
 import './styles/global.css'
 import './styles/ui.css'
 import './styles/pages.css'
+import { dismissBoot } from './lib/boot'
 import { KeyboardProvider } from './lib/keyboard/KeyboardContext'
 import { ThemeProvider } from './lib/theme/ThemeContext'
 import Home from './pages/Home'
@@ -44,3 +45,5 @@ createRoot(document.getElementById('root')!).render(
     </BrowserRouter>
   </StrictMode>
 )
+
+dismissBoot()

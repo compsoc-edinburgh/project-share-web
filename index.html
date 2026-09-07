@@ -31,9 +31,93 @@
       type="font/woff2"
       crossorigin />
     <style>
-      /* First-paint background to avoid a white flash in dark mode */
-      html { background: #f6f7fb; }
+      /* Palette mirror of tokens.css, so the very first frame is already in the
+         right theme. Keep in sync with :root / [data-theme='dark'] there. */
+      :root {
+        --boot-bg: #f6f7fb;
+        --boot-ink: #1e1e1e;
+        color-scheme: light;
+      }
+      :root[data-theme='dark'] {
+        --boot-bg: #131318;
+        --boot-ink: #ececf1;
+        color-scheme: dark;
+      }
+      :root[data-contrast='high'] {
+        --boot-bg: #ffffff;
+        --boot-ink: #000000;
+      }
+      :root[data-theme='dark'][data-contrast='high'] {
+        --boot-bg: #000000;
+        --boot-ink: #ffffff;
+      }
+      html {
+        background: var(--boot-bg);
+      }
+      /* Loading screen: painted from markup, so it is up on the first frame
+         and stays up until fonts are ready. No FOUC, no theme flash. */
+      #boot {
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+        display: grid;
+        place-content: center;
+        margin: 0;
+        background: var(--boot-bg);
+        color: var(--boot-ink);
+        font: 400 0.9375rem/1.45 'Commit Mono', ui-monospace, SFMono-Regular,
+          Menlo, monospace;
+        letter-spacing: -0.05em;
+        text-transform: lowercase;
+        transition: opacity 200ms cubic-bezier(0.23, 1, 0.32, 1);
+      }
+      #boot[data-done] {
+        opacity: 0;
+        pointer-events: none;
+      }
+      #boot p {
+        position: relative;
+        margin: 0;
+      }
+      #boot span {
+        position: absolute;
+        left: 100%;
+        top: 0;
+        width: 0;
+        overflow: hidden;
+        white-space: pre;
+        animation: boot-dots 1s steps(4, jump-none) infinite;
+      }
+      @keyframes boot-dots {
+        from { width: 0ch; }
+        to { width: 3ch; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #boot { transition: none; }
+        #boot span { width: 3ch; animation: none; }
+      }
     </style>
+    <noscript><style>#boot { display: none; }</style></noscript>
+    <script>
+      // Display prefs are applied before the first paint so the page never
+      // flashes light-then-dark. ThemeContext owns them from here on.
+      ;(function () {
+        try {
+          var saved = JSON.parse(localStorage.getItem('ps-prefs') || '{}')
+          var dark =
+            saved.theme != null
+              ? saved.theme === 'dark'
+              : window.matchMedia('(prefers-color-scheme: dark)').matches
+          var root = document.documentElement
+          root.dataset.theme = dark ? 'dark' : 'light'
+          if (saved.contrast) root.dataset.contrast = 'high'
+          if (saved.zoom && saved.zoom !== 1)
+            root.style.fontSize = saved.zoom * 100 + '%'
+        } catch (e) {
+          /* private mode / bad JSON — fall through to the light default */
+        }
+      })()
+    </script>
 
     <!-- Start Single Page Apps for GitHub Pages -->
     <script type="text/javascript">
@@ -67,6 +151,9 @@
     <!-- End Single Page Apps for GitHub Pages -->
   </head>
   <body>
+    <div id="boot" role="status" aria-live="polite">
+      <p>loading<span aria-hidden="true">...</span></p>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     <script>

@@ -40,12 +40,12 @@ const About = () => {
   return (
     <PageShell>
       <div ref={rootRef}>
-        <section className="page-section" data-keynav-section>
+        <section className="page-section">
           <h1 className="pixel page-title">02 ABOUT</h1>
         </section>
 
         <div className="about-grid">
-          <div className="about-col" data-keynav-section>
+          <div className="about-col">
             <p>
               Created by four friends on February 16, 2023, Project Share
               quickly evolved from casual discussions about personal projects
@@ -92,7 +92,7 @@ const About = () => {
           <FolderScatter className="folder-scatter" />
         </div>
 
-        <p className="about-sponsor" data-keynav-section>
+        <p className="about-sponsor">
           If you are interested in sponsoring Project Share, please contact us
           through our parent society CompSoc at{' '}
           <a href={`mailto:${contactEmail}`}>{contactEmail}</a>.

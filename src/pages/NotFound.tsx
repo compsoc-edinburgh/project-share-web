@@ -4,7 +4,7 @@ import PixelFolder from '../components/PixelFolder'
 
 const NotFound = () => (
   <PageShell>
-    <section className="notfound" data-keynav-section>
+    <section className="notfound">
       <PixelFolder width={96} />
       <h1 className="pixel">404</h1>
       <p>

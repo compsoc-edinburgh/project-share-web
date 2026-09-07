@@ -1,6 +1,5 @@
-import { useRef } from 'react'
-import TicketShape from './TicketShape'
-import PixelFolder from './PixelFolder'
+import { useMemo, useRef } from 'react'
+import ticketArt from '../assets/ticket.svg?raw'
 import type { Meetup } from '../lib/sanity/types'
 import { gsap, useGSAP, prefersReducedMotion } from '../lib/motion/gsap'
 
@@ -9,49 +8,58 @@ interface TicketProps {
   discordUrl?: string
 }
 
-function formatSession(meetup: Meetup | null): { date: string; location: string } {
-  if (!meetup) return { date: 'TBA', location: 'DISCORD' }
-  const d = new Date(meetup.date)
-  return {
-    date: `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`,
-    location: meetup.location,
-  }
-}
+/**
+ * Where the exported artwork's own NEXT_SESSION line sits, in the SVG's user
+ * units — measured off the baked glyphs so live type lands in the same slot.
+ */
+const SESSION_SLOT = { x: 47.7, baseline: 288.8, size: 15, tracking: 0.4 }
 
-function ticketNumber(meetup: Meetup | null): string {
-  if (!meetup) return '000'
+const escapeXml = (value: string) =>
+  value.replace(
+    /[<>&]/g,
+    (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' })[c] as string
+  )
+
+function sessionLine(meetup: Meetup | null): string {
+  if (!meetup) return 'TBA @ DISCORD'
   const d = new Date(meetup.date)
-  const start = new Date(d.getFullYear(), 0, 0)
-  const day = Math.floor((d.getTime() - start.getTime()) / 86_400_000)
-  return String(day).padStart(3, '0')
+  return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()} @ ${meetup.location}`
 }
 
 /**
- * The hero Discord ticket. The whole ticket is one link (claim → Discord);
- * NEXT_SESSION renders live from the CMS, so the committee sets the date in
- * /admin and the ticket updates.
+ * The artwork is the designer's export, used as-is. Only the NEXT_SESSION line
+ * is swapped for live type: the committee sets the date in /admin and the
+ * ticket says so.
  */
+function artWith(line: string): string {
+  const text =
+    `<text x="${SESSION_SLOT.x}" y="${SESSION_SLOT.baseline}" fill="white"` +
+    ` font-family="'Commit Mono', ui-monospace, monospace"` +
+    ` font-size="${SESSION_SLOT.size}" letter-spacing="${SESSION_SLOT.tracking}">` +
+    `<tspan font-weight="700">NEXT_SESSION:</tspan> ${escapeXml(line)}</text>`
+  return ticketArt
+    .replace(/<path id="ps-session"[^>]*\/>/, '')
+    .replace('</svg>', `${text}</svg>`)
+}
+
+/** The hero Discord ticket — the whole thing is one link: claim → Discord. */
 const Ticket = ({ meetup, discordUrl }: TicketProps) => {
   const zone = useRef<HTMLDivElement>(null)
-  const session = formatSession(meetup)
+  const line = sessionLine(meetup)
+  const art = useMemo(() => artWith(line), [line])
 
   useGSAP(
     () => {
       if (prefersReducedMotion()) return
-      // Entrance: slide in with the print-out feel, then a slow idle float.
+      // Prints out of the bottom of the page, then breathes.
       gsap.fromTo(
-        '.ticket--front',
-        { y: 60, rotation: -4, autoAlpha: 0 },
-        { y: 0, rotation: -11.5, autoAlpha: 1, duration: 0.7, ease: 'ps-out' }
+        '.ticket-art',
+        { y: 60, rotation: -3, autoAlpha: 0 },
+        { y: 0, rotation: -10, autoAlpha: 1, duration: 0.7, ease: 'ps-out' }
       )
-      gsap.fromTo(
-        '.ticket--back',
-        { y: 80, rotation: -8, autoAlpha: 0 },
-        { y: 0, rotation: -15.08, autoAlpha: 1, duration: 0.7, delay: 0.06, ease: 'ps-out' }
-      )
-      gsap.to('.ticket--front', {
+      gsap.to('.ticket-art', {
         y: -7,
-        rotation: -10.4,
+        rotation: -9.2,
         duration: 3.2,
         delay: 0.8,
         ease: 'sine.inOut',
@@ -63,67 +71,19 @@ const Ticket = ({ meetup, discordUrl }: TicketProps) => {
   )
 
   return (
-    <div className="ticket-zone" ref={zone} data-keynav-section>
+    <div className="ticket-zone" ref={zone}>
       <a
         className="ticket-wrap"
         href={discordUrl ?? 'https://discord.gg/wNGukFdBgp'}
         target="_blank"
         rel="noreferrer"
-        aria-label={`Claim ticket — join the Discord. Next session ${session.date} at ${session.location}`}
+        aria-label={`Claim ticket — join the Discord. Next session: ${line}`}
       >
-        <div className="ticket ticket--back" aria-hidden="true">
-          <TicketShape fill="var(--color-ticket-back)" />
-        </div>
-        <div className="ticket ticket--front">
-          <TicketShape fill="var(--color-ticket-front)" className="ticket-bg" />
-          <div className="ticket-content" aria-hidden="true">
-            <div className="ticket-main">
-              <div className="ticket-row-top">
-                <div>
-                  <p className="pixel ticket-title">Project SHARE</p>
-                  <div className="ticket-sub">
-                    <span>DISCORD_TICKET</span>
-                    <span>MAKING SOFTWARE TOGETHER</span>
-                  </div>
-                </div>
-                <PixelFolder width={64} className="ticket-folder" />
-              </div>
-              <hr className="ticket-hr" />
-              <div className="ticket-meta">
-                <span>
-                  <span className="label">LEVEL:</span>
-                  <span className="value">BETA BUILDER</span>
-                </span>
-                <span>
-                  <span className="label">STATUS:</span>
-                  <span className="value">PROJECT_IN_PROGRESS</span>
-                </span>
-              </div>
-              <hr className="ticket-hr" />
-              <p className="ticket-snacks">
-                <span className="dashes">----</span>FREE SNACKS
-                <span className="dashes">----</span>
-              </p>
-              <p className="ticket-learn">LEARN. BUILD. SHARE.</p>
-              <p className="ticket-session">
-                NEXT_SESSION: <span className="value">{session.date}</span> @{' '}
-                <span className="value">{session.location}</span>
-              </p>
-            </div>
-            <div className="ticket-stub">
-              <span className="ticket-no">
-                TICKET NO. <span className="num">{ticketNumber(meetup)}</span>
-              </span>
-              <span className="ticket-meta ticket-rank">
-                <span>
-                  <span className="label">LEADERBOARD RANK:</span>
-                  <span className="value">#09</span>
-                </span>
-              </span>
-              <span className="ticket-claim">CLAIM TICKET TO DISCORD</span>
-            </div>
-          </div>
-        </div>
+        <span
+          className="ticket-art"
+          aria-hidden="true"
+          dangerouslySetInnerHTML={{ __html: art }}
+        />
       </a>
     </div>
   )

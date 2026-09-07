@@ -85,6 +85,102 @@ p {
   outline-offset: 2px;
 }
 
+/* Text targets invert instead of gaining a ring — a filled block reads as
+   "you are here" in a monospace grid far better than an outline does. */
+a:focus-visible:not(.film-card, .nav-logo, .ticket-wrap, .button, .skip-link),
+button:focus-visible:not(.button) {
+  outline: none;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  text-decoration: none;
+}
+
+/* Native scrollbar is replaced by the palette rail on pointer devices. */
+@media (hover: hover) and (pointer: fine) {
+  html {
+    scrollbar-width: none;
+  }
+
+  html::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Focused copy inverts, and stays inverted while you type over it. Enter
+   opens it, Escape closes it — the site is meant to be played with. */
+[data-edit]:focus-visible,
+[data-edit][contenteditable='true'] {
+  outline: none;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  caret-color: var(--color-bg);
+}
+
+/* Hitting the end of something nudges it back, in one hard step. */
+.shake-up {
+  animation: 125ms steps(1, jump-start) ps-shake-up;
+}
+
+.shake-down {
+  animation: 125ms steps(1, jump-start) ps-shake-down;
+}
+
+.shake-left {
+  animation: 125ms steps(1, jump-start) ps-shake-left;
+}
+
+.shake-right {
+  animation: 125ms steps(1, jump-start) ps-shake-right;
+}
+
+@keyframes ps-shake-left {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-0.25rem);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes ps-shake-right {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(0.25rem);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes ps-shake-up {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.25rem);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes ps-shake-down {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(0.25rem);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
 /* Press feedback on pressable elements (pointer only, not keyboard). */
 @media (hover: hover) and (pointer: fine) {
   button:active,

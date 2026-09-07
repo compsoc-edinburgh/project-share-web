@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import PageShell from '../components/PageShell'
+import Loading from '../components/Loading'
 import { useSanityQuery } from '../lib/sanity/useSanityQuery'
 import { COMMITTEE_QUERY } from '../lib/sanity/queries'
 import type { CommitteeMember, CommitteeYear } from '../lib/sanity/types'
@@ -69,18 +70,14 @@ const Team = () => {
   return (
     <PageShell>
       <div ref={rootRef}>
-        <section className="page-section" data-keynav-section>
+        <section className="page-section">
           <h1 className="pixel page-title">03 TEAM</h1>
         </section>
 
-        {loading && (
-          <p className="showcase-empty" aria-busy="true">
-            Loading team…
-          </p>
-        )}
+        {loading && <Loading />}
 
         {current && (
-          <div className="team-layout" data-keynav-section>
+          <div className="team-layout">
             <div>
               {current.subtitle && (
                 <p className="serif" style={{ maxWidth: '60ch', marginBottom: 'var(--space-5)' }}>
@@ -96,7 +93,7 @@ const Team = () => {
               {history.length > 0 && (
                 <>
                   <hr className="team-divider" />
-                  <div className="team-history" data-keynav-section>
+                  <div className="team-history">
                     {history.map((year) => (
                       <section className="history-year" key={year._id}>
                         <h3>{year.year}</h3>
@@ -119,14 +116,6 @@ const Team = () => {
                   </div>
                 </>
               )}
-            </div>
-
-            <div className="swatch-strip" aria-hidden="true">
-              {[0, 1, 2].map((i) => (
-                <div className="swatch" key={i}>
-                  <span>#7816F4</span>
-                </div>
-              ))}
             </div>
           </div>
         )}

@@ -52,6 +52,16 @@
   --dur-base: 200ms;
   --dur-slow: 300ms;
 
+  /* Scroll rail — the page scrollbar is a strip of the palette, labelled
+     with the colours it is actually painted in. */
+  --rail-w: 21px;
+  --rail-1: var(--color-accent);
+  --rail-2: var(--color-accent-soft);
+  --rail-3: var(--color-pill);
+  --rail-1-ink: var(--color-bg);
+  --rail-2-ink: var(--color-bg);
+  --rail-3-ink: var(--color-accent);
+
   /* Selection */
   --color-selection-bg: var(--color-pill);
   --color-selection-fg: var(--color-accent);
@@ -72,6 +82,7 @@
   --color-ticket-front: #7816f4;
   --color-ticket-back: #933eff;
   --color-ticket-ink: #f6f7fb;
+  --rail-3-ink: var(--color-ink);
   color-scheme: dark;
 }
 

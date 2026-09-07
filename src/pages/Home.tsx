@@ -29,7 +29,7 @@ const Home = () => {
 
   return (
     <PageShell>
-      <section className="hero" ref={heroRef} data-keynav-section>
+      <section className="hero" ref={heroRef}>
         <div className="hero-copy">
           <h1 className="pixel hero-word">
             <span className="line">

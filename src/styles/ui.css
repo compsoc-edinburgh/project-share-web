@@ -99,22 +99,6 @@
   display: none;
 }
 
-/* One CRT blink the first time a key is pressed: "yes, that did something". */
-.keybar--flicker {
-  animation: ps-flicker 140ms steps(1, jump-start) 6;
-}
-
-@keyframes ps-flicker {
-  0%,
-  49% {
-    opacity: 0;
-  }
-  50%,
-  100% {
-    opacity: 1;
-  }
-}
-
 .keybar-group {
   display: flex;
   flex-direction: column;

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useShortcut } from '../lib/keyboard/KeyboardContext'
-import { prefersReducedMotion } from '../lib/motion/gsap'
 
 interface Cap {
   /** Glyph printed on the cap. */
@@ -40,14 +39,10 @@ const GROUPS: KeyGroup[] = [
   { caps: [cap('H')], label: 'Hide keys' },
 ]
 
-/** One flicker per visit, the first time someone actually uses the keyboard. */
-let hasFlickered = false
-
 /** Fixed bottom control-hint bar. H toggles it; bindings stay active either way. */
 const KeyBar = () => {
   const [visible, setVisible] = useState(true)
   const [pressed, setPressed] = useState<string[]>([])
-  const [flicker, setFlicker] = useState(false)
 
   useShortcut('h', () => setVisible((v) => !v), {
     label: 'H',
@@ -66,10 +61,6 @@ const KeyBar = () => {
 
     const onDown = (e: KeyboardEvent) => {
       if (typing(e.target)) return
-      if (!hasFlickered && !prefersReducedMotion()) {
-        hasFlickered = true
-        setFlicker(true)
-      }
       setPressed((p) => (p.includes(norm(e.key)) ? p : [...p, norm(e.key)]))
     }
     const onUp = (e: KeyboardEvent) =>
@@ -114,12 +105,7 @@ const KeyBar = () => {
   }
 
   return (
-    <div
-      className={`keybar${flicker ? ' keybar--flicker' : ''}`}
-      role="note"
-      aria-label="Keyboard controls"
-      onAnimationEnd={() => setFlicker(false)}
-    >
+    <div className="keybar" role="note" aria-label="Keyboard controls">
       {GROUPS.map((g) => (
         <span className="keybar-group" key={g.label}>
           <span className="keybar-keys">
